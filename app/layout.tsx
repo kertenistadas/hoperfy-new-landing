@@ -13,10 +13,17 @@ export const metadata: Metadata = {
     default: 'Hoperfy — Event Commerce Infrastructure',
     template: '%s | Hoperfy',
   },
-  description:
-    'White-label hotel booking and multi-platform ticketing built for event teams. Sell more, manage less.',
-  alternates: { canonical: 'https://hoperfy.com' },
-  openGraph: {
-    locale: 'en_US',
-    type: 'website',
-    siteName: 'Hoperfy',
+  description: 'White-label hotel booking and multi-platform ticketing built for event teams. Sell more, manage less.',
+  robots: {
+    index: true,
+    follow: true,
+  },
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={inter.variable}>
+      <body className="antialiased">{children}</body>
+    </html>
+  )
+}
