@@ -13,6 +13,8 @@ import ProductsSection from '@/components/ProductsSection'
 import TestimonialsSection from '@/components/TestimonialsSection'
 import Footer from '@/components/Footer'
 
+export const revalidate = 60
+
 const fallbackHero: Hero = {
   headline: 'Sell tickets and rooms from one platform.',
   subtitle:
@@ -57,7 +59,7 @@ const fallbackProducts: Product[] = [
 export default async function HomePage() {
   const [hero, products, testimonials, socialProof] = await Promise.all([
     client.fetch<Hero>(heroQuery).catch(() => null),
-client.fetch<Product[]>(productsQuery).then(r => r?.length ? r : null).catch(() => null),
+    client.fetch<Product[]>(productsQuery).then(r => r?.length ? r : null).catch(() => null),
     client.fetch<Testimonial[]>(testimonialsQuery).catch(() => null),
     client.fetch<SocialProof>(socialProofQuery).catch(() => null),
   ])
