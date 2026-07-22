@@ -16,6 +16,29 @@ import ProductCTA from '@/components/product/ProductCTA'
 
 export const dynamic = 'force-dynamic'
 
+const BASE_URL = 'https://hoperfy.com'
+
+const productKeywords: Record<string, string[]> = {
+  'hotels-for-events': [
+    'white label hotel booking',
+    'hotel booking for events',
+    'room block management software',
+    'event housing management',
+    'group hotel booking events',
+    'Cvent Passkey alternative',
+    'event hotel software',
+  ],
+  'ticketing-for-events': [
+    'event ticketing platform',
+    'multi-channel ticketing',
+    'Eventbrite alternative',
+    'sell event tickets online',
+    'instant payout ticketing',
+    'white label event ticketing',
+    'ticketing software for event teams',
+  ],
+}
+
 type Props = {
   params: Promise<{ slug: string }>
 }
@@ -34,9 +57,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!product) return {}
 
+  const title = `${product.title} for Event Teams`
+  const description = product.heroSubtitle || product.tagline
+  const url = `${BASE_URL}/products/${slug}`
+
   return {
-    title: product.title,
-    description: product.heroSubtitle || product.description,
+    title,
+    description,
+    keywords: productKeywords[slug],
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: 'website',
+      siteName: 'Hoperfy',
+    },
   }
 }
 
@@ -50,8 +86,29 @@ export default async function ProductPage({ params }: Props) {
     .fetch<Testimonial[]>(testimonialsQuery)
     .catch(() => null)
 
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: product.title,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    description: product.heroSubtitle || product.description,
+    url: `${BASE_URL}/products/${slug}`,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      description: 'Contact for pricing',
+    },
+    publisher: { '@id': 'https://hoperfy.com/#organization' },
+  }
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
       <Nav />
       <main>
         <ProductHero product={product} />

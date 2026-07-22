@@ -81,6 +81,13 @@ export const socialProofQuery = groq`
   }
 `
 
+export const legalPageSlugsQuery = groq`
+  *[_type == "legalPage" && defined(slug.current)] {
+    "slug": slug.current,
+    lastUpdated
+  }
+`
+
 export const legalPageQuery = groq`
   *[_type == "legalPage" && slug.current == $slug][0] {
     title,

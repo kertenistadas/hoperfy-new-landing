@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { client } from '@/sanity/lib/client'
 import {
   heroQuery,
@@ -11,9 +12,16 @@ import HeroSection from '@/components/HeroSection'
 import SocialProofBar from '@/components/SocialProofBar'
 import ProductsSection from '@/components/ProductsSection'
 import TestimonialsSection from '@/components/TestimonialsSection'
+import FAQSection from '@/components/FAQSection'
 import Footer from '@/components/Footer'
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+  title: 'Hotel Booking & Ticketing Platform for Event Teams',
+  description: 'Hoperfy gives event teams white-label hotel booking and multi-channel ticket sales in one platform. Replace Cvent Passkey, Eventbrite, and room block spreadsheets.',
+  alternates: { canonical: 'https://hoperfy.com' },
+}
 
 const fallbackHero: Hero = {
   headline: 'Sell tickets and rooms from one platform.',
@@ -74,6 +82,7 @@ export default async function HomePage() {
         {testimonials && testimonials.length > 0 && (
           <TestimonialsSection testimonials={testimonials} />
         )}
+        <FAQSection />
       </main>
       <Footer />
     </>

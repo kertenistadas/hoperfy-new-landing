@@ -10,9 +10,10 @@ import Footer from '@/components/Footer'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Products',
+  title: 'Products — White-Label Hotel Booking & Event Ticketing',
   description:
-    'Two products, one platform. White-label hotel booking and multi-platform ticketing built for event teams.',
+    'Two products built for event teams: white-label hotel booking with room block management, and multi-platform ticket sales with instant payouts.',
+  alternates: { canonical: 'https://hoperfy.com/products' },
 }
 
 const fallbackProducts: Product[] = Object.values(fallbackProductDetails).map((p) => ({
