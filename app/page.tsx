@@ -13,7 +13,7 @@ import ProductsSection from '@/components/ProductsSection'
 import TestimonialsSection from '@/components/TestimonialsSection'
 import Footer from '@/components/Footer'
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
 
 const fallbackHero: Hero = {
   headline: 'Sell tickets and rooms from one platform.',

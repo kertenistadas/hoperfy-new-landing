@@ -7,7 +7,7 @@ import type { Product } from '@/types'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Products',

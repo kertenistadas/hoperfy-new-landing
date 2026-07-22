@@ -1,11 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
-import {
-  productBySlugQuery,
-  allProductSlugsQuery,
-  testimonialsQuery,
-} from '@/sanity/lib/queries'
+import { productBySlugQuery, testimonialsQuery } from '@/sanity/lib/queries'
 import { fallbackProductDetails } from '@/sanity/lib/fallbackProducts'
 import type { ProductDetail, Testimonial } from '@/types'
 import Nav from '@/components/Nav'
@@ -18,7 +14,7 @@ import ProductHowItWorks from '@/components/product/ProductHowItWorks'
 import ProductStats from '@/components/product/ProductStats'
 import ProductCTA from '@/components/product/ProductCTA'
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -30,18 +26,6 @@ async function getProduct(slug: string): Promise<ProductDetail | null> {
     .catch(() => null)
 
   return product ?? fallbackProductDetails[slug] ?? null
-}
-
-export async function generateStaticParams() {
-  const slugs = await client
-    .fetch<{ slug: string }[]>(allProductSlugsQuery)
-    .catch(() => null)
-
-  if (slugs && slugs.length > 0) {
-    return slugs.map((s) => ({ slug: s.slug }))
-  }
-
-  return Object.keys(fallbackProductDetails).map((slug) => ({ slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
