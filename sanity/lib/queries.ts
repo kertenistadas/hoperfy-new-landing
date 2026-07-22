@@ -13,10 +13,51 @@ export const productsQuery = groq`
   *[_type == "product"] | order(order asc) {
     _id,
     title,
+    "slug": slug.current,
     tagline,
     description,
     features,
     stat
+  }
+`
+
+export const productBySlugQuery = groq`
+  *[_type == "product" && slug.current == $slug][0] {
+    _id,
+    title,
+    "slug": slug.current,
+    tagline,
+    description,
+    features,
+    stat,
+    heroHeadline,
+    heroSubtitle,
+    heroCta,
+    problemHeadline,
+    problems[] {
+      title,
+      description
+    },
+    featuresHeadline,
+    featuresList[] {
+      title,
+      description
+    },
+    howItWorksHeadline,
+    steps[] {
+      title,
+      description
+    },
+    stats[] {
+      value,
+      label
+    }
+  }
+`
+
+export const allProductSlugsQuery = groq`
+  *[_type == "product" && defined(slug.current)] {
+    "slug": slug.current
   }
 `
 
