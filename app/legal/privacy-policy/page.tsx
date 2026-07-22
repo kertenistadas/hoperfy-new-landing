@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
-import Nav from '@/components/Nav'
-import Footer from '@/components/Footer'
+import NavWrapper from '@/components/NavWrapper'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -11,8 +10,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <>
-      <Nav />
+    <NavWrapper>
       <main className="pt-28 pb-24 px-6">
         <article className="max-w-2xl mx-auto">
           <h1 className="text-[2rem] md:text-[2.5rem] font-black tracking-tight text-[#0a0a0a] mb-3">
@@ -172,7 +170,6 @@ export default function PrivacyPolicyPage() {
           </div>
         </article>
       </main>
-      <Footer />
-    </>
+    </NavWrapper>
   )
 }

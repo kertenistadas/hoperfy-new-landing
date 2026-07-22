@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { client } from '@/sanity/lib/client'
-import { legalPageSlugsQuery } from '@/sanity/lib/queries'
+import { legalPageSlugsQuery, allPagesQuery } from '@/sanity/lib/queries'
 
 const BASE_URL = 'https://hoperfy.com'
 
@@ -34,9 +34,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ]
 
-  const legalPages = await client
-    .fetch<{ slug: string; lastUpdated?: string }[]>(legalPageSlugsQuery)
-    .catch(() => null)
+  const [legalPages, customPages] = await Promise.all([
+    client
+      .fetch<{ slug: string; lastUpdated?: string }[]>(legalPageSlugsQuery)
+      .catch(() => null),
+    client
+      .fetch<{ slug: string }[]>(allPagesQuery)
+      .catch(() => null),
+  ])
 
   const legalRoutes: MetadataRoute.Sitemap = (legalPages ?? []).map((page) => ({
     url: `${BASE_URL}/legal/${page.slug}`,
@@ -45,5 +50,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.3,
   }))
 
-  return [...staticRoutes, ...legalRoutes]
+  const customPageRoutes: MetadataRoute.Sitemap = (customPages ?? [])
+    .filter((page) => page.slug)
+    .map((page) => ({
+      url: `${BASE_URL}/${page.slug}`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    }))
+
+  return [...staticRoutes, ...legalRoutes, ...customPageRoutes]
 }

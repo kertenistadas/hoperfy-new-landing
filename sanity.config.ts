@@ -25,6 +25,8 @@ export default defineConfig({
             S.documentTypeListItem('socialProof').title('Social Proof'),
             S.divider(),
             S.documentTypeListItem('legalPage').title('Legal Pages'),
+            S.divider(),
+            S.documentTypeListItem('page').title('Custom Pages'),
           ]),
     }),
     visionTool(),

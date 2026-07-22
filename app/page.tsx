@@ -1,19 +1,37 @@
 import type { Metadata } from 'next'
+import { PortableText, type PortableTextComponents } from '@portabletext/react'
 import { client } from '@/sanity/lib/client'
 import {
   heroQuery,
   productsQuery,
   testimonialsQuery,
   socialProofQuery,
+  landingPagesQuery,
 } from '@/sanity/lib/queries'
-import type { Hero, Product, Testimonial, SocialProof } from '@/types'
-import Nav from '@/components/Nav'
+import type { Hero, Product, Testimonial, SocialProof, Page } from '@/types'
+import NavWrapper from '@/components/NavWrapper'
 import HeroSection from '@/components/HeroSection'
 import SocialProofBar from '@/components/SocialProofBar'
 import ProductsSection from '@/components/ProductsSection'
 import TestimonialsSection from '@/components/TestimonialsSection'
 import FAQSection from '@/components/FAQSection'
-import Footer from '@/components/Footer'
+
+const portableTextComponents: PortableTextComponents = {
+  marks: {
+    link: ({ value, children }) => {
+      const href = value?.href ?? '#'
+      const blank = value?.blank
+      return (
+        <a
+          href={href}
+          {...(blank ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        >
+          {children}
+        </a>
+      )
+    },
+  },
+}
 
 export const dynamic = 'force-dynamic'
 
@@ -65,16 +83,16 @@ const fallbackProducts: Product[] = [
 ]
 
 export default async function HomePage() {
-  const [hero, products, testimonials, socialProof] = await Promise.all([
+  const [hero, products, testimonials, socialProof, landingPages] = await Promise.all([
     client.fetch<Hero>(heroQuery).catch(() => null),
     client.fetch<Product[]>(productsQuery).then(r => Array.isArray(r) && r.length > 0 ? r : null).catch(() => null),
     client.fetch<Testimonial[]>(testimonialsQuery).catch(() => null),
     client.fetch<SocialProof>(socialProofQuery).catch(() => null),
+    client.fetch<Page[]>(landingPagesQuery).catch(() => null),
   ])
 
   return (
-    <>
-      <Nav />
+    <NavWrapper>
       <main>
         <HeroSection data={hero ?? fallbackHero} />
         {socialProof && <SocialProofBar data={socialProof} />}
@@ -83,8 +101,28 @@ export default async function HomePage() {
           <TestimonialsSection testimonials={testimonials} />
         )}
         <FAQSection />
+        {landingPages?.map((landingPage) => (
+          <section
+            key={landingPage._id}
+            className="py-24 px-6 border-t border-[#e5e7eb]"
+          >
+            <div className="max-w-2xl mx-auto">
+              <p className="eyebrow mb-3">More from Hoperfy</p>
+              <h2 className="text-[1.75rem] md:text-[2.25rem] font-black tracking-tight text-[#0a0a0a] mb-8">
+                {landingPage.title}
+              </h2>
+              {landingPage.body && (
+                <div className="prose-legal">
+                  <PortableText
+                    value={landingPage.body}
+                    components={portableTextComponents}
+                  />
+                </div>
+              )}
+            </div>
+          </section>
+        ))}
       </main>
-      <Footer />
-    </>
+    </NavWrapper>
   )
 }

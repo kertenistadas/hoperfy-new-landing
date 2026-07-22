@@ -4,8 +4,7 @@ import { client } from '@/sanity/lib/client'
 import { productBySlugQuery, testimonialsQuery } from '@/sanity/lib/queries'
 import { fallbackProductDetails } from '@/sanity/lib/fallbackProducts'
 import type { ProductDetail, Testimonial } from '@/types'
-import Nav from '@/components/Nav'
-import Footer from '@/components/Footer'
+import NavWrapper from '@/components/NavWrapper'
 import TestimonialsSection from '@/components/TestimonialsSection'
 import ProductHero from '@/components/product/ProductHero'
 import ProductProblems from '@/components/product/ProductProblems'
@@ -109,19 +108,19 @@ export default async function ProductPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
       />
-      <Nav />
-      <main>
-        <ProductHero product={product} />
-        <ProductProblems product={product} />
-        <ProductFeatures product={product} />
-        <ProductHowItWorks product={product} />
-        <ProductStats product={product} />
-        {testimonials && testimonials.length > 0 && (
-          <TestimonialsSection testimonials={testimonials} />
-        )}
-        <ProductCTA product={product} />
-      </main>
-      <Footer />
+      <NavWrapper>
+        <main>
+          <ProductHero product={product} />
+          <ProductProblems product={product} />
+          <ProductFeatures product={product} />
+          <ProductHowItWorks product={product} />
+          <ProductStats product={product} />
+          {testimonials && testimonials.length > 0 && (
+            <TestimonialsSection testimonials={testimonials} />
+          )}
+          <ProductCTA product={product} />
+        </main>
+      </NavWrapper>
     </>
   )
 }

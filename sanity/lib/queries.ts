@@ -81,6 +81,51 @@ export const socialProofQuery = groq`
   }
 `
 
+export const allPagesQuery = groq`
+  *[_type == "page"] {
+    _id,
+    title,
+    "slug": slug.current,
+    placement,
+    metaDescription
+  }
+`
+
+export const pageBySlugQuery = groq`
+  *[_type == "page" && slug.current == $slug][0] {
+    _id,
+    title,
+    "slug": slug.current,
+    placement,
+    metaDescription,
+    body
+  }
+`
+
+export const navPagesQuery = groq`
+  *[_type == "page" && "nav" in placement] | order(title asc) {
+    title,
+    "slug": slug.current
+  }
+`
+
+export const footerPagesQuery = groq`
+  *[_type == "page" && "footer" in placement] | order(title asc) {
+    title,
+    "slug": slug.current
+  }
+`
+
+export const landingPagesQuery = groq`
+  *[_type == "page" && "landing" in placement] | order(title asc) {
+    _id,
+    title,
+    "slug": slug.current,
+    metaDescription,
+    body
+  }
+`
+
 export const legalPageSlugsQuery = groq`
   *[_type == "legalPage" && defined(slug.current)] {
     "slug": slug.current,

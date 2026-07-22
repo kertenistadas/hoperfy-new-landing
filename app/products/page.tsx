@@ -4,8 +4,7 @@ import { client } from '@/sanity/lib/client'
 import { productsQuery } from '@/sanity/lib/queries'
 import { fallbackProductDetails } from '@/sanity/lib/fallbackProducts'
 import type { Product } from '@/types'
-import Nav from '@/components/Nav'
-import Footer from '@/components/Footer'
+import NavWrapper from '@/components/NavWrapper'
 
 export const dynamic = 'force-dynamic'
 
@@ -35,8 +34,7 @@ export default async function ProductsPage() {
   const list = products ?? fallbackProducts
 
   return (
-    <>
-      <Nav />
+    <NavWrapper>
       <main>
         <section className="pt-32 pb-16 px-6">
           <div className="max-w-5xl mx-auto">
@@ -55,8 +53,7 @@ export default async function ProductsPage() {
           </div>
         </section>
       </main>
-      <Footer />
-    </>
+    </NavWrapper>
   )
 }
 

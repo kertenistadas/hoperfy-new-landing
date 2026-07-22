@@ -69,6 +69,20 @@ export type SocialProof = {
   }[]
 }
 
+export type Page = {
+  _id: string
+  title: string
+  slug: string
+  placement: string[]
+  metaDescription: string
+  body?: any[]
+}
+
+export type NavLink = {
+  title: string
+  slug: string
+}
+
 export type LegalPage = {
   title: string
   lastUpdated: string

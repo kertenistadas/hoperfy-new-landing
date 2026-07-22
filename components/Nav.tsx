@@ -16,7 +16,14 @@ const products = [
   },
 ]
 
-export default function Nav() {
+type NavLink = { title: string; slug: string }
+
+type Props = {
+  navPages?: NavLink[]
+  footerPages?: NavLink[]
+}
+
+export default function Nav({ navPages = [] }: Props) {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -103,6 +110,16 @@ export default function Nav() {
             )}
           </div>
 
+          {navPages.map((navPage) => (
+            <Link
+              key={navPage.slug}
+              href={`/${navPage.slug}`}
+              className="text-[13px] text-[#6b7280] hover:text-[#0a0a0a] transition-colors"
+            >
+              {navPage.title}
+            </Link>
+          ))}
+
           <Link href="/#testimonials" className="text-[13px] text-[#6b7280] hover:text-[#0a0a0a] transition-colors">
             Customers
           </Link>
@@ -166,6 +183,16 @@ export default function Nav() {
             </div>
 
             <div className="flex flex-col gap-1 border-t border-[#e5e7eb] pt-6 mb-8">
+              {navPages.map((navPage) => (
+                <Link
+                  key={navPage.slug}
+                  href={`/${navPage.slug}`}
+                  onClick={() => setMobileOpen(false)}
+                  className="py-3 text-[17px] font-semibold text-[#0a0a0a]"
+                >
+                  {navPage.title}
+                </Link>
+              ))}
               <Link
                 href="/#testimonials"
                 onClick={() => setMobileOpen(false)}
