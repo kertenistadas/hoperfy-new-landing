@@ -27,6 +27,8 @@ export default defineConfig({
             S.documentTypeListItem('legalPage').title('Legal Pages'),
             S.divider(),
             S.documentTypeListItem('page').title('Custom Pages'),
+            S.divider(),
+            S.documentTypeListItem('navCategory').title('Navigation Categories'),
           ]),
     }),
     visionTool(),

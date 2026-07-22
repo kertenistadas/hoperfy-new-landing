@@ -83,6 +83,12 @@ export type NavLink = {
   slug: string
 }
 
+export type NavCategory = {
+  _id: string
+  title: string
+  pages: { title: string; slug: string }[]
+}
+
 export type LegalPage = {
   title: string
   lastUpdated: string

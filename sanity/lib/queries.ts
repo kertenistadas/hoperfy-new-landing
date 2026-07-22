@@ -116,6 +116,17 @@ export const footerPagesQuery = groq`
   }
 `
 
+export const navCategoriesQuery = groq`
+  *[_type == "navCategory"] | order(order asc) {
+    _id,
+    title,
+    "pages": pages[]->{
+      title,
+      "slug": slug.current
+    }
+  }
+`
+
 export const landingPagesQuery = groq`
   *[_type == "page" && "landing" in placement] | order(title asc) {
     _id,

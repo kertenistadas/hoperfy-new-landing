@@ -1,6 +1,6 @@
 import { client } from '@/sanity/lib/client'
-import { navPagesQuery, footerPagesQuery } from '@/sanity/lib/queries'
-import type { NavLink } from '@/types'
+import { navPagesQuery, footerPagesQuery, navCategoriesQuery } from '@/sanity/lib/queries'
+import type { NavLink, NavCategory } from '@/types'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 
@@ -13,14 +13,15 @@ import Footer from '@/components/Footer'
  * the marketing Nav/Footer.
  */
 export default async function NavWrapper({ children }: { children: React.ReactNode }) {
-  const [navPages, footerPages] = await Promise.all([
+  const [navPages, footerPages, navCategories] = await Promise.all([
     client.fetch<NavLink[]>(navPagesQuery).catch(() => []),
     client.fetch<NavLink[]>(footerPagesQuery).catch(() => []),
+    client.fetch<NavCategory[]>(navCategoriesQuery).catch(() => []),
   ])
 
   return (
     <>
-      <Nav navPages={navPages} footerPages={footerPages} />
+      <Nav navPages={navPages} footerPages={footerPages} navCategories={navCategories} />
       {children}
       <Footer footerPages={footerPages} />
     </>
