@@ -8,7 +8,7 @@ export default function SocialProofBar({ data }: Props) {
   if (!data?.companies?.length) return null
 
   return (
-    <section className="py-12 px-6 border-t border-[#e5e7eb]">
+    <section className="py-12 px-6 border-t border-[#e5e7eb] bg-[#f9fafb]">
       <div className="max-w-5xl mx-auto">
         <p className="text-[11px] font-semibold tracking-widest uppercase text-[#9ca3af] text-center mb-8">
           {data.label}
