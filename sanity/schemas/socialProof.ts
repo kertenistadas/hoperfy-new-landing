@@ -24,7 +24,11 @@ export default defineType({
               name: 'logo',
               title: 'Logo',
               type: 'image',
-              options: { hotspot: false },
+              options: {
+                hotspot: false,
+                accept: 'image/svg+xml,image/png,image/jpeg,image/webp,image/*'
+              },
+              description: 'SVG, PNG, JPG or WEBP — any format accepted',
             }),
           ],
           preview: { select: { title: 'name' } },

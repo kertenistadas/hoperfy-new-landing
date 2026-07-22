@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import type { SocialProof } from '@/types'
 
 type Props = {
@@ -17,13 +16,11 @@ export default function SocialProofBar({ data }: Props) {
         <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
           {data.companies.map((company) =>
             company.logoUrl ? (
-              <Image
+              <img
                 key={company.name}
                 src={company.logoUrl}
                 alt={company.name}
-                width={120}
-                height={32}
-                className="h-7 w-auto object-contain opacity-50 grayscale hover:opacity-70 transition-opacity"
+                className="h-7 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity"
               />
             ) : (
               <span key={company.name} className="text-[13px] font-medium text-[#9ca3af]">
