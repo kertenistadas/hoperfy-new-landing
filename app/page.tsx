@@ -1,6 +1,7 @@
 import { client } from '@/sanity/lib/client'
 import {
   heroQuery,
+  productsQuery,
   testimonialsQuery,
   socialProofQuery,
 } from '@/sanity/lib/queries'
@@ -56,8 +57,9 @@ const fallbackProducts: Product[] = [
 ]
 
 export default async function HomePage() {
-  const [hero, testimonials, socialProof] = await Promise.all([
+  const [hero, products, testimonials, socialProof] = await Promise.all([
     client.fetch<Hero>(heroQuery).catch(() => null),
+    client.fetch<Product[]>(productsQuery).then(r => Array.isArray(r) && r.length > 0 ? r : null).catch(() => null),
     client.fetch<Testimonial[]>(testimonialsQuery).catch(() => null),
     client.fetch<SocialProof>(socialProofQuery).catch(() => null),
   ])
@@ -68,7 +70,7 @@ export default async function HomePage() {
       <main>
         <HeroSection data={hero ?? fallbackHero} />
         {socialProof && <SocialProofBar data={socialProof} />}
-        <ProductsSection products={fallbackProducts} />
+        <ProductsSection products={products ?? fallbackProducts} />
         {testimonials && testimonials.length > 0 && (
           <TestimonialsSection testimonials={testimonials} />
         )}
