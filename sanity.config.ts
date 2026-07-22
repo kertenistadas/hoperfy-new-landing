@@ -16,6 +16,8 @@ export default defineConfig({
         S.list()
           .title('Content')
           .items([
+            S.documentTypeListItem('lead').title('Leads'),
+            S.divider(),
             S.listItem()
               .title('Hero')
               .child(S.document().schemaType('hero').documentId('hero')),
