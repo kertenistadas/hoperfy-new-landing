@@ -19,6 +19,13 @@ export default function HeroSection({ data }: Props) {
           {data.subtitle}
         </p>
 
+        <div className="flex justify-center">
+          <div className="inline-flex items-center gap-2 bg-[#eef4ff] border border-[#b8d0fe] rounded-full px-4 py-1.5 mb-8">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#1a6cf5] animate-pulse shrink-0" />
+            <span className="text-[12px] font-medium text-[#1a6cf5]">First 100 events — first 100 tickets on us</span>
+          </div>
+        </div>
+
         <div id="signup">
           <CTAButtons source="homepage" />
 
