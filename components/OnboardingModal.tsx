@@ -331,24 +331,24 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
               Last bit — both optional.
             </p>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="flex flex-col gap-3">
               <div>
-                <label className="block text-[13px] font-medium text-[#374151] mb-2">Start date</label>
+                <label className="block text-[13px] font-medium text-[#0a0a0a] mb-2">Start date</label>
                 <input
                   type="date"
                   value={eventStartDate}
                   onChange={(e) => setEventStartDate(e.target.value)}
-                  className="h-11 px-4 border border-[#e5e7eb] rounded-lg focus:border-[#1a6cf5] focus:ring-2 focus:ring-[#1a6cf5]/10 outline-none w-full transition-all text-[#374151]"
+                  className="h-11 px-4 border border-[#e5e7eb] rounded-lg focus:border-[#1a6cf5] focus:ring-2 focus:ring-[#1a6cf5]/10 outline-none w-full text-[14px]"
                 />
               </div>
               <div>
-                <label className="block text-[13px] font-medium text-[#374151] mb-2">End date</label>
+                <label className="block text-[13px] font-medium text-[#0a0a0a] mb-2">End date</label>
                 <input
                   type="date"
                   value={eventEndDate}
-                  min={eventStartDate || undefined}
                   onChange={(e) => setEventEndDate(e.target.value)}
-                  className="h-11 px-4 border border-[#e5e7eb] rounded-lg focus:border-[#1a6cf5] focus:ring-2 focus:ring-[#1a6cf5]/10 outline-none w-full transition-all text-[#374151]"
+                  min={eventStartDate}
+                  className="h-11 px-4 border border-[#e5e7eb] rounded-lg focus:border-[#1a6cf5] focus:ring-2 focus:ring-[#1a6cf5]/10 outline-none w-full text-[14px]"
                 />
               </div>
             </div>
