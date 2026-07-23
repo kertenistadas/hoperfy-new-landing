@@ -41,11 +41,8 @@ export default defineType({
         ],
       },
     }),
-    defineField({
-      name: 'eventDate',
-      title: 'Event Date',
-      type: 'string',
-    }),
+    defineField({ name: 'eventStartDate', title: 'Event Start Date', type: 'string' }),
+    defineField({ name: 'eventEndDate', title: 'Event End Date', type: 'string' }),
     defineField({
       name: 'eventLocation',
       title: 'Event Location',

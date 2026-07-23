@@ -9,7 +9,7 @@ function isValidEmail(email: string) {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { email, productInterest, eventName, attendees, eventDate, eventLocation, source } = body
+    const { email, productInterest, eventName, attendees, eventStartDate, eventEndDate, eventLocation, source } = body
 
     if (!email || !isValidEmail(email)) {
       return NextResponse.json({ error: 'Invalid email' }, { status: 400 })
@@ -24,7 +24,8 @@ export async function POST(req: NextRequest) {
             productInterest: productInterest ?? null,
             eventName: eventName ?? null,
             attendees: attendees ?? null,
-            eventDate: eventDate ?? null,
+            eventStartDate: eventStartDate ?? null,
+            eventEndDate: eventEndDate ?? null,
             eventLocation: eventLocation ?? null,
             source: source ?? 'unknown',
             status: 'new',

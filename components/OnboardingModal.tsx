@@ -42,7 +42,8 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
   const [productInterest, setProductInterest] = useState<ProductInterest | null>(null)
   const [eventName, setEventName] = useState('')
   const [attendees, setAttendees] = useState('')
-  const [eventDate, setEventDate] = useState('')
+  const [eventStartDate, setEventStartDate] = useState('')
+  const [eventEndDate, setEventEndDate] = useState('')
   const [eventLocation, setEventLocation] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
@@ -56,7 +57,8 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
       setProductInterest(null)
       setEventName('')
       setAttendees('')
-      setEventDate('')
+      setEventStartDate('')
+      setEventEndDate('')
       setEventLocation('')
       setSubmitting(false)
       setSubmitError('')
@@ -106,7 +108,8 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
           productInterest,
           eventName: eventName || undefined,
           attendees: attendees || undefined,
-          eventDate: eventDate || undefined,
+          eventStartDate: eventStartDate || undefined,
+          eventEndDate: eventEndDate || undefined,
           eventLocation: eventLocation || undefined,
           source: source ?? 'unknown',
         }),
@@ -308,13 +311,27 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
               Last bit — both optional.
             </p>
 
-            <label className="block text-[13px] font-medium text-[#374151] mb-2">Event date</label>
-            <input
-              type="date"
-              value={eventDate}
-              onChange={(e) => setEventDate(e.target.value)}
-              className="h-11 px-4 border border-[#e5e7eb] rounded-lg focus:border-[#1a6cf5] focus:ring-2 focus:ring-[#1a6cf5]/10 outline-none w-full transition-all text-[#374151]"
-            />
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-[13px] font-medium text-[#374151] mb-2">Start date</label>
+                <input
+                  type="date"
+                  value={eventStartDate}
+                  onChange={(e) => setEventStartDate(e.target.value)}
+                  className="h-11 px-4 border border-[#e5e7eb] rounded-lg focus:border-[#1a6cf5] focus:ring-2 focus:ring-[#1a6cf5]/10 outline-none w-full transition-all text-[#374151]"
+                />
+              </div>
+              <div>
+                <label className="block text-[13px] font-medium text-[#374151] mb-2">End date</label>
+                <input
+                  type="date"
+                  value={eventEndDate}
+                  min={eventStartDate || undefined}
+                  onChange={(e) => setEventEndDate(e.target.value)}
+                  className="h-11 px-4 border border-[#e5e7eb] rounded-lg focus:border-[#1a6cf5] focus:ring-2 focus:ring-[#1a6cf5]/10 outline-none w-full transition-all text-[#374151]"
+                />
+              </div>
+            </div>
 
             <label className="block text-[13px] font-medium text-[#374151] mt-5 mb-2">Location</label>
             <input
