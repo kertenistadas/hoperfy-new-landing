@@ -13,10 +13,15 @@ import Footer from '@/components/Footer'
  * the marketing Nav/Footer.
  */
 export default async function NavWrapper({ children }: { children: React.ReactNode }) {
+  // Revalidate the CMS-managed nav/footer chrome on a short interval so newly
+  // published pages (e.g. a page with "footer" placement) appear everywhere —
+  // including statically rendered routes — without needing a redeploy.
+  const chromeCache = { next: { revalidate: 60 } } as const
+
   const [navPages, footerPages, navCategories] = await Promise.all([
-    client.fetch<NavLink[]>(navPagesQuery).catch(() => []),
-    client.fetch<NavLink[]>(footerPagesQuery).catch(() => []),
-    client.fetch<NavCategory[]>(navCategoriesQuery).catch(() => []),
+    client.fetch<NavLink[]>(navPagesQuery, {}, chromeCache).catch(() => []),
+    client.fetch<NavLink[]>(footerPagesQuery, {}, chromeCache).catch(() => []),
+    client.fetch<NavCategory[]>(navCategoriesQuery, {}, chromeCache).catch(() => []),
   ])
 
   return (
