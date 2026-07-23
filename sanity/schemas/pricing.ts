@@ -29,7 +29,7 @@ export default defineType({
       name: 'tagline',
       title: 'Pricing Tagline',
       type: 'string',
-      description: 'e.g. "We set it up. You keep 100% of the revenue."',
+      description: 'e.g. "We set it up. You keep the revenue."',
     }),
     defineField({
       name: 'highlighted',
