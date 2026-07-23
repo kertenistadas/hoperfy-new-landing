@@ -30,7 +30,7 @@ export const fallbackPricing: Pricing[] = [
     price: '2.5%',
     priceSuffix: 'per ticket sold',
     tagline: 'Half the fee. Twice the control.',
-    highlighted: true,
+    highlighted: false,
     includes: [
       'Multi-channel ticket sales',
       'Dynamic pricing and capacity controls',
@@ -47,7 +47,7 @@ export const fallbackPricing: Pricing[] = [
     price: 'Free + 2.5%',
     priceSuffix: 'hotels free · 2.5% per ticket',
     tagline: 'The complete event commerce suite.',
-    highlighted: false,
+    highlighted: true,
     includes: [
       'Everything in Hotels for Events',
       'Everything in Ticketing for Events',
