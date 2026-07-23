@@ -22,6 +22,10 @@ export default defineConfig({
               .title('Hero')
               .child(S.document().schemaType('hero').documentId('hero')),
             S.divider(),
+            S.listItem()
+              .title('Pricing')
+              .child(S.documentTypeList('pricing').title('Pricing')),
+            S.divider(),
             S.documentTypeListItem('product').title('Products'),
             S.documentTypeListItem('testimonial').title('Testimonials'),
             S.documentTypeListItem('socialProof').title('Social Proof'),

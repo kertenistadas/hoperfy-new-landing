@@ -131,6 +131,10 @@ export default function Nav({ navPages = [], navCategories = [] }: Props) {
             )}
           </div>
 
+          <Link href="/pricing" className="text-[13px] text-[#6b7280] hover:text-[#0a0a0a] transition-colors">
+            Pricing
+          </Link>
+
           <Link href="/blog" className="text-[13px] text-[#6b7280] hover:text-[#0a0a0a] transition-colors">
             Blog
           </Link>
@@ -248,6 +252,13 @@ export default function Nav({ navPages = [], navCategories = [] }: Props) {
             </div>
 
             <div className="flex flex-col gap-1 border-t border-[#e5e7eb] pt-6 mb-8">
+              <Link
+                href="/pricing"
+                onClick={() => setMobileOpen(false)}
+                className="py-3 text-[17px] font-semibold text-[#0a0a0a]"
+              >
+                Pricing
+              </Link>
               <Link
                 href="/blog"
                 onClick={() => setMobileOpen(false)}

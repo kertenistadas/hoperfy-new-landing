@@ -126,3 +126,18 @@ export type BlogPost = BlogPostCard & {
   metaDescription: string | null
   relatedProduct: { title: string; slug: string; tagline: string } | null
 }
+
+export type Pricing = {
+  _id: string
+  price: string
+  priceSuffix: string | null
+  tagline: string | null
+  highlighted: boolean
+  includes: string[]
+  cta: string
+  product: {
+    title: string
+    slug: string
+    tagline: string
+  }
+}

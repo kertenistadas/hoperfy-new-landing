@@ -8,6 +8,7 @@ import navCategory from './navCategory'
 import footerCategory from './footerCategory'
 import blogCategory from './blogCategory'
 import blogPost from './blogPost'
+import pricing from './pricing'
 import lead from './lead'
 
-export const schemaTypes = [hero, product, testimonial, socialProof, legalPage, page, navCategory, footerCategory, blogCategory, blogPost, lead]
+export const schemaTypes = [hero, product, testimonial, socialProof, legalPage, page, navCategory, footerCategory, blogCategory, blogPost, pricing, lead]

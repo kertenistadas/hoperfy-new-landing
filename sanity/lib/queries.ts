@@ -186,6 +186,36 @@ export const blogCategoriesQuery = groq`
   }
 `
 
+export const pricingQuery = groq`
+  *[_type == "pricing"] | order(order asc) {
+    _id,
+    price,
+    priceSuffix,
+    tagline,
+    highlighted,
+    includes,
+    cta,
+    "product": product->{
+      title,
+      "slug": slug.current,
+      tagline
+    }
+  }
+`
+
+export const pricingByProductQuery = groq`
+  *[_type == "pricing" && product->slug.current == $slug][0] {
+    _id,
+    price,
+    priceSuffix,
+    tagline,
+    highlighted,
+    includes,
+    cta,
+    "product": product->{ title, "slug": slug.current }
+  }
+`
+
 export const navCategoriesQuery = groq`
   *[_type == "navCategory"] | order(order asc) {
     _id,

@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
-import { productBySlugQuery, testimonialsQuery } from '@/sanity/lib/queries'
+import { productBySlugQuery, testimonialsQuery, pricingByProductQuery } from '@/sanity/lib/queries'
 import { fallbackProductDetails } from '@/sanity/lib/fallbackProducts'
-import type { ProductDetail, Testimonial } from '@/types'
+import type { ProductDetail, Testimonial, Pricing } from '@/types'
 import NavWrapper from '@/components/NavWrapper'
 import TestimonialsSection from '@/components/TestimonialsSection'
 import ProductHero from '@/components/product/ProductHero'
@@ -14,6 +14,7 @@ import ProductStats from '@/components/product/ProductStats'
 import ProductCTA from '@/components/product/ProductCTA'
 import ProductFAQ from '@/components/product/ProductFAQ'
 import ProductCompare from '@/components/product/ProductCompare'
+import ProductPricing from '@/components/product/ProductPricing'
 import { productGeo, buildProductJsonLd } from './geoData'
 
 export const dynamic = 'force-dynamic'
@@ -93,6 +94,10 @@ export default async function ProductPage({ params }: Props) {
     .fetch<Testimonial[]>(testimonialsQuery)
     .catch(() => null)
 
+  const pricing = await client
+    .fetch<Pricing | null>(pricingByProductQuery, { slug })
+    .catch(() => null)
+
   const geo = productGeo[slug]
 
   const jsonLd = geo
@@ -127,6 +132,7 @@ export default async function ProductPage({ params }: Props) {
           <ProductFeatures product={product} />
           <ProductHowItWorks product={product} />
           <ProductStats product={product} />
+          <ProductPricing pricing={pricing} productSlug={slug} />
           {geo && (
             <ProductCompare
               competitors={geo.compare.competitors}
