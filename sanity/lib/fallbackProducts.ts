@@ -34,6 +34,10 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
         title: 'No visibility',
         description: 'You have no idea who booked where, making room block management a nightmare.',
       },
+      {
+        title: 'Someone has to handle the complaints',
+        description: 'When an attendee has a booking issue, cancellation, or payment problem — that lands on your team. Hoperfy handles all of it so you never have to.',
+      },
     ],
     featuresHeadline: 'Everything you need to own the booking experience.',
     featuresList: [
@@ -60,6 +64,14 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
       {
         title: 'Full booking visibility',
         description: 'See exactly who booked where, in real time.',
+      },
+      {
+        title: 'Full customer service included',
+        description: 'Hoperfy handles all attendee inquiries, booking changes, cancellations, and payment issues. Your team never needs to touch a hotel support request.',
+      },
+      {
+        title: 'Payments and refunds managed for you',
+        description: 'We collect payments, process refunds, and handle disputes on your behalf. You get clean revenue reporting with none of the back-and-forth.',
       },
     ],
     howItWorksHeadline: 'Live in an afternoon.',

@@ -62,6 +62,7 @@ const fallbackProducts: Product[] = [
       'Real-time inventory sync',
       'Group block allocation and tracking',
       'Automated rooming list exports',
+      'Customer service and cancellations handled by Hoperfy',
     ],
     stat: { value: '40%', label: 'more hotel revenue per event' },
   },

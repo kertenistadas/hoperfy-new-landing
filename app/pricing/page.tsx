@@ -89,13 +89,13 @@ export default async function PricingPage() {
             Simple pricing. No surprises.
           </h1>
           <p className="text-[16px] font-light text-[#6b7280]">
-            Hotel booking is free. Ticketing is 2.5% per ticket. No monthly fees, no hidden
-            charges, no lock-in contracts.
+            Hotel booking is free. Ticketing is 2.5% per ticket. Use both together and manage
+            everything from one place.
           </p>
         </section>
 
         {/* Pricing cards */}
-        <section className="max-w-4xl mx-auto px-6 pb-24">
+        <section className="max-w-6xl mx-auto px-6 pb-24">
           <PricingCards pricing={pricing} />
         </section>
 

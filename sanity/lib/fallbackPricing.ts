@@ -19,6 +19,8 @@ export const fallbackPricing: Pricing[] = [
       'Automated rooming list exports',
       'Managed setup by our team',
       'Unlimited bookings',
+      'Full customer service handled by Hoperfy',
+      'Cancellations, changes, and payments managed for you',
     ],
     cta: 'Get started free',
     product: { title: 'Hotels for Events', slug: 'hotels-for-events', tagline: 'White-label hotel booking' },
@@ -39,6 +41,23 @@ export const fallbackPricing: Pricing[] = [
     ],
     cta: 'Start selling tickets',
     product: { title: 'Ticketing for Events', slug: 'ticketing-for-events', tagline: 'Multi-platform ticket sales' },
+  },
+  {
+    _id: 'both-pricing',
+    price: 'Free + 2.5%',
+    priceSuffix: 'hotels free · 2.5% per ticket',
+    tagline: 'The complete event commerce suite.',
+    highlighted: false,
+    includes: [
+      'Everything in Hotels for Events',
+      'Everything in Ticketing for Events',
+      'Single dashboard for hotels and tickets',
+      'One team, one setup, one point of contact',
+      'Full customer service handled by Hoperfy',
+      'Priority support',
+    ],
+    cta: 'Get the full suite',
+    product: { title: 'Hotels + Ticketing', slug: 'both', tagline: 'Complete event commerce' },
   },
 ]
 
