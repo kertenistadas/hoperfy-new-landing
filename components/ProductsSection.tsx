@@ -6,7 +6,7 @@ type Props = {
 
 export default function ProductsSection({ products }: Props) {
   return (
-    <section id="products" className="py-24 px-6 border-t border-[#e5e7eb]">
+    <section id="products" className="py-24 px-6 border-t border-[#e5e7eb] overflow-x-hidden">
       <div className="max-w-5xl mx-auto">
         <div className="mb-16">
           <p className="eyebrow mb-3">What we build</p>
@@ -27,8 +27,9 @@ export default function ProductsSection({ products }: Props) {
 function ProductCard({ product, flip }: { product: Product; flip: boolean }) {
   return (
     <div
-      className="grid gap-12 items-start pb-12 border-b border-[#e5e7eb] last:border-0 last:pb-0"
-      style={{ gridTemplateColumns: flip ? '2fr 1fr' : '1fr 2fr' }}
+      className={`grid grid-cols-1 gap-12 items-start pb-12 border-b border-[#e5e7eb] last:border-0 last:pb-0 overflow-hidden ${
+        flip ? 'md:[grid-template-columns:2fr_1fr]' : 'md:[grid-template-columns:1fr_2fr]'
+      }`}
     >
       <div style={{ order: flip ? 2 : 1 }}>
         <div className="inline-block">
@@ -38,12 +39,12 @@ function ProductCard({ product, flip }: { product: Product; flip: boolean }) {
           <p className="text-[13px] font-light text-[#6b7280] mt-1">{product.stat?.label}</p>
         </div>
       </div>
-      <div style={{ order: flip ? 1 : 2 }}>
+      <div className="min-w-0" style={{ order: flip ? 1 : 2 }}>
         <p className="eyebrow mb-3">{product.tagline}</p>
         <h3 className="text-[1.375rem] font-black tracking-tight text-[#0a0a0a] mb-4">
           {product.title}
         </h3>
-        <p className="text-[15px] font-light text-[#6b7280] leading-relaxed mb-8">
+        <p className="text-[15px] font-light text-[#6b7280] leading-relaxed mb-8 break-words min-w-0">
           {product.description}
         </p>
         {product.features && product.features.length > 0 && (
