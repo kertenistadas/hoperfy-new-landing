@@ -224,7 +224,7 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
             {emailError && <p className="mt-2 text-[13px] text-red-500">{emailError}</p>}
             <button
               type="button"
-              onClick={handleEmailContinue}
+              onClick={handleNextFromStep1}
               className="mt-6 h-12 w-full bg-[#1a6cf5] text-white rounded-lg font-medium hover:bg-[#1558cc] transition-colors"
             >
               Continue
