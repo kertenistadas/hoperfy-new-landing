@@ -23,7 +23,7 @@ export default function HeroSection({ data }: Props) {
           <CTAButtons source="homepage" />
 
           <p className="mt-4 text-[12px] text-[#9ca3af]">
-            No commitment required. First 100 events — first 100 tickets on us.
+            No commitment required. First 100 tickets, on us.
           </p>
         </div>
       </div>
