@@ -367,10 +367,10 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
         {step === 5 && (
           <div>
             <h2 className="text-[1.5rem] font-black tracking-tight text-[#0a0a0a] mb-2">
-              You&apos;re in.
+              You&apos;re all set.
             </h2>
             <p className="text-[15px] font-light text-[#6b7280] mb-6">
-              We&apos;re reviewing your details and will be in touch within 24 hours.
+              We&apos;re setting up your event. You should get an email from us shortly.
             </p>
 
             <div className="rounded-xl border border-[#e5e7eb] bg-[#f9fafb] p-4 mb-6 text-[14px]">
