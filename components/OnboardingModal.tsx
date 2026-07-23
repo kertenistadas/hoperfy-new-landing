@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 type Props = {
   isOpen: boolean
@@ -47,6 +47,7 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
   const [eventLocation, setEventLocation] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
+  const emailSaved = useRef(false)
 
   // Reset to a clean state each time the modal is opened
   useEffect(() => {
@@ -62,8 +63,19 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
       setEventLocation('')
       setSubmitting(false)
       setSubmitError('')
+      emailSaved.current = false
     }
   }, [isOpen])
+
+  // Save the email to Sanity as soon as it's valid on Step 1, before the user
+  // clicks Continue. Debounced so it doesn't fire on every keystroke.
+  useEffect(() => {
+    if (step !== 1 || !isValidEmail(email) || emailSaved.current) return
+    const timer = setTimeout(() => {
+      saveEmailEarly()
+    }, 800)
+    return () => clearTimeout(timer)
+  }, [email, step])
 
   // Lock body scroll + close on Escape while open
   useEffect(() => {
@@ -82,12 +94,25 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
 
   if (!isOpen) return null
 
+  async function saveEmailEarly() {
+    if (emailSaved.current || !isValidEmail(email)) return
+    try {
+      await fetch('/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: source ?? 'homepage' }),
+      })
+      emailSaved.current = true
+    } catch {}
+  }
+
   function handleEmailContinue() {
     if (!isValidEmail(email)) {
       setEmailError('Please enter a valid email address.')
       return
     }
     setEmailError('')
+    if (!emailSaved.current) saveEmailEarly()
     setStep(2)
   }
 
