@@ -12,6 +12,9 @@ import ProductFeatures from '@/components/product/ProductFeatures'
 import ProductHowItWorks from '@/components/product/ProductHowItWorks'
 import ProductStats from '@/components/product/ProductStats'
 import ProductCTA from '@/components/product/ProductCTA'
+import ProductFAQ from '@/components/product/ProductFAQ'
+import ProductCompare from '@/components/product/ProductCompare'
+import { productGeo, buildProductJsonLd } from './geoData'
 
 export const dynamic = 'force-dynamic'
 
@@ -52,6 +55,11 @@ async function getProduct(slug: string): Promise<ProductDetail | null> {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
+
+  // Hand-tuned GEO / AI-search metadata for the core product pages.
+  const geo = productGeo[slug]
+  if (geo) return geo.metadata
+
   const product = await getProduct(slug)
 
   if (!product) return {}
@@ -85,28 +93,32 @@ export default async function ProductPage({ params }: Props) {
     .fetch<Testimonial[]>(testimonialsQuery)
     .catch(() => null)
 
-  const productSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: product.title,
-    applicationCategory: 'BusinessApplication',
-    operatingSystem: 'Web',
-    description: product.heroSubtitle || product.description,
-    url: `${BASE_URL}/products/${slug}`,
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-      description: 'Contact for pricing',
-    },
-    publisher: { '@id': 'https://hoperfy.com/#organization' },
-  }
+  const geo = productGeo[slug]
+
+  const jsonLd = geo
+    ? buildProductJsonLd(geo)
+    : {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name: product.title,
+        applicationCategory: 'BusinessApplication',
+        operatingSystem: 'Web',
+        description: product.heroSubtitle || product.description,
+        url: `${BASE_URL}/products/${slug}`,
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+          description: 'Contact for pricing',
+        },
+        publisher: { '@id': 'https://hoperfy.com/#organization' },
+      }
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <NavWrapper>
         <main>
@@ -115,10 +127,17 @@ export default async function ProductPage({ params }: Props) {
           <ProductFeatures product={product} />
           <ProductHowItWorks product={product} />
           <ProductStats product={product} />
+          {geo && (
+            <ProductCompare
+              competitors={geo.compare.competitors}
+              features={geo.compare.features}
+            />
+          )}
           {testimonials && testimonials.length > 0 && (
             <TestimonialsSection testimonials={testimonials} />
           )}
           <ProductCTA product={product} />
+          {geo && <ProductFAQ faqs={geo.faqs} />}
         </main>
       </NavWrapper>
     </>
