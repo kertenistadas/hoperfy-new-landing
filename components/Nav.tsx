@@ -131,6 +131,10 @@ export default function Nav({ navPages = [], navCategories = [] }: Props) {
             )}
           </div>
 
+          <Link href="/blog" className="text-[13px] text-[#6b7280] hover:text-[#0a0a0a] transition-colors">
+            Blog
+          </Link>
+
           <div ref={categoriesRef} className="contents">
             {navCategories.map((category) => (
               <div key={category._id} className="relative">
@@ -241,6 +245,16 @@ export default function Nav({ navPages = [], navCategories = [] }: Props) {
                   <p className="text-[14px] font-light text-[#6b7280] mt-0.5">{product.description}</p>
                 </Link>
               ))}
+            </div>
+
+            <div className="flex flex-col gap-1 border-t border-[#e5e7eb] pt-6 mb-8">
+              <Link
+                href="/blog"
+                onClick={() => setMobileOpen(false)}
+                className="py-3 text-[17px] font-semibold text-[#0a0a0a]"
+              >
+                Blog
+              </Link>
             </div>
 
             {navCategories.map((category) => (

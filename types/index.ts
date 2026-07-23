@@ -100,3 +100,29 @@ export type LegalPage = {
   lastUpdated: string
   body: any[]
 }
+
+export type BlogCategory = {
+  _id: string
+  title: string
+  slug: string
+  description: string
+}
+
+export type BlogPostCard = {
+  _id: string
+  title: string
+  slug: string
+  publishedAt: string
+  author: string
+  excerpt: string
+  category: { title: string; slug: string } | null
+  relatedProduct: { title: string; slug: string } | null
+}
+
+export type BlogPost = BlogPostCard & {
+  body: any[]
+  relatedPosts: BlogPostCard[]
+  metaTitle: string | null
+  metaDescription: string | null
+  relatedProduct: { title: string; slug: string; tagline: string } | null
+}

@@ -127,6 +127,65 @@ export const footerCategoriesQuery = groq`
   }
 `
 
+export const blogPostsQuery = groq`
+  *[_type == "blogPost"] | order(publishedAt desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    publishedAt,
+    author,
+    excerpt,
+    "category": category->{ title, "slug": slug.current },
+    "relatedProduct": relatedProduct->{ title, "slug": slug.current }
+  }
+`
+
+export const blogPostBySlugQuery = groq`
+  *[_type == "blogPost" && slug.current == $slug][0] {
+    _id,
+    title,
+    "slug": slug.current,
+    publishedAt,
+    author,
+    excerpt,
+    body,
+    "category": category->{ title, "slug": slug.current },
+    "relatedProduct": relatedProduct->{ title, "slug": slug.current, tagline },
+    "relatedPosts": relatedPosts[]->{
+      _id,
+      title,
+      "slug": slug.current,
+      publishedAt,
+      excerpt,
+      "category": category->{ title, "slug": slug.current }
+    },
+    metaTitle,
+    metaDescription
+  }
+`
+
+export const blogPostsByCategoryQuery = groq`
+  *[_type == "blogPost" && category->slug.current == $category] | order(publishedAt desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    publishedAt,
+    author,
+    excerpt,
+    "category": category->{ title, "slug": slug.current },
+    "relatedProduct": relatedProduct->{ title, "slug": slug.current }
+  }
+`
+
+export const blogCategoriesQuery = groq`
+  *[_type == "blogCategory"] | order(title asc) {
+    _id,
+    title,
+    "slug": slug.current,
+    description
+  }
+`
+
 export const navCategoriesQuery = groq`
   *[_type == "navCategory"] | order(order asc) {
     _id,

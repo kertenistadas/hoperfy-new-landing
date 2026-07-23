@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { client } from '@/sanity/lib/client'
-import { legalPageSlugsQuery, allPagesQuery } from '@/sanity/lib/queries'
+import { legalPageSlugsQuery, allPagesQuery, blogPostsQuery, blogCategoriesQuery } from '@/sanity/lib/queries'
 
 const BASE_URL = 'https://hoperfy.com'
 
@@ -32,14 +32,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
+    {
+      url: `${BASE_URL}/blog`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
   ]
 
-  const [legalPages, customPages] = await Promise.all([
+  const [legalPages, customPages, blogPosts, blogCategories] = await Promise.all([
     client
       .fetch<{ slug: string; lastUpdated?: string }[]>(legalPageSlugsQuery)
       .catch(() => null),
     client
       .fetch<{ slug: string }[]>(allPagesQuery)
+      .catch(() => null),
+    client
+      .fetch<{ slug: string; publishedAt?: string }[]>(blogPostsQuery)
+      .catch(() => null),
+    client
+      .fetch<{ slug: string }[]>(blogCategoriesQuery)
       .catch(() => null),
   ])
 
@@ -59,5 +71,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }))
 
-  return [...staticRoutes, ...legalRoutes, ...customPageRoutes]
+  const blogPostRoutes: MetadataRoute.Sitemap = (blogPosts ?? [])
+    .filter((post) => post.slug)
+    .map((post) => ({
+      url: `${BASE_URL}/blog/${post.slug}`,
+      lastModified: post.publishedAt ? new Date(post.publishedAt) : now,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    }))
+
+  const blogCategoryRoutes: MetadataRoute.Sitemap = (blogCategories ?? [])
+    .filter((category) => category.slug)
+    .map((category) => ({
+      url: `${BASE_URL}/blog/category/${category.slug}`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    }))
+
+  return [
+    ...staticRoutes,
+    ...legalRoutes,
+    ...customPageRoutes,
+    ...blogPostRoutes,
+    ...blogCategoryRoutes,
+  ]
 }

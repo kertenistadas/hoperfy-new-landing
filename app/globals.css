@@ -56,3 +56,76 @@ html {
   text-decoration: underline;
   text-underline-offset: 2px;
 }
+
+.prose-blog h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: #0a0a0a;
+}
+
+.prose-blog h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  color: #0a0a0a;
+}
+
+.prose-blog h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose-blog p {
+  margin-bottom: 1.25rem;
+  color: #374151;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.prose-blog a {
+  color: #1a6cf5;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-blog ul {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+  list-style: disc;
+}
+
+.prose-blog ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+  list-style: decimal;
+}
+
+.prose-blog li {
+  margin-bottom: 0.5rem;
+  color: #374151;
+  line-height: 1.8;
+}
+
+.prose-blog blockquote {
+  border-left: 3px solid #1a6cf5;
+  padding-left: 1.25rem;
+  margin: 2rem 0;
+  font-style: italic;
+  color: #6b7280;
+}
+
+.prose-blog strong {
+  font-weight: 600;
+  color: #0a0a0a;
+}
+
+.prose-blog img {
+  border-radius: 0.75rem;
+  margin: 2rem 0;
+  width: 100%;
+}
