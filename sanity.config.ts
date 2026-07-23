@@ -31,6 +31,8 @@ export default defineConfig({
             S.documentTypeListItem('page').title('Custom Pages'),
             S.divider(),
             S.documentTypeListItem('navCategory').title('Navigation Categories'),
+            S.divider(),
+            S.documentTypeListItem('footerCategory').title('Footer Categories'),
           ]),
     }),
     visionTool(),

@@ -89,6 +89,12 @@ export type NavCategory = {
   pages: { title: string; slug: string }[]
 }
 
+export type FooterCategory = {
+  _id: string
+  title: string
+  links: { label: string; url: string }[]
+}
+
 export type LegalPage = {
   title: string
   lastUpdated: string

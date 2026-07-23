@@ -116,6 +116,17 @@ export const footerPagesQuery = groq`
   }
 `
 
+export const footerCategoriesQuery = groq`
+  *[_type == "footerCategory"] | order(order asc) {
+    _id,
+    title,
+    links[] {
+      label,
+      url
+    }
+  }
+`
+
 export const navCategoriesQuery = groq`
   *[_type == "navCategory"] | order(order asc) {
     _id,
