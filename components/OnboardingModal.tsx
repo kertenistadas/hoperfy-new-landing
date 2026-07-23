@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type Props = {
   isOpen: boolean
@@ -47,7 +47,6 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
   const [eventLocation, setEventLocation] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
-  const emailSaved = useRef(false)
 
   // Reset to a clean state each time the modal is opened
   useEffect(() => {
@@ -63,19 +62,8 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
       setEventLocation('')
       setSubmitting(false)
       setSubmitError('')
-      emailSaved.current = false
     }
   }, [isOpen])
-
-  // Save the email to Sanity as soon as it's valid on Step 1, before the user
-  // clicks Continue. Debounced so it doesn't fire on every keystroke.
-  useEffect(() => {
-    if (step !== 1 || !isValidEmail(email) || emailSaved.current) return
-    const timer = setTimeout(() => {
-      saveEmailEarly()
-    }, 800)
-    return () => clearTimeout(timer)
-  }, [email, step])
 
   // Lock body scroll + close on Escape while open
   useEffect(() => {
@@ -94,26 +82,33 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
 
   if (!isOpen) return null
 
-  async function saveEmailEarly() {
-    if (emailSaved.current || !isValidEmail(email)) return
+  async function handleNextFromStep1() {
+    if (!isValidEmail(email)) {
+      setEmailError('Please enter a valid email address.')
+      return
+    }
+    setEmailError('')
     try {
       await fetch('/api/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, source: source ?? 'homepage' }),
       })
-      emailSaved.current = true
     } catch {}
+    setStep(2)
   }
 
-  function handleEmailContinue() {
-    if (!isValidEmail(email)) {
-      setEmailError('Please enter a valid email address.')
-      return
+  async function handleClose() {
+    if (step === 1 && isValidEmail(email)) {
+      try {
+        await fetch('/api/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source: source ?? 'homepage' }),
+        })
+      } catch {}
     }
-    setEmailError('')
-    if (!emailSaved.current) saveEmailEarly()
-    setStep(2)
+    onClose()
   }
 
   function selectProduct(value: ProductInterest) {
@@ -157,7 +152,7 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
   return (
     <div
       className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4"
-      onClick={onClose}
+      onClick={handleClose}
       role="dialog"
       aria-modal="true"
     >
@@ -176,7 +171,7 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
         {/* Close X */}
         <button
           type="button"
-          onClick={onClose}
+          onClick={handleClose}
           aria-label="Close"
           className="absolute top-5 right-5 text-[#9ca3af] hover:text-[#0a0a0a] transition-colors"
         >
@@ -221,7 +216,7 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') handleEmailContinue()
+                if (e.key === 'Enter') handleNextFromStep1()
               }}
               placeholder="you@company.com"
               className="h-11 px-4 border border-[#e5e7eb] rounded-lg focus:border-[#1a6cf5] focus:ring-2 focus:ring-[#1a6cf5]/10 outline-none w-full transition-all placeholder:text-[#9ca3af]"
@@ -427,7 +422,7 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
             </a>
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
               className="mt-3 w-full text-[13px] text-[#9ca3af] hover:text-[#6b7280] transition-colors"
             >
               Close
