@@ -32,7 +32,7 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
     stat: { value: '40%', label: 'more hotel revenue per event' },
     heroHeadline: 'Your attendees are already booking hotels. Zero extra work for your team.',
     heroSubtitle:
-      'For a 500-person event, attendees typically spend €80,000–€150,000 on accommodation — through Booking.com, not through you. Hoperfy gives your event its own hotel booking page, free, and handles everything so your team never has to.',
+      'For a 500-person event, attendees typically spend €80,000–€150,000 on accommodation — through Booking.com, not through you. Hoperfy gives your event its own hotel booking page, free. We contract the hotels, handle all delegate support, and manage everything. Your team does nothing.',
     heroCta: 'Get early access',
     problemHeadline: "We've heard every objection. Here's the honest answer to each one.",
     problems: [
@@ -70,9 +70,14 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
           'Your logo, your brand, your domain. Attendees book hotels without ever leaving your event experience. No Booking.com redirects, no third-party branding.',
       },
       {
-        title: 'Negotiated rate management',
+        title: 'We contract the hotels — you do nothing',
         description:
-          "Upload your contracted hotel rates or let Hoperfy source them. Your attendees see exclusive event rates — not the public prices they'd find on their own.",
+          'Hoperfy negotiates and contracts hotels directly on your behalf. No paperwork, no rate negotiations, no emails to hotel sales managers. We handle the entire hotel relationship so your team never has to.',
+      },
+      {
+        title: '2,000,000+ properties worldwide',
+        description:
+          'Hoperfy has access to over two million hotel properties across practically every country in the world. Whatever your event location — major city, remote destination, or anywhere in between — we have hotels covered.',
       },
       {
         title: 'Real-time room block tracking',
@@ -110,7 +115,7 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
       {
         title: 'One call with our team',
         description:
-          "Tell us about your event, your hotels, and your attendees. That's it. No forms, no long onboarding, no technical setup on your side.",
+          "Tell us your event details and location. Hoperfy handles all hotel contracting and negotiations directly — you don't need existing hotel relationships or contracts.",
       },
       {
         title: 'We build your hotel booking page',
@@ -125,7 +130,7 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
     ],
     stats: [
       { value: 'Free', label: 'hotel booking setup and management' },
-      { value: '24hrs', label: 'average time to go live' },
+      { value: '2M+', label: 'hotel properties worldwide' },
       { value: '0', label: 'hotel support calls for your team' },
     ],
   },

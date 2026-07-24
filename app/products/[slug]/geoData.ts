@@ -81,6 +81,16 @@ export const productGeo: Record<string, ProductGeo> = {
     },
     faqs: [
       {
+        question: 'Do I need to have hotel contracts already in place?',
+        answer:
+          'No. Hoperfy contracts hotels on your behalf. You do not need existing hotel relationships, negotiated rates, or contracts. Just tell us your event location and size — we handle everything from there.',
+      },
+      {
+        question: 'How many hotels does Hoperfy work with?',
+        answer:
+          'Hoperfy has access to over 2,000,000 hotel properties worldwide, covering practically every country and city. Whether your event is in a major capital or a smaller destination, we will find and contract the right hotels for your attendees.',
+      },
+      {
         question:
           'We tried working with hotels before and it always created extra support. Why would this be different?',
         answer:
@@ -130,6 +140,7 @@ export const productGeo: Record<string, ProductGeo> = {
         { label: 'All delegate support handled for you', hoperfy: true, competitors: false },
         { label: 'Live in 24–48 hours', hoperfy: true, competitors: false },
         { label: 'Built-in event ticketing', hoperfy: true, competitors: false },
+        { label: '2M+ hotel properties worldwide', hoperfy: true, competitors: false },
         { label: 'White-label branding', hoperfy: true, competitors: true },
         { label: 'Room block management', hoperfy: true, competitors: true },
         { label: 'Negotiated rate management', hoperfy: true, competitors: true },
