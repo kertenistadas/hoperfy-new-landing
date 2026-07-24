@@ -30,83 +30,103 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
       'Live within 24-48 hours',
     ],
     stat: { value: '40%', label: 'more hotel revenue per event' },
-    heroHeadline: 'Your event. Your rates. Your brand.',
+    heroHeadline: 'Your attendees are already booking hotels. Zero extra work for your team.',
     heroSubtitle:
-      'Give attendees a seamless hotel booking experience built directly into your event — without third-party redirects or commission leakage.',
+      'For a 500-person event, attendees typically spend €80,000–€150,000 on accommodation — through Booking.com, not through you. Hoperfy gives your event its own hotel booking page, free, and handles everything so your team never has to.',
     heroCta: 'Get early access',
-    problemHeadline: 'Hotel booking is where events leak the most revenue.',
+    problemHeadline: "We've heard every objection. Here's the honest answer to each one.",
     problems: [
       {
-        title: 'Lost revenue',
-        description: 'Third-party booking platforms take commissions that should be yours.',
+        title: '"This will create more support work for us"',
+        description:
+          "It won't. Hoperfy's team handles every delegate question, booking change, cancellation, and refund directly. Your inbox stays exactly as it is. We built Hoperfy specifically so that event teams never field a hotel-related call.",
       },
       {
-        title: 'Broken experience',
-        description: 'Attendees leave your site to book hotels, and half of them never come back.',
+        title: '"We tried hotel partnerships before and they caused support issues"',
+        description:
+          "Because those partnerships put the support burden on you. Hoperfy doesn't. Every delegate email, every complaint, every overbooking dispute goes to our team. You're not looped in unless you want to be.",
       },
       {
-        title: 'No visibility',
-        description: 'You have no idea who booked where, making room block management a nightmare.',
+        title: '"Our operations team is already at capacity"',
+        description:
+          "That's exactly why Hoperfy exists. Hotel coordination eats hours your team doesn't have — chasing contracts, fielding booking questions, fixing problems that go wrong. Hoperfy removes that entire workload. It doesn't add to it.",
       },
       {
-        title: 'Someone has to handle the complaints',
-        description: 'When an attendee has a booking issue, cancellation, or payment problem — that lands on your team. Hoperfy handles all of it so you never have to.',
+        title: '"We don\'t prioritise hotel proposals right now"',
+        description:
+          "We don't need your team's time to set this up. One call, we handle everything. You send your attendees one link. That's the full extent of the ask — and your attendees stop booking through Booking.com from that moment.",
+      },
+      {
+        title: 'Your attendees are spending thousands on hotels you never see',
+        description:
+          'For a 500-person event, attendees typically spend €80,000–€150,000 on accommodation. Right now, that revenue goes to Booking.com or Expedia. Hoperfy lets you capture it — for free.',
       },
     ],
-    featuresHeadline: 'Everything you need to own the booking experience.',
+    featuresHeadline: 'What your attendees get. What your team never has to deal with.',
     featuresList: [
       {
-        title: 'White-labelled booking flow',
-        description: 'A booking experience that looks and feels like your event, start to finish.',
+        title: 'Fully white-labelled booking page',
+        description:
+          'Your logo, your brand, your domain. Attendees book hotels without ever leaving your event experience. No Booking.com redirects, no third-party branding.',
       },
       {
         title: 'Negotiated rate management',
-        description: 'Load and manage your directly negotiated hotel rates in one place.',
+        description:
+          "Upload your contracted hotel rates or let Hoperfy source them. Your attendees see exclusive event rates — not the public prices they'd find on their own.",
       },
       {
-        title: 'Real-time inventory sync',
-        description: 'Live availability so attendees never book a room that is not there.',
+        title: 'Real-time room block tracking',
+        description:
+          'See live pickup against your contracted blocks. Know exactly where you stand before the cutoff date — no spreadsheets, no chasing hotel contacts.',
       },
       {
-        title: 'Group block tracking',
-        description: 'Allocate and monitor room blocks without spreadsheets.',
+        title: 'Automated rooming list exports',
+        description:
+          'One-click exports in the exact format each hotel needs. No more reformatting spreadsheets the night before the event.',
       },
       {
-        title: 'Automated rooming lists',
-        description: 'Export accurate rooming lists to your hotels in a click.',
+        title: 'Full delegate customer service by Hoperfy',
+        description:
+          'Every delegate question, complaint, change, and cancellation is handled by Hoperfy directly. Your team is never in the middle.',
       },
       {
-        title: 'Full booking visibility',
-        description: 'See exactly who booked where, in real time.',
+        title: 'Cancellations, changes, and disputes managed for you',
+        description:
+          'Overbooked hotel? Delegate wants to change dates? Payment issue? Hoperfy resolves it end-to-end with the hotel and the delegate. You hear about it only if you want to.',
       },
       {
-        title: 'Full customer service included',
-        description: 'Hoperfy handles all attendee inquiries, booking changes, cancellations, and payment issues. Your team never needs to touch a hotel support request.',
+        title: 'Payments and refunds handled by Hoperfy',
+        description:
+          'We collect payments, process refunds, and handle disputes on your behalf. You get clean revenue reporting with none of the back-and-forth.',
       },
       {
-        title: 'Payments and refunds managed for you',
-        description: 'We collect payments, process refunds, and handle disputes on your behalf. You get clean revenue reporting with none of the back-and-forth.',
+        title: 'Live in 24–48 hours',
+        description:
+          'Managed setup by our team. You share your event details and hotel contracts in one call. We build and launch the booking page. No dev work, no technical setup.',
       },
     ],
-    howItWorksHeadline: 'Live in an afternoon.',
+    howItWorksHeadline: 'One conversation. Then we handle everything.',
     steps: [
       {
-        title: 'Connect your hotels',
-        description: 'Add your negotiated rates and room blocks in a few minutes.',
+        title: 'One call with our team',
+        description:
+          "Tell us about your event, your hotels, and your attendees. That's it. No forms, no long onboarding, no technical setup on your side.",
       },
       {
-        title: 'Embed on your event site',
-        description: 'Drop the white-labelled booking flow directly into your event.',
+        title: 'We build your hotel booking page',
+        description:
+          'Hoperfy creates a branded hotel booking page for your event — your logo, your hotels, your rates. Live within 24–48 hours.',
       },
       {
-        title: 'Watch bookings come in',
-        description: 'Track every reservation and manage blocks from one dashboard.',
+        title: 'You send one link. We handle the rest.',
+        description:
+          'Share the link with your attendees. Hoperfy manages every booking, every question, every problem. Your team never touches a hotel query again.',
       },
     ],
     stats: [
-      { value: '40%', label: 'more hotel revenue per event' },
-      { value: '3hrs', label: 'average setup time' },
-      { value: '0%', label: 'commission taken' },
+      { value: 'Free', label: 'hotel booking setup and management' },
+      { value: '24hrs', label: 'average time to go live' },
+      { value: '0', label: 'hotel support calls for your team' },
     ],
   },
   'ticketing-for-events': {

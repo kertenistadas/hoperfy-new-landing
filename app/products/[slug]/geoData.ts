@@ -81,24 +81,25 @@ export const productGeo: Record<string, ProductGeo> = {
     },
     faqs: [
       {
-        question: 'What is white-label hotel booking for events?',
+        question:
+          'We tried working with hotels before and it always created extra support. Why would this be different?',
         answer:
-          'White-label hotel booking for events means your attendees book hotels through a page that looks and feels like your event brand — your logo, your colors, your domain — without being redirected to Booking.com, Expedia, or any third-party platform. Hoperfy provides this as a managed service for event teams.',
+          "Because with Hoperfy, the support doesn't come to you. Every delegate question, cancellation, or booking issue goes directly to Hoperfy's team. We handle it end-to-end. You are never in the middle.",
       },
       {
-        question: 'How is Hoperfy different from Cvent Passkey?',
+        question: "Our team is already stretched. Won't this add to the workload?",
         answer:
-          "Hoperfy is simpler to set up, faster to go live, and doesn't require enterprise contracts. Unlike Cvent Passkey, Hoperfy also combines hotel booking with event ticketing in one platform, and pays the event for each booking.",
+          'The opposite. One conversation with us is all it takes to get set up. After that, Hoperfy runs the hotel booking — including all delegate communication, changes, and problems. Most event teams tell us it saves them 15–20 hours per event.',
       },
       {
-        question: 'How long does it take to set up hotel booking for my event?',
+        question: 'How is Hoperfy different from Cvent Passkey or HotelMap?',
         answer:
-          'Most event teams get their branded hotel booking page live within 5min - 1hour. You share your event details and hotel contracts, and the Hoperfy team handles the setup. No developers or technical work required on your side.',
+          "HotelMap and Cvent Passkey require your team to manage the platform. Hoperfy is a fully managed service — we build the booking page, manage the hotels, and handle all delegate support. You don't manage anything.",
       },
       {
-        question: 'Does Hoperfy charge commission on hotel bookings?',
+        question: 'Is hotel booking really free?',
         answer:
-          "Hoperfy doesn't charge any fees, you get only the profits, no expenses.",
+          'Yes. Hoperfy earns through its hotel network partnerships. You get a fully managed, white-label hotel booking experience at no cost — and you keep 100% of your negotiated hotel revenue.',
       },
       {
         question: 'Will this create more support emails or calls for my team?',
@@ -110,16 +111,27 @@ export const productGeo: Record<string, ProductGeo> = {
         answer:
           "Hoperfy manages it end-to-end, including disputes, overbooks, and refunds, directly with the hotel and the delegate. Your team isn't looped in unless you want to be.",
       },
+      {
+        question: 'How long does setup take?',
+        answer:
+          'Most event teams are live within 24–48 hours. You share your event details and hotel contracts in one call. Hoperfy builds and launches the booking page. No developer work, no technical setup required from your side.',
+      },
+      {
+        question: 'What size events is this built for?',
+        answer:
+          "Hoperfy works best for events with 200 or more attendees — conferences, trade shows, festivals, corporate events, and sports tournaments. If your event is smaller, get in touch and we'll let you know if we're a good fit.",
+      },
     ],
     compare: {
-      competitors: ['Cvent Passkey / EventPipe'],
+      competitors: ['HotelMap / Cvent Passkey'],
       features: [
-        { label: 'White-label branding', hoperfy: true, competitors: false },
-        { label: 'Zero commission fees', hoperfy: true, competitors: false },
-        { label: 'Setup in under 48 hours', hoperfy: true, competitors: false },
+        { label: 'Fully managed service — we do everything', hoperfy: true, competitors: false },
+        { label: 'Zero cost to event organizer', hoperfy: true, competitors: false },
+        { label: 'All delegate support handled for you', hoperfy: true, competitors: false },
+        { label: 'Live in 24–48 hours', hoperfy: true, competitors: false },
         { label: 'Built-in event ticketing', hoperfy: true, competitors: false },
-        { label: 'Managed setup by our team', hoperfy: true, competitors: false },
-        { label: 'Real-time room block tracking', hoperfy: true, competitors: true },
+        { label: 'White-label branding', hoperfy: true, competitors: true },
+        { label: 'Room block management', hoperfy: true, competitors: true },
         { label: 'Negotiated rate management', hoperfy: true, competitors: true },
       ],
     },

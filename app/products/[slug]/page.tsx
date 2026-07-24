@@ -16,6 +16,7 @@ import ProductFAQ from '@/components/product/ProductFAQ'
 import ProductCompare from '@/components/product/ProductCompare'
 import ProductPricing from '@/components/product/ProductPricing'
 import ProductFullFeatures from '@/components/product/ProductFullFeatures'
+import ProductRevenueCalculator from '@/components/product/ProductRevenueCalculator'
 import { productGeo, buildProductJsonLd } from './geoData'
 
 export const dynamic = 'force-dynamic'
@@ -134,6 +135,7 @@ export default async function ProductPage({ params }: Props) {
       <NavWrapper>
         <main>
           <ProductHero product={product} />
+          {slug === 'hotels-for-events' && <ProductRevenueCalculator />}
           <ProductProblems product={product} />
           <ProductFeatures product={product} />
           <ProductHowItWorks product={product} />
