@@ -33,16 +33,16 @@ export default function ProductRevenueCalculator() {
             </div>
             <input
               type="range"
-              min={1}
-              max={500000}
-              step={100}
+              min={10}
+              max={50000}
+              step={50}
               value={attendees}
               onChange={(e) => setAttendees(Number(e.target.value))}
               className="w-full cursor-pointer accent-[#1a6cf5]"
             />
             <div className="flex justify-between mt-1">
-              <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.3)' }}>1</span>
-              <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.3)' }}>500,000</span>
+              <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.3)' }}>10</span>
+              <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.3)' }}>50,000</span>
             </div>
           </div>
 

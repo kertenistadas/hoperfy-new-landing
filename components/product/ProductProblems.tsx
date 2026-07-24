@@ -19,7 +19,7 @@ export default function ProductProblems({ product }: Props) {
         <div className="grid md:grid-cols-3 gap-8">
           {product.problems.map((problem, i) => (
             <div key={i} className="border border-[#e5e7eb] bg-white rounded-xl p-6">
-              <p className="text-[13px] font-semibold text-[#e5e7eb] mb-4">
+              <p className="text-[13px] font-semibold text-[#d1d5db] mb-4">
                 {String(i + 1).padStart(2, '0')}
               </p>
               <h3 className="text-[1.125rem] font-black text-[#0a0a0a] mb-3">{problem.title}</h3>
