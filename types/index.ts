@@ -128,6 +128,32 @@ export type BlogPost = BlogPostCard & {
   relatedProduct: { title: string; slug: string; tagline: string } | null
 }
 
+export type CaseStudyCard = {
+  _id: string
+  title: string
+  slug: string
+  clientName: string
+  clientLogoUrl: string | null
+  clientWebsite: string | null
+  industry: string | null
+  eventSize: string | null
+  productsUsed: string[]
+  keyResults: { value: string; label: string }[]
+  intro: string | null
+  metaTitle: string | null
+  metaDescription: string | null
+  publishedAt: string
+}
+
+export type CaseStudy = CaseStudyCard & {
+  challenge: any[]
+  solution: any[]
+  result: any[]
+  quote: { text: string; author: string; role: string } | null
+  whyItMatters: string | null
+  relatedProduct: { title: string; slug: string; tagline: string } | null
+}
+
 export type Pricing = {
   _id: string
   price: string

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { client } from '@/sanity/lib/client'
-import { legalPageSlugsQuery, allPagesQuery, blogPostsQuery, blogCategoriesQuery } from '@/sanity/lib/queries'
+import { legalPageSlugsQuery, allPagesQuery, blogPostsQuery, blogCategoriesQuery, caseStudiesQuery } from '@/sanity/lib/queries'
 
 const BASE_URL = 'https://hoperfy.com'
 
@@ -52,7 +52,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ]
 
-  const [legalPages, customPages, blogPosts, blogCategories] = await Promise.all([
+  const [legalPages, customPages, blogPosts, blogCategories, caseStudies] = await Promise.all([
     client
       .fetch<{ slug: string; lastUpdated?: string }[]>(legalPageSlugsQuery)
       .catch(() => null),
@@ -64,6 +64,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .catch(() => null),
     client
       .fetch<{ slug: string }[]>(blogCategoriesQuery)
+      .catch(() => null),
+    client
+      .fetch<{ slug: string; publishedAt?: string }[]>(caseStudiesQuery)
       .catch(() => null),
   ])
 
@@ -101,11 +104,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     }))
 
+  const caseStudyRoutes: MetadataRoute.Sitemap = (caseStudies ?? [])
+    .filter((study) => study.slug)
+    .map((study) => ({
+      url: `${BASE_URL}/resources/case-studies/${study.slug}`,
+      lastModified: study.publishedAt ? new Date(study.publishedAt) : now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    }))
+
   return [
     ...staticRoutes,
     ...legalRoutes,
     ...customPageRoutes,
     ...blogPostRoutes,
     ...blogCategoryRoutes,
+    ...caseStudyRoutes,
   ]
 }

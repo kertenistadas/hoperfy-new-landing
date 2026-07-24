@@ -37,6 +37,8 @@ export default defineConfig({
             S.documentTypeListItem('blogCategory').title('Blog Categories'),
             S.documentTypeListItem('blogPost').title('Blog Posts'),
             S.divider(),
+            S.documentTypeListItem('caseStudy').title('Case Studies'),
+            S.divider(),
             S.documentTypeListItem('navCategory').title('Navigation Categories'),
             S.divider(),
             S.documentTypeListItem('footerCategory').title('Footer Categories'),

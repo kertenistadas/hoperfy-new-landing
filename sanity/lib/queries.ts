@@ -187,6 +187,50 @@ export const blogCategoriesQuery = groq`
   }
 `
 
+export const caseStudiesQuery = groq`
+  *[_type == "caseStudy"] | order(publishedAt desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    clientName,
+    "clientLogoUrl": clientLogo.asset->url,
+    clientWebsite,
+    industry,
+    eventSize,
+    productsUsed,
+    keyResults,
+    intro,
+    metaTitle,
+    metaDescription,
+    publishedAt
+  }
+`
+
+export const caseStudyBySlugQuery = groq`
+  *[_type == "caseStudy" && slug.current == $slug][0] {
+    _id,
+    title,
+    "slug": slug.current,
+    metaTitle,
+    metaDescription,
+    publishedAt,
+    clientName,
+    clientWebsite,
+    "clientLogoUrl": clientLogo.asset->url,
+    industry,
+    eventSize,
+    productsUsed,
+    keyResults,
+    intro,
+    challenge,
+    solution,
+    result,
+    quote,
+    whyItMatters,
+    "relatedProduct": relatedProduct->{ title, "slug": slug.current, tagline }
+  }
+`
+
 export const pricingQuery = groq`
   *[_type == "pricing"] | order(order asc) {
     _id,
