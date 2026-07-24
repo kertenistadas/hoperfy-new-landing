@@ -88,17 +88,17 @@ export const productGeo: Record<string, ProductGeo> = {
       {
         question: 'How is Hoperfy different from Cvent Passkey?',
         answer:
-          "Hoperfy is simpler to set up, faster to go live, and doesn't require enterprise contracts. Unlike Cvent Passkey, Hoperfy also combines hotel booking with event ticketing in one platform, and charges a flat fee instead of taking commission on bookings.",
+          "Hoperfy is simpler to set up, faster to go live, and doesn't require enterprise contracts. Unlike Cvent Passkey, Hoperfy also combines hotel booking with event ticketing in one platform, and pays the event for each booking.",
       },
       {
         question: 'How long does it take to set up hotel booking for my event?',
         answer:
-          'Most event teams get their branded hotel booking page live within 24 to 48 hours. You share your event details and hotel contracts, and the Hoperfy team handles the setup. No developers or technical work required on your side.',
+          'Most event teams get their branded hotel booking page live within 5min - 1hour. You share your event details and hotel contracts, and the Hoperfy team handles the setup. No developers or technical work required on your side.',
       },
       {
         question: 'Does Hoperfy charge commission on hotel bookings?',
         answer:
-          'No. Hoperfy charges a flat platform fee. We never take a percentage of your hotel revenue. Every margin point from your negotiated rates stays with you.',
+          "Hoperfy doesn't charge any fees, you get only the profits, no expenses.",
       },
     ],
     compare: {
@@ -170,7 +170,7 @@ export const productGeo: Record<string, ProductGeo> = {
       {
         question: 'Is Hoperfy a good Eventbrite alternative?',
         answer:
-          'For professional event teams running their own events, yes. Hoperfy gives you more control over branding, instant payouts instead of delayed settlements, no percentage fees on ticket sales, and unified data across every sales channel — things Eventbrite does not offer.',
+          'For professional event teams running their own events, yes. Hoperfy gives you more control over branding, instant payouts instead of delayed settlements, and unified data across every sales channel — things Eventbrite does not offer.',
       },
       {
         question: 'Can I sell tickets across multiple platforms at once?',
@@ -185,7 +185,7 @@ export const productGeo: Record<string, ProductGeo> = {
       {
         question: 'What size events is Hoperfy ticketing built for?',
         answer:
-          'Hoperfy works best for professional event teams running events with 200 or more attendees — conferences, trade shows, festivals, corporate events, and sports tournaments. It is not designed for one-off personal events.',
+          'Smallest event that Hoperfy ever managed was 20 people, our largest partner event is 70,000 attendees. Hoperfy is suited for all types of event sizes and geographies.',
       },
     ],
     compare: {

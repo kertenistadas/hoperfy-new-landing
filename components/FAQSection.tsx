@@ -11,27 +11,27 @@ const faqs = [
   {
     question: 'How is Hoperfy different from Cvent Passkey or EventPipe?',
     answer:
-      'Hoperfy combines hotel booking and ticketing in one platform. Cvent and EventPipe only handle hotel room blocks. Hoperfy gives you both, with white-label branding, instant payouts, and no commission fees.',
+      'Hoperfy combines hotel booking and ticketing in one platform. Cvent and EventPipe only handle hotel room blocks. Hoperfy gives you both, with white-label branding, instant payouts.',
   },
   {
     question: 'Is there a commission on hotel bookings?',
     answer:
-      'No. Hoperfy charges a flat platform fee. We never take a cut of your hotel revenue or ticket sales.',
+      'Hoperfy splits the profits with your event team / organization. From each booking the event will receive 30%-50% of nett profit.',
   },
   {
     question: 'How long does it take to set up?',
     answer:
-      "Most event teams are live within a day. Connect your hotels, embed the booking widget, and you're done. No developers required.",
+      'We provide the links in minutes, adding them to your site takes another minute or two. No development skill required.',
   },
   {
     question: 'Does Hoperfy replace Eventbrite?',
     answer:
-      'For event teams running their own events, yes. Hoperfy gives you more control, better branding, instant payouts, and no percentage fees on ticket sales.',
+      'For event teams running their own events, yes. Hoperfy gives you more control, better branding, instant payouts, and smaller % fees than third party event marketplaces.',
   },
   {
     question: 'What size events is Hoperfy built for?',
     answer:
-      'Hoperfy works best for professional event teams running recurring events with 200+ attendees. Conferences, trade shows, festivals, corporate events, and sports tournaments.',
+      'Smallest event that Hoperfy ever managed was 20 people, our largest partner event is 70,000 attendees. Hoperfy is suited for all types of event sizes and geographies.',
   },
 ]
 
