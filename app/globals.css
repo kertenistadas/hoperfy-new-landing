@@ -129,3 +129,18 @@ html {
   margin: 2rem 0;
   width: 100%;
 }
+
+/* Social proof marquee (defined here so it works with Tailwind v4's CSS-first
+   setup, which does not auto-load tailwind.config.js). */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}

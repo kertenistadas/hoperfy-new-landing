@@ -23,6 +23,11 @@ const resources = [
     description: 'Industry insights and guides for event teams',
     href: '/blog',
   },
+  {
+    title: 'Case Studies',
+    description: 'How event teams use Hoperfy',
+    href: '/resources/case-studies',
+  },
 ]
 
 type NavLink = { title: string; slug: string }

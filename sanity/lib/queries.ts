@@ -76,7 +76,8 @@ export const socialProofQuery = groq`
     label,
     companies[] {
       name,
-      "logoUrl": logo.asset->url
+      "logoUrl": logo.asset->url,
+      caseStudyUrl
     }
   }
 `

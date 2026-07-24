@@ -30,6 +30,13 @@ export default defineType({
               },
               description: 'SVG, PNG, JPG or WEBP — any format accepted',
             }),
+            defineField({
+              name: 'caseStudyUrl',
+              title: 'Case Study URL',
+              type: 'string',
+              description:
+                'Optional. Point to a Custom Page created in Sanity with a /resources/ prefix, e.g. /resources/techbbq-case-study — if set, the logo becomes clickable with a "Read case study" tag.',
+            }),
           ],
           preview: { select: { title: 'name' } },
         },

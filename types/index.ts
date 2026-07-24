@@ -66,6 +66,7 @@ export type SocialProof = {
   companies: {
     name: string
     logoUrl: string
+    caseStudyUrl?: string | null
   }[]
 }
 
