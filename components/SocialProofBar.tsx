@@ -40,7 +40,7 @@ function CompanyLogo({ company }: { company: SocialProof['companies'][0] }) {
     <img
       src={company.logoUrl}
       alt={company.name}
-      className="h-8 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity inline-block"
+      className="h-8 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity"
     />
   ) : (
     <span className="text-[14px] font-semibold text-[#6b7280]">{company.name}</span>
@@ -48,10 +48,10 @@ function CompanyLogo({ company }: { company: SocialProof['companies'][0] }) {
 
   if (company.caseStudyUrl) {
     return (
-      <Link href={company.caseStudyUrl} className="flex items-center gap-2 shrink-0 group">
+      <Link href={company.caseStudyUrl} className="flex flex-col items-center gap-1.5 shrink-0 group">
         {img}
-        <span className="text-[10px] font-semibold text-[#1a6cf5] bg-white px-2 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-          Read case study
+        <span className="text-[10px] font-semibold text-[#1a6cf5] bg-white px-2 py-0.5 rounded-full whitespace-nowrap">
+          Read case study ↗
         </span>
       </Link>
     )
