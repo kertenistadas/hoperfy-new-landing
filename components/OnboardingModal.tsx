@@ -6,6 +6,7 @@ type Props = {
   isOpen: boolean
   onClose: () => void
   source?: string
+  initialEmail?: string
 }
 
 type ProductInterest = 'tickets' | 'hotels' | 'both'
@@ -35,9 +36,9 @@ function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
-export default function OnboardingModal({ isOpen, onClose, source }: Props) {
+export default function OnboardingModal({ isOpen, onClose, source, initialEmail }: Props) {
   const [step, setStep] = useState(1)
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState(initialEmail ?? '')
   const [emailError, setEmailError] = useState('')
   const [productInterest, setProductInterest] = useState<ProductInterest | null>(null)
   const [eventName, setEventName] = useState('')
@@ -52,7 +53,7 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
   useEffect(() => {
     if (isOpen) {
       setStep(1)
-      setEmail('')
+      setEmail(initialEmail ?? '')
       setEmailError('')
       setProductInterest(null)
       setEventName('')
@@ -63,7 +64,7 @@ export default function OnboardingModal({ isOpen, onClose, source }: Props) {
       setSubmitting(false)
       setSubmitError('')
     }
-  }, [isOpen])
+  }, [isOpen, initialEmail])
 
   // Lock body scroll + close on Escape while open
   useEffect(() => {
