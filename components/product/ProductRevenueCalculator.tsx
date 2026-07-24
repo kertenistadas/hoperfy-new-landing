@@ -91,15 +91,11 @@ export default function ProductRevenueCalculator() {
 
         <div className="border-t mb-10" style={{ borderColor: 'rgba(255,255,255,0.1)' }} />
 
-        <p className="text-[13px] mb-4" style={{ color: 'rgba(255,255,255,0.5)' }}>
-          {outOfTownCount.toLocaleString()} out-of-town attendees × {days} {days === 1 ? 'night' : 'nights'} = {nights.toLocaleString()} hotel nights
-        </p>
-
         <p className="text-[4rem] md:text-[5rem] font-black text-white leading-none tracking-tight">
           €{total.toLocaleString()}
         </p>
         <p className="text-[14px] font-light mt-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
-          in hotel revenue your event generates per edition
+          in profit your event generates per edition
         </p>
         <p className="text-[14px] font-medium mt-2" style={{ color: '#4d8ef7' }}>
           Hoperfy helps you capture it — for free.

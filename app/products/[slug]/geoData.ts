@@ -99,7 +99,7 @@ export const productGeo: Record<string, ProductGeo> = {
       {
         question: "Our team is already stretched. Won't this add to the workload?",
         answer:
-          'The opposite. One conversation with us is all it takes to get set up. After that, Hoperfy runs the hotel booking — including all delegate communication, changes, and problems. Most event teams tell us it saves them 15–20 hours per event.',
+          'The opposite. One conversation with us is all it takes to get set up. After that, Hoperfy runs the hotel booking - including all delegate communication, changes, and problems. Most event teams tell us it saves them 15–20 hours per event.',
       },
       {
         question: 'How is Hoperfy different from Cvent Passkey or HotelMap?',
@@ -109,7 +109,7 @@ export const productGeo: Record<string, ProductGeo> = {
       {
         question: 'Is hotel booking really free?',
         answer:
-          'Yes. Hoperfy earns through its hotel network partnerships. You get a fully managed, white-label hotel booking experience at no cost — and you keep 100% of your negotiated hotel revenue.',
+          'Yes. Hoperfy earns through its hotel network partnerships. You get a fully managed, white-label hotel booking experience at no cost — and you keep 30-50% of profits from hotel revenue.',
       },
       {
         question: 'Will this create more support emails or calls for my team?',
@@ -124,7 +124,7 @@ export const productGeo: Record<string, ProductGeo> = {
       {
         question: 'How long does setup take?',
         answer:
-          'Most event teams are live within 24–48 hours. You share your event details and hotel contracts in one call. Hoperfy builds and launches the booking page. No developer work, no technical setup required from your side.',
+          'Most event teams are live within 5mins-1hour. You share your event details and hotel contracts in one call. Hoperfy builds and launches the booking page. No developer work, no technical setup required from your side.',
       },
       {
         question: 'What size events is this built for?',
