@@ -39,7 +39,7 @@ const pricingFaqs = [
   {
     question: 'How is hotel booking free?',
     answer:
-      'Hoperfy earns through its hotel network partnerships. You get a fully managed, white-label hotel booking experience at no cost — and you keep 100% of your negotiated hotel revenue.',
+      'Hoperfy earns through its hotel network partnerships. You get a fully managed, white-label hotel booking experience at no cost — and you keep hotel revenue.',
   },
   {
     question: 'Are there any hidden fees on ticketing?',
@@ -49,12 +49,12 @@ const pricingFaqs = [
   {
     question: 'What is included in managed setup?',
     answer:
-      'Our team builds your hotel booking page or ticketing setup for you. We handle the configuration, branding, and hotel connections. Most setups go live within 24–48 hours.',
+      'Our team builds your hotel booking page or ticketing setup for you. We handle the configuration, branding, and hotel connections. Most setups go live within 5mins - 1hour.',
   },
   {
     question: 'Is there a minimum event size?',
     answer:
-      'Hoperfy works best for events with 200 or more attendees. If your event is smaller, get in touch and we will let you know if we are a good fit.',
+      'Hoperfy works with small / medium / large events, our biggest partner event is 70000 attendees, smallest 20.',
   },
   {
     question: 'Can I use both products together?',
