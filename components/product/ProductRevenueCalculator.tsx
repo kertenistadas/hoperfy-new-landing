@@ -107,6 +107,36 @@ export default function ProductRevenueCalculator() {
 
         <div className="border-t mt-10 mb-10" style={{ borderColor: 'rgba(255,255,255,0.1)' }} />
 
+        <div className="text-left bg-white/5 border rounded-xl p-8" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
+          <p className="eyebrow mb-3" style={{ color: '#4d8ef7' }}>Hotels for Events by Hoperfy</p>
+          <h3 className="text-[1.25rem] font-black text-white tracking-tight mb-2">
+            White-label hotel booking. Fully managed. Free.
+          </h3>
+          <p className="text-[14px] font-light mb-8" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            Your branded hotel booking page, live in 24–48 hours. Hoperfy handles setup, delegate support, cancellations, and payments. Your team does nothing.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {[
+              'White-label booking page — your brand',
+              'Negotiated rate management',
+              'Real-time room block tracking',
+              'Automated rooming list exports',
+              'All delegate support by Hoperfy',
+              'Cancellations and refunds handled for you',
+              'Live in 24–48 hours',
+              'Zero cost to your team',
+            ].map((feature, i) => (
+              <div key={i} className="flex items-start gap-2.5">
+                <span className="text-[#1a6cf5] font-bold text-[14px] shrink-0 mt-0.5">✓</span>
+                <span className="text-[13px]" style={{ color: 'rgba(255,255,255,0.7)' }}>{feature}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="border-t mt-10 mb-10" style={{ borderColor: 'rgba(255,255,255,0.1)' }} />
+
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
             onClick={() => setModalOpen(true)}
