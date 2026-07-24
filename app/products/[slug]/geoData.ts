@@ -29,7 +29,7 @@ export type ProductGeo = {
 export const productGeo: Record<string, ProductGeo> = {
   'hotels-for-events': {
     metadata: {
-      title: 'White-Label Hotel Booking Software for Events | Hoperfy',
+      title: { absolute: 'White-Label Hotel Booking Software for Events | Hoperfy' },
       description:
         'Hoperfy gives event teams a white-label hotel booking engine with room block management, negotiated rate uploads, and zero commission fees. Replace Cvent Passkey and hotel spreadsheets.',
       keywords: [
@@ -149,7 +149,7 @@ export const productGeo: Record<string, ProductGeo> = {
   },
   'ticketing-for-events': {
     metadata: {
-      title: 'Multi-Platform Event Ticketing Software | Hoperfy',
+      title: { absolute: 'Multi-Platform Event Ticketing Software | Hoperfy' },
       description:
         'Hoperfy gives event teams multi-channel ticket sales, dynamic pricing, instant payouts, and unified attendee data in one dashboard. The Eventbrite alternative built for professional event organizers.',
       keywords: [
