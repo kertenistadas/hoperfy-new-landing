@@ -49,11 +49,37 @@ type Props = {
 }
 
 async function getProduct(slug: string): Promise<ProductDetail | null> {
-  const product = await client
+  return client
     .fetch<ProductDetail | null>(productBySlugQuery, { slug })
     .catch(() => null)
+}
 
-  return product ?? fallbackProductDetails[slug] ?? null
+// Field-level merge: any missing/empty field on the Sanity document falls back
+// to the hardcoded fallback, so partially-filled documents never leave a
+// section blank.
+function mergeWithFallback(
+  sanityData: ProductDetail | null,
+  fallback: ProductDetail,
+): ProductDetail {
+  if (!sanityData) return fallback
+  return {
+    ...sanityData,
+    heroHeadline: sanityData.heroHeadline?.trim() || fallback.heroHeadline || '',
+    heroSubtitle: sanityData.heroSubtitle?.trim() || fallback.heroSubtitle || '',
+    heroCta: sanityData.heroCta?.trim() || fallback.heroCta || 'Get early access',
+    tagline: sanityData.tagline?.trim() || fallback.tagline || '',
+    description: sanityData.description?.trim() || fallback.description || '',
+    problemHeadline: sanityData.problemHeadline?.trim() || fallback.problemHeadline || '',
+    problems: sanityData.problems?.length ? sanityData.problems : fallback.problems ?? [],
+    featuresHeadline: sanityData.featuresHeadline?.trim() || fallback.featuresHeadline || '',
+    featuresList: sanityData.featuresList?.length ? sanityData.featuresList : fallback.featuresList ?? [],
+    features: sanityData.features?.length ? sanityData.features : fallback.features ?? [],
+    fullFeatures: sanityData.fullFeatures?.length ? sanityData.fullFeatures : fallback.fullFeatures ?? [],
+    howItWorksHeadline: sanityData.howItWorksHeadline?.trim() || fallback.howItWorksHeadline || '',
+    steps: sanityData.steps?.length ? sanityData.steps : fallback.steps ?? [],
+    stats: sanityData.stats?.length ? sanityData.stats : fallback.stats ?? [],
+    stat: sanityData.stat?.value ? sanityData.stat : fallback.stat,
+  } as ProductDetail
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -88,9 +114,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params
-  const product = await getProduct(slug)
+  const sanityProduct = await getProduct(slug)
 
-  if (!product) notFound()
+  const fallback = fallbackProductDetails[slug]
+  const data = fallback ? mergeWithFallback(sanityProduct, fallback) : sanityProduct ?? null
+
+  if (!data) notFound()
 
   const testimonials = await client
     .fetch<Testimonial[]>(testimonialsQuery)
@@ -100,10 +129,7 @@ export default async function ProductPage({ params }: Props) {
     .fetch<Pricing | null>(pricingByProductQuery, { slug })
     .catch(() => null)
 
-  const fullFeatures =
-    product.fullFeatures && product.fullFeatures.length > 0
-      ? product.fullFeatures
-      : fallbackProductDetails[slug]?.fullFeatures ?? []
+  const fullFeatures = data.fullFeatures ?? []
 
   const geo = productGeo[slug]
 
@@ -112,10 +138,10 @@ export default async function ProductPage({ params }: Props) {
     : {
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
-        name: product.title,
+        name: data.title,
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
-        description: product.heroSubtitle || product.description,
+        description: data.heroSubtitle || data.description,
         url: `${BASE_URL}/products/${slug}`,
         offers: {
           '@type': 'Offer',
@@ -134,14 +160,14 @@ export default async function ProductPage({ params }: Props) {
       />
       <NavWrapper>
         <main>
-          <ProductHero product={product} />
-          {slug === 'hotels-for-events' && <ProductRevenueCalculator />}
-          <ProductProblems product={product} />
-          <ProductFeatures product={product} />
-          <ProductHowItWorks product={product} />
-          <ProductFullFeatures features={fullFeatures} />
-          <ProductStats product={product} />
-          <ProductPricing pricing={pricing} productSlug={slug} />
+          <ProductHero product={data} />
+          {data.slug === 'hotels-for-events' && <ProductRevenueCalculator />}
+          {data.problems?.length ? <ProductProblems product={data} /> : null}
+          {data.featuresList?.length ? <ProductFeatures product={data} /> : null}
+          {data.steps?.length ? <ProductHowItWorks product={data} /> : null}
+          {fullFeatures.length > 0 && <ProductFullFeatures features={fullFeatures} />}
+          {data.stats?.length ? <ProductStats product={data} /> : null}
+          <ProductPricing pricing={pricing} productSlug={data.slug} />
           {geo && (
             <ProductCompare
               competitors={geo.compare.competitors}
@@ -151,8 +177,8 @@ export default async function ProductPage({ params }: Props) {
           {testimonials && testimonials.length > 0 && (
             <TestimonialsSection testimonials={testimonials} />
           )}
-          <ProductCTA product={product} />
-          {geo && <ProductFAQ faqs={geo.faqs} />}
+          <ProductCTA product={data} />
+          {geo?.faqs?.length ? <ProductFAQ faqs={geo.faqs} title="Common questions" /> : null}
         </main>
       </NavWrapper>
     </>
