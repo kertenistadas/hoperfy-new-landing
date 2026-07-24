@@ -23,21 +23,6 @@ const resources = [
     description: 'Industry insights and guides for event teams',
     href: '/blog',
   },
-  {
-    title: 'Event Planning Tips',
-    description: 'Practical advice for running better events',
-    href: '/blog/category/event-management',
-  },
-  {
-    title: 'Hotel Booking Guide',
-    description: 'How to negotiate rates and manage room blocks',
-    href: '/blog/category/hotel-booking',
-  },
-  {
-    title: 'Ticketing Guide',
-    description: 'Sell more tickets with less effort',
-    href: '/blog/category/ticketing',
-  },
 ]
 
 type NavLink = { title: string; slug: string }
