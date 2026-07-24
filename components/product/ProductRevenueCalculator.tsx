@@ -11,7 +11,7 @@ export default function ProductRevenueCalculator() {
 
   const outOfTownCount = Math.round(attendees * (outOfTown / 100))
   const nights = outOfTownCount * days
-  const total = nights * 60
+  const total = nights * 30
 
   return (
     <section className="py-24 px-6 bg-[#0a0a0a]">
