@@ -13,6 +13,12 @@ export default function PricingCard({ pricing, source }: Props) {
   const [modalOpen, setModalOpen] = useState(false)
   const highlighted = pricing.highlighted
 
+  // Prefer the product's full feature list; fall back to the card's own includes.
+  const features =
+    pricing.product?.fullFeatures && pricing.product.fullFeatures.length > 0
+      ? pricing.product.fullFeatures
+      : pricing.includes
+
   return (
     <div
       className={`border rounded-2xl p-8 ${
@@ -43,7 +49,7 @@ export default function PricingCard({ pricing, source }: Props) {
       <div className="border-t border-[#e5e7eb] mb-6" />
 
       <ul className="space-y-3 mb-8">
-        {pricing.includes?.map((item, i) => (
+        {features?.map((item, i) => (
           <li key={i} className="flex items-start gap-3 text-[14px] text-[#374151]">
             <span className="text-[#1a6cf5] mt-0.5" aria-hidden="true">
               ✓

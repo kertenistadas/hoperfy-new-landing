@@ -12,6 +12,7 @@ export type Product = {
   tagline: string
   description: string
   features: string[]
+  fullFeatures?: string[]
   stat: {
     value: string
     label: string
@@ -25,6 +26,7 @@ export type ProductDetail = {
   tagline: string
   description: string
   features: string[]
+  fullFeatures?: string[]
   stat: {
     value: string
     label: string
@@ -166,5 +168,6 @@ export type Pricing = {
     title: string
     slug: string
     tagline: string
+    fullFeatures?: string[]
   }
 }

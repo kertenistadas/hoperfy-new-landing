@@ -17,6 +17,7 @@ export const productsQuery = groq`
     tagline,
     description,
     features,
+    fullFeatures,
     stat
   }
 `
@@ -29,6 +30,7 @@ export const productBySlugQuery = groq`
     tagline,
     description,
     features,
+    fullFeatures,
     stat,
     heroHeadline,
     heroSubtitle,
@@ -243,7 +245,8 @@ export const pricingQuery = groq`
     "product": product->{
       title,
       "slug": slug.current,
-      tagline
+      tagline,
+      fullFeatures
     }
   }
 `
@@ -257,7 +260,7 @@ export const pricingByProductQuery = groq`
     highlighted,
     includes,
     cta,
-    "product": product->{ title, "slug": slug.current }
+    "product": product->{ title, "slug": slug.current, fullFeatures }
   }
 `
 

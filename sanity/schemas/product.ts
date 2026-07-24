@@ -109,6 +109,13 @@ export default defineType({
       ],
     }),
     defineField({
+      name: 'fullFeatures',
+      title: 'Full Feature List',
+      type: 'array',
+      of: [{ type: 'string' }],
+      description: 'Complete list of features shown on pricing card and product page. Add as many as needed.',
+    }),
+    defineField({
       name: 'howItWorksHeadline',
       title: 'How It Works Headline',
       type: 'string',

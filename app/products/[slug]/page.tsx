@@ -15,6 +15,7 @@ import ProductCTA from '@/components/product/ProductCTA'
 import ProductFAQ from '@/components/product/ProductFAQ'
 import ProductCompare from '@/components/product/ProductCompare'
 import ProductPricing from '@/components/product/ProductPricing'
+import ProductFullFeatures from '@/components/product/ProductFullFeatures'
 import { productGeo, buildProductJsonLd } from './geoData'
 
 export const dynamic = 'force-dynamic'
@@ -98,6 +99,11 @@ export default async function ProductPage({ params }: Props) {
     .fetch<Pricing | null>(pricingByProductQuery, { slug })
     .catch(() => null)
 
+  const fullFeatures =
+    product.fullFeatures && product.fullFeatures.length > 0
+      ? product.fullFeatures
+      : fallbackProductDetails[slug]?.fullFeatures ?? []
+
   const geo = productGeo[slug]
 
   const jsonLd = geo
@@ -131,6 +137,7 @@ export default async function ProductPage({ params }: Props) {
           <ProductProblems product={product} />
           <ProductFeatures product={product} />
           <ProductHowItWorks product={product} />
+          <ProductFullFeatures features={fullFeatures} />
           <ProductStats product={product} />
           <ProductPricing pricing={pricing} productSlug={slug} />
           {geo && (
