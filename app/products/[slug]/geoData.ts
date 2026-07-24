@@ -100,6 +100,16 @@ export const productGeo: Record<string, ProductGeo> = {
         answer:
           "Hoperfy doesn't charge any fees, you get only the profits, no expenses.",
       },
+      {
+        question: 'Will this create more support emails or calls for my team?',
+        answer:
+          "No. Hoperfy's support team handles all delegate-facing questions, changes, and cancellations directly. Your team never fields a hotel-related call.",
+      },
+      {
+        question: 'What happens if a hotel booking goes wrong?',
+        answer:
+          "Hoperfy manages it end-to-end, including disputes, overbooks, and refunds, directly with the hotel and the delegate. Your team isn't looped in unless you want to be.",
+      },
     ],
     compare: {
       competitors: ['Cvent Passkey / EventPipe'],
