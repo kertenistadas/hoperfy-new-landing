@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const url = `${BASE_URL}/blog/category/${slug}`
 
   return {
-    title: `${category.title} | Hoperfy Blog`,
+    title: { absolute: `${category.title} | Hoperfy Blog` },
     description: category.description || `Articles about ${category.title} from the Hoperfy blog.`,
     alternates: { canonical: url },
     openGraph: {

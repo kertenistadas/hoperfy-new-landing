@@ -11,7 +11,7 @@ import CTAButtons from '@/components/CTAButtons'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Pricing — Simple, transparent pricing | Hoperfy',
+  title: { absolute: 'Pricing — Simple, transparent pricing | Hoperfy' },
   description:
     'Hotel booking for events is free. Ticketing is 2.5% per ticket. No monthly fees, no hidden charges, no surprises.',
   alternates: { canonical: 'https://hoperfy.com/pricing' },

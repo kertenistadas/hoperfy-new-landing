@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic'
 const BASE_URL = 'https://hoperfy.com'
 
 export const metadata: Metadata = {
-  title: 'Blog | Hoperfy',
+  title: { absolute: 'Blog | Hoperfy' },
   description: 'Strategy, tools, and industry thinking for professional event organizers.',
   alternates: { canonical: `${BASE_URL}/blog` },
   openGraph: {

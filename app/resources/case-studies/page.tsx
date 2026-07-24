@@ -8,7 +8,7 @@ import NavWrapper from '@/components/NavWrapper'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Case Studies — How event teams use Hoperfy',
+  title: { absolute: 'Case Studies — How event teams use Hoperfy' },
   description:
     'Real results from real event teams. See how professional event organizers use Hoperfy to manage hotel booking and ticket sales.',
   alternates: { canonical: 'https://hoperfy.com/resources/case-studies' },
