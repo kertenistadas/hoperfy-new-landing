@@ -26,7 +26,7 @@ export default function SocialProofBar({ data }: Props) {
       </div>
 
       {/* Mobile: 2-column tile grid */}
-      <div className="md:hidden grid grid-cols-2 gap-px bg-[#f3f4f6] mx-6 rounded-xl overflow-hidden">
+      <div className="md:hidden grid grid-cols-2 gap-px bg-[#e5e7eb] mx-6 rounded-xl overflow-hidden">
         {data.companies.map((company, i) => (
           <MobileTile key={i} company={company} />
         ))}
