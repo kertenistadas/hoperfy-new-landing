@@ -124,7 +124,7 @@ export const productGeo: Record<string, ProductGeo> = {
       {
         question: 'How long does setup take?',
         answer:
-          'Most event teams are live within 5mins-1hour. You share your event details and hotel contracts in one call. Hoperfy builds and launches the booking page. No developer work, no technical setup required from your side.',
+          'Most event teams are live in up to 5 minutes. You share your event details and hotel contracts in one call. Hoperfy builds and launches the booking page. No developer work, no technical setup required from your side.',
       },
       {
         question: 'What size events is this built for?',

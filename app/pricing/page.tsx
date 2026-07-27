@@ -49,7 +49,7 @@ const pricingFaqs = [
   {
     question: 'What is included in managed setup?',
     answer:
-      'Our team builds your hotel booking page or ticketing setup for you. We handle the configuration, branding, and hotel connections. Most setups go live within 5mins - 1hour.',
+      'Our team builds your hotel booking page or ticketing setup for you. We handle the configuration, branding, and hotel connections. Most setups go live in up to 5 minutes.',
   },
   {
     question: 'Is there a minimum event size?',
