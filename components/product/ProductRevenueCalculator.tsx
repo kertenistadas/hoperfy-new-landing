@@ -142,27 +142,7 @@ export default function ProductRevenueCalculator() {
       <div className="max-w-5xl mx-auto">
         {/* Header - centered above both columns */}
         <div className="text-center mb-16">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <p className="eyebrow" style={{ color: '#4d8ef7' }}>Revenue calculator</p>
-            <div className="flex items-center bg-white/10 rounded-full p-0.5 ml-4">
-              <button
-                onClick={() => setCurrency('USD')}
-                className={`text-[11px] font-semibold px-3 py-1 rounded-full transition-all ${
-                  currency === 'USD' ? 'bg-white text-[#0a0a0a]' : 'text-white/50'
-                }`}
-              >
-                USD
-              </button>
-              <button
-                onClick={() => setCurrency('EUR')}
-                className={`text-[11px] font-semibold px-3 py-1 rounded-full transition-all ${
-                  currency === 'EUR' ? 'bg-white text-[#0a0a0a]' : 'text-white/50'
-                }`}
-              >
-                EUR
-              </button>
-            </div>
-          </div>
+          <p className="eyebrow mb-4" style={{ color: '#4d8ef7' }}>Revenue calculator</p>
           <h2 className="text-[2rem] md:text-[2.5rem] font-black tracking-tight text-white mb-4">
             How much are your attendees already spending on hotels?
           </h2>
@@ -180,56 +160,77 @@ export default function ProductRevenueCalculator() {
               <label className="block text-[13px] mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
                 Where is your event taking place?
               </label>
-              <div className="relative">
-                <input
-                  type="text"
-                  value={city}
-                  onChange={(e) => {
-                    setCity(e.target.value)
-                    setRegion('')
-                  }}
-                  onFocus={() => {
-                    if (suggestions.length > 0) setShowSuggestions(true)
-                  }}
-                  placeholder="e.g. Berlin, New York, Dubai..."
-                  className="w-full h-11 px-4 text-[14px] bg-white/10 border rounded-lg outline-none text-white placeholder:text-white/30 focus:border-[#1a6cf5] transition-all"
-                  style={{ borderColor: 'rgba(255,255,255,0.2)' }}
-                />
+              <div className="flex gap-3 items-start">
+                <div className="relative flex-1">
+                  <input
+                    type="text"
+                    value={city}
+                    onChange={(e) => {
+                      setCity(e.target.value)
+                      setRegion('')
+                    }}
+                    onFocus={() => {
+                      if (suggestions.length > 0) setShowSuggestions(true)
+                    }}
+                    placeholder="e.g. Berlin, New York, Dubai..."
+                    className="w-full h-11 px-4 text-[14px] bg-white/10 border rounded-lg outline-none text-white placeholder:text-white/30 focus:border-[#1a6cf5] transition-all"
+                    style={{ borderColor: 'rgba(255,255,255,0.2)' }}
+                  />
 
-                {showSuggestions && suggestions.length > 0 && (
-                  <div className="absolute left-0 right-0 top-full mt-2 bg-[#1a1a1a] border border-white/10 rounded-lg overflow-hidden z-10">
-                    {suggestions.map((s, i) => (
-                      <button
-                        type="button"
-                        key={`${s.name}-${s.country_code}-${i}`}
-                        onClick={() => selectSuggestion(s)}
-                        className="w-full text-left px-4 py-3 hover:bg-white/10 cursor-pointer text-white text-[14px] block"
-                      >
-                        <span className="font-medium">{s.name}</span>
-                        <span className="text-white/50 text-[12px] ml-2">
-                          {s.admin1 ? `${s.admin1}, ` : ''}
-                          {s.country}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                )}
+                  {showSuggestions && suggestions.length > 0 && (
+                    <div className="absolute left-0 right-0 top-full mt-2 bg-[#1a1a1a] border border-white/10 rounded-lg overflow-hidden z-10">
+                      {suggestions.map((s, i) => (
+                        <button
+                          type="button"
+                          key={`${s.name}-${s.country_code}-${i}`}
+                          onClick={() => selectSuggestion(s)}
+                          className="w-full text-left px-4 py-3 hover:bg-white/10 cursor-pointer text-white text-[14px] block"
+                        >
+                          <span className="font-medium">{s.name}</span>
+                          <span className="text-white/50 text-[12px] ml-2">
+                            {s.admin1 ? `${s.admin1}, ` : ''}
+                            {s.country}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
 
-                {region && (
-                  <div className="mt-2 flex items-center gap-2">
-                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#1a6cf5]/20 text-[#4d8ef7]">
-                      {region}
-                    </span>
-                    <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                      avg. {currencySymbol}{regionRates[region]}/night
-                    </span>
-                  </div>
-                )}
-                {city.length > 2 && !region && !showSuggestions && !isLoadingSuggestions && (
-                  <p className="mt-2 text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                    City not recognised — using global average rate
-                  </p>
-                )}
+                  {region && (
+                    <div className="mt-2 flex items-center gap-2">
+                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#1a6cf5]/20 text-[#4d8ef7]">
+                        {region}
+                      </span>
+                      <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                        avg. {currencySymbol}{regionRates[region]}/night
+                      </span>
+                    </div>
+                  )}
+                  {city.length > 2 && !region && !showSuggestions && !isLoadingSuggestions && (
+                    <p className="mt-2 text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                      City not recognised — using global average rate
+                    </p>
+                  )}
+                </div>
+
+                <div className="flex items-center bg-white/10 rounded-lg p-0.5 h-11 shrink-0">
+                  <button
+                    onClick={() => setCurrency('USD')}
+                    className={`text-[12px] font-semibold px-3 h-full rounded-md transition-all ${
+                      currency === 'USD' ? 'bg-white text-[#0a0a0a]' : 'text-white/50 hover:text-white'
+                    }`}
+                  >
+                    USD
+                  </button>
+                  <button
+                    onClick={() => setCurrency('EUR')}
+                    className={`text-[12px] font-semibold px-3 h-full rounded-md transition-all ${
+                      currency === 'EUR' ? 'bg-white text-[#0a0a0a]' : 'text-white/50 hover:text-white'
+                    }`}
+                  >
+                    EUR
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -303,22 +304,6 @@ export default function ProductRevenueCalculator() {
             <p className="text-[13px] mb-3" style={{ color: 'rgba(255,255,255,0.5)' }}>
               {outOfTownCount.toLocaleString()} out-of-town attendees × {days} {days === 1 ? 'night' : 'nights'} × {currencySymbol}{rate}/night = {nights.toLocaleString()} hotel nights
             </p>
-
-            {/* All continent rates, active region highlighted */}
-            <div className="flex flex-wrap gap-2 mb-6">
-              {Object.entries(regionRates).map(([r, rateValue]) => (
-                <span
-                  key={r}
-                  className={`text-[11px] px-2 py-0.5 rounded-full border transition-all ${
-                    region === r
-                      ? 'bg-[#1a6cf5] border-[#1a6cf5] text-white font-semibold'
-                      : 'border-white/10 text-white/30'
-                  }`}
-                >
-                  {r}: {currencySymbol}{rateValue}/night
-                </span>
-              ))}
-            </div>
 
             <p className="text-[3.5rem] md:text-[4rem] font-black text-white leading-none tracking-tight">
               {currencySymbol}{total.toLocaleString()}
