@@ -3,22 +3,100 @@
 import { useState } from 'react'
 import OnboardingModal from '@/components/OnboardingModal'
 
+const regionRates: Record<string, number> = {
+  Europe: 30,
+  'North America': 60,
+  Asia: 45,
+  'Middle East': 60,
+  'South America': 45,
+  Australia: 60,
+  Africa: 32,
+}
+
+const cityRegionMap: Record<string, string> = {
+  // Europe
+  berlin: 'Europe', london: 'Europe', paris: 'Europe', amsterdam: 'Europe',
+  madrid: 'Europe', rome: 'Europe', barcelona: 'Europe', vienna: 'Europe',
+  lisbon: 'Europe', dublin: 'Europe', brussels: 'Europe', zurich: 'Europe',
+  stockholm: 'Europe', oslo: 'Europe', copenhagen: 'Europe', helsinki: 'Europe',
+  warsaw: 'Europe', prague: 'Europe', budapest: 'Europe', vilnius: 'Europe',
+  riga: 'Europe', tallinn: 'Europe', kaunas: 'Europe', milan: 'Europe',
+  // North America
+  'new york': 'North America', 'los angeles': 'North America', chicago: 'North America',
+  'san francisco': 'North America', miami: 'North America', toronto: 'North America',
+  vancouver: 'North America', montreal: 'North America', boston: 'North America',
+  seattle: 'North America', 'las vegas': 'North America', austin: 'North America',
+  // Asia
+  tokyo: 'Asia', singapore: 'Asia', 'hong kong': 'Asia', seoul: 'Asia',
+  bangkok: 'Asia', shanghai: 'Asia', beijing: 'Asia', mumbai: 'Asia',
+  delhi: 'Asia', bangalore: 'Asia', 'kuala lumpur': 'Asia', jakarta: 'Asia',
+  // Middle East
+  dubai: 'Middle East', 'abu dhabi': 'Middle East', riyadh: 'Middle East',
+  doha: 'Middle East', kuwait: 'Middle East', 'tel aviv': 'Middle East',
+  istanbul: 'Middle East', cairo: 'Middle East',
+  // South America
+  'sao paulo': 'South America', 'buenos aires': 'South America', bogota: 'South America',
+  lima: 'South America', santiago: 'South America', 'rio de janeiro': 'South America',
+  // Australia
+  sydney: 'Australia', melbourne: 'Australia', brisbane: 'Australia',
+  perth: 'Australia', auckland: 'Australia',
+  // Africa
+  'cape town': 'Africa', johannesburg: 'Africa', nairobi: 'Africa',
+  lagos: 'Africa', casablanca: 'Africa', accra: 'Africa',
+}
+
+function detectRegion(cityInput: string): string {
+  const normalized = cityInput.toLowerCase().trim()
+  if (!normalized) return ''
+  for (const [key, value] of Object.entries(cityRegionMap)) {
+    if (normalized.includes(key) || key.includes(normalized)) {
+      return value
+    }
+  }
+  return ''
+}
+
 export default function ProductRevenueCalculator() {
   const [attendees, setAttendees] = useState(500)
   const [outOfTown, setOutOfTown] = useState(30)
   const [days, setDays] = useState(2)
+  const [city, setCity] = useState('')
+  const [region, setRegion] = useState('')
+  const [currency, setCurrency] = useState<'USD' | 'EUR'>('USD')
   const [modalOpen, setModalOpen] = useState(false)
 
   const outOfTownCount = Math.round(attendees * (outOfTown / 100))
   const nights = outOfTownCount * days
-  const total = nights * 30
+  const rate = region ? regionRates[region] ?? 30 : 30
+  const total = nights * rate
+  const currencySymbol = currency === 'USD' ? '$' : '€'
 
   return (
     <section className="py-24 px-6 bg-[#0a0a0a]">
       <div className="max-w-5xl mx-auto">
         {/* Header - centered above both columns */}
         <div className="text-center mb-16">
-          <p className="eyebrow mb-4" style={{ color: '#4d8ef7' }}>Revenue calculator</p>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <p className="eyebrow" style={{ color: '#4d8ef7' }}>Revenue calculator</p>
+            <div className="flex items-center bg-white/10 rounded-full p-0.5 ml-4">
+              <button
+                onClick={() => setCurrency('USD')}
+                className={`text-[11px] font-semibold px-3 py-1 rounded-full transition-all ${
+                  currency === 'USD' ? 'bg-white text-[#0a0a0a]' : 'text-white/50'
+                }`}
+              >
+                USD
+              </button>
+              <button
+                onClick={() => setCurrency('EUR')}
+                className={`text-[11px] font-semibold px-3 py-1 rounded-full transition-all ${
+                  currency === 'EUR' ? 'bg-white text-[#0a0a0a]' : 'text-white/50'
+                }`}
+              >
+                EUR
+              </button>
+            </div>
+          </div>
           <h2 className="text-[2rem] md:text-[2.5rem] font-black tracking-tight text-white mb-4">
             How much are your attendees already spending on hotels?
           </h2>
@@ -29,8 +107,43 @@ export default function ProductRevenueCalculator() {
 
         {/* Two column layout on desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          {/* Left column - sliders and result */}
+          {/* Left column - city, sliders and result */}
           <div>
+            {/* City / region detection */}
+            <div className="mb-10">
+              <label className="block text-[13px] mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                Where is your event taking place?
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={city}
+                  onChange={(e) => {
+                    setCity(e.target.value)
+                    setRegion(detectRegion(e.target.value))
+                  }}
+                  placeholder="e.g. Berlin, New York, Dubai..."
+                  className="w-full h-11 px-4 text-[14px] bg-white/10 border rounded-lg outline-none text-white placeholder:text-white/30 focus:border-[#1a6cf5] transition-all"
+                  style={{ borderColor: 'rgba(255,255,255,0.2)' }}
+                />
+                {region && (
+                  <div className="mt-2 flex items-center gap-2">
+                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#1a6cf5]/20 text-[#4d8ef7]">
+                      {region}
+                    </span>
+                    <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                      avg. {currencySymbol}{regionRates[region]}/night
+                    </span>
+                  </div>
+                )}
+                {city.length > 2 && !region && (
+                  <p className="mt-2 text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                    City not recognised — using global average rate
+                  </p>
+                )}
+              </div>
+            </div>
+
             <div className="space-y-8 mb-10">
               {/* Slider 1 */}
               <div>
@@ -98,8 +211,11 @@ export default function ProductRevenueCalculator() {
 
             <div className="border-t mb-8" style={{ borderColor: 'rgba(255,255,255,0.1)' }} />
 
+            <p className="text-[13px] mb-3" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              {outOfTownCount.toLocaleString()} out-of-town attendees × {days} {days === 1 ? 'night' : 'nights'} × {currencySymbol}{rate}/night = {nights.toLocaleString()} hotel nights
+            </p>
             <p className="text-[3.5rem] md:text-[4rem] font-black text-white leading-none tracking-tight">
-              €{total.toLocaleString()}
+              {currencySymbol}{total.toLocaleString()}
             </p>
             <p className="text-[14px] font-light mt-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
               in profit your event generates per edition
