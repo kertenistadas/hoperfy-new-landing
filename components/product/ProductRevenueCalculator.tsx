@@ -65,6 +65,7 @@ type CitySuggestion = {
 
 export default function ProductRevenueCalculator() {
   const [attendees, setAttendees] = useState(500)
+  const [attendeesInput, setAttendeesInput] = useState('500')
   const [outOfTown, setOutOfTown] = useState(30)
   const [days, setDays] = useState(2)
   const [city, setCity] = useState('')
@@ -244,10 +245,21 @@ export default function ProductRevenueCalculator() {
                   type="number"
                   min={10}
                   max={500000}
-                  value={attendees}
+                  value={attendeesInput}
                   onChange={(e) => {
-                    const val = Math.min(500000, Math.max(10, Number(e.target.value) || 10))
-                    setAttendees(val)
+                    setAttendeesInput(e.target.value)
+                    const val = Number(e.target.value)
+                    if (val >= 10) setAttendees(val)
+                  }}
+                  onBlur={(e) => {
+                    const val = Number(e.target.value)
+                    if (!e.target.value || val < 10) {
+                      setAttendeesInput('100')
+                      setAttendees(100)
+                    } else if (val > 500000) {
+                      setAttendeesInput('500000')
+                      setAttendees(500000)
+                    }
                   }}
                   className="w-full h-11 px-4 text-[14px] font-semibold text-white bg-white/10 border rounded-lg outline-none focus:border-[#1a6cf5] transition-all"
                   style={{ borderColor: 'rgba(255,255,255,0.2)' }}
