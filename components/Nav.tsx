@@ -103,12 +103,12 @@ export default function Nav({ navPages = [], navCategories = [] }: Props) {
     <>
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-[#e5e7eb]">
         <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-          <Link
-            href="/"
-            className="text-[15px] font-semibold tracking-tight text-[#0a0a0a]"
-            onClick={() => setMobileOpen(false)}
-          >
-            Hoperfy
+          <Link href="/" onClick={() => setMobileOpen(false)}>
+            <img
+              src="/logo.png"
+              alt="Hoperfy"
+              className="h-7 w-auto"
+            />
           </Link>
 
           {/* Desktop nav */}
