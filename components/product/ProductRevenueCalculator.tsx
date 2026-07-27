@@ -235,25 +235,24 @@ export default function ProductRevenueCalculator() {
             </div>
 
             <div className="space-y-8 mb-10">
-              {/* Slider 1 */}
-              <div>
+              {/* Total attendees - number input */}
+              <div className="mb-8">
                 <div className="flex justify-between mb-2">
-                  <span className="text-[13px]" style={{ color: 'rgba(255,255,255,0.5)' }}>Total attendees</span>
-                  <span className="text-[13px] font-semibold text-white">{attendees.toLocaleString()}</span>
+                  <label className="text-[13px]" style={{ color: 'rgba(255,255,255,0.5)' }}>Total attendees</label>
                 </div>
                 <input
-                  type="range"
+                  type="number"
                   min={10}
-                  max={50000}
-                  step={50}
+                  max={500000}
                   value={attendees}
-                  onChange={(e) => setAttendees(Number(e.target.value))}
-                  className="w-full cursor-pointer accent-[#1a6cf5]"
+                  onChange={(e) => {
+                    const val = Math.min(500000, Math.max(10, Number(e.target.value) || 10))
+                    setAttendees(val)
+                  }}
+                  className="w-full h-11 px-4 text-[14px] font-semibold text-white bg-white/10 border rounded-lg outline-none focus:border-[#1a6cf5] transition-all"
+                  style={{ borderColor: 'rgba(255,255,255,0.2)' }}
+                  placeholder="e.g. 500"
                 />
-                <div className="flex justify-between mt-1">
-                  <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.3)' }}>10</span>
-                  <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.3)' }}>50,000</span>
-                </div>
               </div>
 
               {/* Slider 2 */}
@@ -301,15 +300,11 @@ export default function ProductRevenueCalculator() {
 
             <div className="border-t mb-8" style={{ borderColor: 'rgba(255,255,255,0.1)' }} />
 
-            <p className="text-[13px] mb-3" style={{ color: 'rgba(255,255,255,0.5)' }}>
-              {outOfTownCount.toLocaleString()} out-of-town attendees × {days} {days === 1 ? 'night' : 'nights'} × {currencySymbol}{rate}/night = {nights.toLocaleString()} hotel nights
-            </p>
-
             <p className="text-[3.5rem] md:text-[4rem] font-black text-white leading-none tracking-tight">
               {currencySymbol}{total.toLocaleString()}
             </p>
             <p className="text-[14px] font-light mt-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
-              in profit your event generates per edition
+              in profit your event generates per event
             </p>
             <p className="text-[14px] font-medium mt-1" style={{ color: '#4d8ef7' }}>
               Hoperfy helps you capture it — for free.
