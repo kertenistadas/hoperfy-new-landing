@@ -138,7 +138,7 @@ export const productGeo: Record<string, ProductGeo> = {
         { label: 'Fully managed service — we do everything', hoperfy: true, competitors: false },
         { label: 'Zero cost to event organizer', hoperfy: true, competitors: false },
         { label: 'All delegate support handled for you', hoperfy: true, competitors: false },
-        { label: 'Live in 24–48 hours', hoperfy: true, competitors: false },
+        { label: 'Live in 5 minutes', hoperfy: true, competitors: false },
         { label: 'Built-in event ticketing', hoperfy: true, competitors: false },
         { label: '2M+ hotel properties worldwide', hoperfy: true, competitors: false },
         { label: 'White-label branding', hoperfy: true, competitors: true },

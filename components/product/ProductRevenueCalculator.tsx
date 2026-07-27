@@ -109,7 +109,7 @@ export default function ProductRevenueCalculator() {
             White-label hotel booking. Fully managed. Free.
           </h3>
           <p className="text-[14px] font-light mb-8" style={{ color: 'rgba(255,255,255,0.5)' }}>
-            Your branded hotel booking page, live in 24–48 hours. Hoperfy handles setup, delegate support, cancellations, and payments. Your team does nothing.
+            Your branded hotel booking page, live in 5 minutes. Hoperfy handles setup, delegate support, cancellations, and payments. Your team does nothing.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -120,7 +120,7 @@ export default function ProductRevenueCalculator() {
               'Automated rooming list exports',
               'All delegate support by Hoperfy',
               'Cancellations and refunds handled for you',
-              'Live in 24–48 hours',
+              'Live in 5 minutes',
               'Zero cost to your team',
             ].map((feature, i) => (
               <div key={i} className="flex items-start gap-2.5">

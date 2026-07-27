@@ -27,7 +27,7 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
       'Cancellations and changes handled for you',
       'Payments and refunds managed for you',
       'Managed setup by our team',
-      'Live within 24-48 hours',
+      'Live within 5 minutes',
     ],
     stat: { value: '40%', label: 'more hotel revenue per event' },
     heroHeadline: 'Your attendees are already booking hotels. Zero extra work for your team.',
@@ -105,7 +105,7 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
           'We collect payments, process refunds, and handle disputes on your behalf. You get clean revenue reporting with none of the back-and-forth.',
       },
       {
-        title: 'Live in 24–48 hours',
+        title: 'Live in 5 minutes',
         description:
           'Managed setup by our team. You share your event details and hotel contracts in one call. We build and launch the booking page. No dev work, no technical setup.',
       },
@@ -120,7 +120,7 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
       {
         title: 'We build your hotel booking page',
         description:
-          'Hoperfy creates a branded hotel booking page for your event — your logo, your hotels, your rates. Live within 24–48 hours.',
+          'Hoperfy creates a branded hotel booking page for your event — your logo, your hotels, your rates. Live within 5 minutes.',
       },
       {
         title: 'You send one link. We handle the rest.',
@@ -158,7 +158,7 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
       'QR check-in and access management',
       'Real-time sales dashboard',
       'Managed setup by our team',
-      'Live within 24-48 hours',
+      'Live within 5 minutes',
     ],
     stat: { value: '3x', label: 'faster setup vs. legacy platforms' },
     heroHeadline: 'Sell everywhere. Manage from one place.',
