@@ -46,10 +46,16 @@ function CompanyLogo({ company }: { company: SocialProof['companies'][0] }) {
     <span className="text-[14px] font-semibold text-[#6b7280]">{company.name}</span>
   )
 
+  const pill = (
+    <div className="flex items-center justify-center bg-[#f3f4f6] rounded-lg px-4 py-2 shrink-0">
+      {img}
+    </div>
+  )
+
   if (company.caseStudyUrl) {
     return (
       <Link href={company.caseStudyUrl} className="flex flex-col items-center gap-1.5 shrink-0 group">
-        {img}
+        {pill}
         <span className="text-[10px] font-semibold text-[#1a6cf5] bg-white px-2 py-0.5 rounded-full whitespace-nowrap">
           Read case study ↗
         </span>
@@ -57,12 +63,12 @@ function CompanyLogo({ company }: { company: SocialProof['companies'][0] }) {
     )
   }
 
-  return <div className="shrink-0">{img}</div>
+  return pill
 }
 
 function MobileTile({ company }: { company: SocialProof['companies'][0] }) {
   const content = (
-    <div className="bg-white aspect-square flex flex-col items-center justify-center p-6 relative">
+    <div className="bg-[#f3f4f6] aspect-square flex flex-col items-center justify-center p-6 relative">
       {company.caseStudyUrl && (
         <span className="absolute top-3 right-3 text-[9px] font-semibold text-[#1a6cf5] bg-white px-2 py-0.5 rounded-full">
           Case study ↗
