@@ -107,7 +107,8 @@ export default function Nav({ navPages = [], navCategories = [] }: Props) {
             <img
               src="/logo.png"
               alt="Hoperfy"
-              className="h-7 w-auto"
+              className="h-7 w-auto object-contain"
+              style={{ maxWidth: '120px' }}
             />
           </Link>
 
