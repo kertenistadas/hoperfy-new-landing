@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import OnboardingModal from '@/components/OnboardingModal'
 
 const regionRates: Record<string, number> = {
@@ -13,47 +13,54 @@ const regionRates: Record<string, number> = {
   Africa: 32,
 }
 
-const cityRegionMap: Record<string, string> = {
+const countryToRegion: Record<string, string> = {
   // Europe
-  berlin: 'Europe', london: 'Europe', paris: 'Europe', amsterdam: 'Europe',
-  madrid: 'Europe', rome: 'Europe', barcelona: 'Europe', vienna: 'Europe',
-  lisbon: 'Europe', dublin: 'Europe', brussels: 'Europe', zurich: 'Europe',
-  stockholm: 'Europe', oslo: 'Europe', copenhagen: 'Europe', helsinki: 'Europe',
-  warsaw: 'Europe', prague: 'Europe', budapest: 'Europe', vilnius: 'Europe',
-  riga: 'Europe', tallinn: 'Europe', kaunas: 'Europe', milan: 'Europe',
+  AT: 'Europe', BE: 'Europe', BG: 'Europe', HR: 'Europe', CY: 'Europe',
+  CZ: 'Europe', DK: 'Europe', EE: 'Europe', FI: 'Europe', FR: 'Europe',
+  DE: 'Europe', GR: 'Europe', HU: 'Europe', IE: 'Europe', IT: 'Europe',
+  LV: 'Europe', LT: 'Europe', LU: 'Europe', MT: 'Europe', NL: 'Europe',
+  PL: 'Europe', PT: 'Europe', RO: 'Europe', SK: 'Europe', SI: 'Europe',
+  ES: 'Europe', SE: 'Europe', GB: 'Europe', NO: 'Europe', IS: 'Europe',
+  CH: 'Europe', AL: 'Europe', BA: 'Europe', XK: 'Europe', MK: 'Europe',
+  ME: 'Europe', RS: 'Europe', MD: 'Europe', UA: 'Europe', BY: 'Europe',
+  RU: 'Europe', AM: 'Europe', AZ: 'Europe', GE: 'Europe',
   // North America
-  'new york': 'North America', 'los angeles': 'North America', chicago: 'North America',
-  'san francisco': 'North America', miami: 'North America', toronto: 'North America',
-  vancouver: 'North America', montreal: 'North America', boston: 'North America',
-  seattle: 'North America', 'las vegas': 'North America', austin: 'North America',
-  // Asia
-  tokyo: 'Asia', singapore: 'Asia', 'hong kong': 'Asia', seoul: 'Asia',
-  bangkok: 'Asia', shanghai: 'Asia', beijing: 'Asia', mumbai: 'Asia',
-  delhi: 'Asia', bangalore: 'Asia', 'kuala lumpur': 'Asia', jakarta: 'Asia',
-  // Middle East
-  dubai: 'Middle East', 'abu dhabi': 'Middle East', riyadh: 'Middle East',
-  doha: 'Middle East', kuwait: 'Middle East', 'tel aviv': 'Middle East',
-  istanbul: 'Middle East', cairo: 'Middle East',
+  US: 'North America', CA: 'North America', MX: 'North America',
+  GT: 'North America', BZ: 'North America', SV: 'North America',
+  HN: 'North America', NI: 'North America', CR: 'North America',
+  PA: 'North America', CU: 'North America', JM: 'North America',
+  HT: 'North America', DO: 'North America', PR: 'North America',
   // South America
-  'sao paulo': 'South America', 'buenos aires': 'South America', bogota: 'South America',
-  lima: 'South America', santiago: 'South America', 'rio de janeiro': 'South America',
-  // Australia
-  sydney: 'Australia', melbourne: 'Australia', brisbane: 'Australia',
-  perth: 'Australia', auckland: 'Australia',
+  BR: 'South America', AR: 'South America', CO: 'South America',
+  PE: 'South America', VE: 'South America', CL: 'South America',
+  EC: 'South America', BO: 'South America', PY: 'South America',
+  UY: 'South America', GY: 'South America', SR: 'South America',
+  // Asia
+  CN: 'Asia', JP: 'Asia', IN: 'Asia', KR: 'Asia', ID: 'Asia',
+  TH: 'Asia', VN: 'Asia', PH: 'Asia', MY: 'Asia', SG: 'Asia',
+  BD: 'Asia', PK: 'Asia', LK: 'Asia', NP: 'Asia', MM: 'Asia',
+  KH: 'Asia', LA: 'Asia', MN: 'Asia', TW: 'Asia', HK: 'Asia',
+  MO: 'Asia', KZ: 'Asia', UZ: 'Asia', TM: 'Asia', KG: 'Asia',
+  TJ: 'Asia', AF: 'Asia',
+  // Middle East
+  AE: 'Middle East', SA: 'Middle East', QA: 'Middle East', KW: 'Middle East',
+  BH: 'Middle East', OM: 'Middle East', YE: 'Middle East', IQ: 'Middle East',
+  IR: 'Middle East', IL: 'Middle East', JO: 'Middle East', LB: 'Middle East',
+  SY: 'Middle East', TR: 'Middle East', EG: 'Middle East',
   // Africa
-  'cape town': 'Africa', johannesburg: 'Africa', nairobi: 'Africa',
-  lagos: 'Africa', casablanca: 'Africa', accra: 'Africa',
+  ZA: 'Africa', NG: 'Africa', KE: 'Africa', ET: 'Africa', GH: 'Africa',
+  TZ: 'Africa', MA: 'Africa', DZ: 'Africa', TN: 'Africa', UG: 'Africa',
+  CI: 'Africa', CM: 'Africa', MZ: 'Africa', ZM: 'Africa', ZW: 'Africa',
+  SN: 'Africa', AO: 'Africa', LY: 'Africa', SD: 'Africa', SO: 'Africa',
+  // Australia/Oceania
+  AU: 'Australia', NZ: 'Australia', PG: 'Australia', FJ: 'Australia',
 }
 
-function detectRegion(cityInput: string): string {
-  const normalized = cityInput.toLowerCase().trim()
-  if (!normalized) return ''
-  for (const [key, value] of Object.entries(cityRegionMap)) {
-    if (normalized.includes(key) || key.includes(normalized)) {
-      return value
-    }
-  }
-  return ''
+type CitySuggestion = {
+  name: string
+  country: string
+  country_code: string
+  admin1: string
 }
 
 export default function ProductRevenueCalculator() {
@@ -63,13 +70,72 @@ export default function ProductRevenueCalculator() {
   const [city, setCity] = useState('')
   const [region, setRegion] = useState('')
   const [currency, setCurrency] = useState<'USD' | 'EUR'>('USD')
+  const [suggestions, setSuggestions] = useState<CitySuggestion[]>([])
+  const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false)
+  const [showSuggestions, setShowSuggestions] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
+
+  // Skip the next suggestion fetch when `city` changed because of a selection.
+  const justSelectedRef = useRef(false)
 
   const outOfTownCount = Math.round(attendees * (outOfTown / 100))
   const nights = outOfTownCount * days
   const rate = region ? regionRates[region] ?? 30 : 30
   const total = nights * rate
   const currencySymbol = currency === 'USD' ? '$' : '€'
+
+  // Debounced city autocomplete via the free Open-Meteo geocoding API.
+  useEffect(() => {
+    if (justSelectedRef.current) {
+      justSelectedRef.current = false
+      return
+    }
+
+    if (city.trim().length < 3) {
+      setSuggestions([])
+      setShowSuggestions(false)
+      return
+    }
+
+    const controller = new AbortController()
+    const timer = setTimeout(async () => {
+      setIsLoadingSuggestions(true)
+      try {
+        const res = await fetch(
+          `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(
+            city.trim(),
+          )}&count=5&language=en&format=json`,
+          { signal: controller.signal },
+        )
+        const data: { results?: Array<Partial<CitySuggestion>> } = await res.json()
+        const results: CitySuggestion[] = (data.results ?? []).map((r) => ({
+          name: r.name ?? '',
+          country: r.country ?? '',
+          country_code: r.country_code ?? '',
+          admin1: r.admin1 ?? '',
+        }))
+        setSuggestions(results)
+        setShowSuggestions(true)
+      } catch {
+        // Ignore aborts and network errors — the calculator still works without a region.
+      } finally {
+        setIsLoadingSuggestions(false)
+      }
+    }, 400)
+
+    return () => {
+      clearTimeout(timer)
+      controller.abort()
+    }
+  }, [city])
+
+  function selectSuggestion(s: CitySuggestion) {
+    justSelectedRef.current = true
+    setCity(`${s.name}, ${s.country}`)
+    setRegion(countryToRegion[s.country_code] ?? '')
+    setSuggestions([])
+    setShowSuggestions(false)
+  }
 
   return (
     <section className="py-24 px-6 bg-[#0a0a0a]">
@@ -120,12 +186,35 @@ export default function ProductRevenueCalculator() {
                   value={city}
                   onChange={(e) => {
                     setCity(e.target.value)
-                    setRegion(detectRegion(e.target.value))
+                    setRegion('')
+                  }}
+                  onFocus={() => {
+                    if (suggestions.length > 0) setShowSuggestions(true)
                   }}
                   placeholder="e.g. Berlin, New York, Dubai..."
                   className="w-full h-11 px-4 text-[14px] bg-white/10 border rounded-lg outline-none text-white placeholder:text-white/30 focus:border-[#1a6cf5] transition-all"
                   style={{ borderColor: 'rgba(255,255,255,0.2)' }}
                 />
+
+                {showSuggestions && suggestions.length > 0 && (
+                  <div className="absolute left-0 right-0 top-full mt-2 bg-[#1a1a1a] border border-white/10 rounded-lg overflow-hidden z-10">
+                    {suggestions.map((s, i) => (
+                      <button
+                        type="button"
+                        key={`${s.name}-${s.country_code}-${i}`}
+                        onClick={() => selectSuggestion(s)}
+                        className="w-full text-left px-4 py-3 hover:bg-white/10 cursor-pointer text-white text-[14px] block"
+                      >
+                        <span className="font-medium">{s.name}</span>
+                        <span className="text-white/50 text-[12px] ml-2">
+                          {s.admin1 ? `${s.admin1}, ` : ''}
+                          {s.country}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+
                 {region && (
                   <div className="mt-2 flex items-center gap-2">
                     <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#1a6cf5]/20 text-[#4d8ef7]">
@@ -136,7 +225,7 @@ export default function ProductRevenueCalculator() {
                     </span>
                   </div>
                 )}
-                {city.length > 2 && !region && (
+                {city.length > 2 && !region && !showSuggestions && !isLoadingSuggestions && (
                   <p className="mt-2 text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
                     City not recognised — using global average rate
                   </p>
@@ -214,6 +303,23 @@ export default function ProductRevenueCalculator() {
             <p className="text-[13px] mb-3" style={{ color: 'rgba(255,255,255,0.5)' }}>
               {outOfTownCount.toLocaleString()} out-of-town attendees × {days} {days === 1 ? 'night' : 'nights'} × {currencySymbol}{rate}/night = {nights.toLocaleString()} hotel nights
             </p>
+
+            {/* All continent rates, active region highlighted */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              {Object.entries(regionRates).map(([r, rateValue]) => (
+                <span
+                  key={r}
+                  className={`text-[11px] px-2 py-0.5 rounded-full border transition-all ${
+                    region === r
+                      ? 'bg-[#1a6cf5] border-[#1a6cf5] text-white font-semibold'
+                      : 'border-white/10 text-white/30'
+                  }`}
+                >
+                  {r}: {currencySymbol}{rateValue}/night
+                </span>
+              ))}
+            </div>
+
             <p className="text-[3.5rem] md:text-[4rem] font-black text-white leading-none tracking-tight">
               {currencySymbol}{total.toLocaleString()}
             </p>
