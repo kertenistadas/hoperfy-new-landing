@@ -89,20 +89,45 @@ export default function ProductsSection({ products }: Props) {
               </div>
             </div>
 
-            {/* Right — product screenshot */}
-            <div className="relative">
+            {/* Right — two product screenshots, stacked and rotated */}
+            <div className="relative h-[420px] md:h-[500px]">
+              {/* Subtle glow behind images */}
               <div
-                className="relative rounded-2xl overflow-hidden"
+                className="absolute inset-0 rounded-full blur-3xl opacity-20"
+                style={{ background: 'radial-gradient(circle, #1a6cf5 0%, transparent 70%)' }}
+              />
+
+              {/* Hotels screenshot — top, slightly rotated left */}
+              <div
+                className="absolute top-0 left-0 right-8 rounded-2xl overflow-hidden shadow-2xl shadow-black/40"
                 style={{
-                  maskImage: 'radial-gradient(ellipse 90% 90% at 50% 50%, black 60%, transparent 100%)',
-                  WebkitMaskImage: 'radial-gradient(ellipse 90% 90% at 50% 50%, black 60%, transparent 100%)',
+                  transform: 'rotate(-1.5deg)',
+                  maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
+                  WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
                 }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/product-screenshot.png"
                   alt="Hoperfy hotel booking platform"
-                  className="w-full h-auto rounded-2xl"
+                  className="w-full h-auto"
+                />
+              </div>
+
+              {/* Ticketing screenshot — bottom, slightly rotated right, overlapping */}
+              <div
+                className="absolute bottom-0 left-8 right-0 rounded-2xl overflow-hidden shadow-2xl shadow-black/40"
+                style={{
+                  transform: 'rotate(1.5deg)',
+                  maskImage: 'linear-gradient(to top, black 70%, transparent 100%)',
+                  WebkitMaskImage: 'linear-gradient(to top, black 70%, transparent 100%)',
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/ticketing-screenshot.png"
+                  alt="Hoperfy ticketing platform"
+                  className="w-full h-auto"
                 />
               </div>
             </div>
