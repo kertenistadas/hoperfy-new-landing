@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import type { SocialProof } from '@/types'
 
 type Props = {
@@ -8,12 +9,31 @@ type Props = {
 }
 
 export default function SocialProofBar({ data }: Props) {
+  const companies = data?.companies ?? []
+
+  // Deterministic order for SSR + first client render (no shuffle) so the markup
+  // matches on hydration; the shuffle happens only after mount below.
+  const [mobileCompanies, setMobileCompanies] = useState<SocialProof['companies']>(() => {
+    const withCaseStudy = companies.filter((c) => c.caseStudyUrl)
+    const withoutCaseStudy = companies.filter((c) => !c.caseStudyUrl)
+    return [...withCaseStudy, ...withoutCaseStudy].slice(0, 6)
+  })
+
+  // Shuffle the non-case-study logos client-side after mount.
+  useEffect(() => {
+    const withCaseStudy = companies.filter((c) => c.caseStudyUrl)
+    const withoutCaseStudy = companies.filter((c) => !c.caseStudyUrl)
+    const shuffled = [...withoutCaseStudy].sort(() => Math.random() - 0.5)
+    setMobileCompanies([...withCaseStudy, ...shuffled].slice(0, 6))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   if (!data?.companies?.length) return null
 
   return (
     <section className="py-14 px-6 border-t border-[#e5e7eb] bg-white overflow-hidden">
       <p className="text-[11px] font-semibold tracking-widest uppercase text-[#c4c9d0] text-center mb-10">
-        {data.label}
+        Trusted by 100+ events and event teams
       </p>
 
       {/* Desktop: infinite marquee */}
@@ -37,7 +57,7 @@ export default function SocialProofBar({ data }: Props) {
 
       {/* Mobile: 2-column grid, no bubbles */}
       <div className="md:hidden grid grid-cols-2 gap-6">
-        {data.companies.map((company, i) => (
+        {mobileCompanies.map((company, i) => (
           <MobileLogo key={i} company={company} />
         ))}
       </div>
