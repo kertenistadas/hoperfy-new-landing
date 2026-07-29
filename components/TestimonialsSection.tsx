@@ -27,7 +27,9 @@ export default function TestimonialsSection({ testimonials }: Props) {
               </blockquote>
               <figcaption>
                 <p className="text-[14px] font-semibold text-[#0a0a0a]">{t.author}</p>
-                <p className="text-[13px] text-[#6b7280] mt-0.5">{t.role}</p>
+                <p className="text-[13px] text-[#6b7280] mt-0.5">
+                  {t.role}{t.role && t.company ? ' · ' : ''}{t.company}
+                </p>
               </figcaption>
             </figure>
           ))}
