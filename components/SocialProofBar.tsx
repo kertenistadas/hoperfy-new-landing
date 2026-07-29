@@ -50,8 +50,8 @@ function DesktopLogo({ company }: { company: SocialProof['companies'][0] }) {
     <div className="flex flex-col items-center gap-2 group shrink-0">
       {company.logoUrl ? (
         <div
-          className="flex items-center justify-center rounded-lg px-4 py-2.5 bg-[#f8f8f8] group-hover:bg-[#f3f4f6] transition-colors"
-          style={{ minWidth: '100px', minHeight: '48px' }}
+          className="relative flex items-center justify-center rounded-xl px-5 py-3 transition-colors group-hover:bg-[#e0e2e5]"
+          style={{ minWidth: '110px', minHeight: '52px', background: '#e8e9eb' }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -60,24 +60,22 @@ function DesktopLogo({ company }: { company: SocialProof['companies'][0] }) {
             className="h-6 w-auto object-contain opacity-60 group-hover:opacity-100 transition-all duration-300"
             style={{ maxWidth: '100px', filter: 'none' }}
           />
+          {company.caseStudyUrl && (
+            <span
+              className="absolute bottom-1.5 right-2 text-[8px] font-bold text-[#1a6cf5] tracking-wide uppercase"
+              style={{
+                transform: 'rotate(-1.5deg)',
+                borderBottom: '1px solid #1a6cf5',
+                lineHeight: 1,
+              }}
+            >
+              Case study ↗
+            </span>
+          )}
         </div>
       ) : (
         <span className="text-[13px] font-semibold text-[#9ca3af] group-hover:text-[#374151] transition-colors">
           {company.name}
-        </span>
-      )}
-      {company.caseStudyUrl && (
-        <span
-          className="text-[9px] font-bold text-[#1a6cf5] tracking-wide uppercase whitespace-nowrap"
-          style={{
-            transform: 'rotate(-2deg)',
-            display: 'inline-block',
-            borderBottom: '1.5px solid #1a6cf5',
-            paddingBottom: '1px',
-            marginTop: '4px',
-          }}
-        >
-          Case study ↗
         </span>
       )}
     </div>
@@ -94,8 +92,8 @@ function MobileLogo({ company }: { company: SocialProof['companies'][0] }) {
     <div className="flex flex-col items-center justify-center gap-2 py-4 group">
       {company.logoUrl ? (
         <div
-          className="flex items-center justify-center rounded-lg px-4 py-2.5 bg-[#f8f8f8] group-hover:bg-[#f3f4f6] transition-colors"
-          style={{ minWidth: '100px', minHeight: '48px' }}
+          className="relative flex items-center justify-center rounded-xl px-5 py-3 transition-colors group-hover:bg-[#e0e2e5]"
+          style={{ minWidth: '110px', minHeight: '52px', background: '#e8e9eb' }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -104,24 +102,22 @@ function MobileLogo({ company }: { company: SocialProof['companies'][0] }) {
             className="h-6 w-auto object-contain opacity-60 group-hover:opacity-100 transition-all duration-300"
             style={{ maxWidth: '90px', filter: 'none' }}
           />
+          {company.caseStudyUrl && (
+            <span
+              className="absolute bottom-1.5 right-2 text-[8px] font-bold text-[#1a6cf5] tracking-wide uppercase"
+              style={{
+                transform: 'rotate(-1.5deg)',
+                borderBottom: '1px solid #1a6cf5',
+                lineHeight: 1,
+              }}
+            >
+              Case study ↗
+            </span>
+          )}
         </div>
       ) : (
         <span className="text-[12px] font-semibold text-[#9ca3af] text-center">
           {company.name}
-        </span>
-      )}
-      {company.caseStudyUrl && (
-        <span
-          className="text-[9px] font-bold text-[#1a6cf5] tracking-wide uppercase whitespace-nowrap"
-          style={{
-            transform: 'rotate(-2deg)',
-            display: 'inline-block',
-            borderBottom: '1.5px solid #1a6cf5',
-            paddingBottom: '1px',
-            marginTop: '4px',
-          }}
-        >
-          Case study ↗
         </span>
       )}
     </div>
