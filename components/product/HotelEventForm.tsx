@@ -11,8 +11,8 @@ type CitySuggestion = {
 }
 
 const inputClass =
-  'w-full h-11 px-4 text-[14px] border border-[#e5e7eb] rounded-lg outline-none focus:border-[#1a6cf5] focus:ring-2 focus:ring-[#1a6cf5]/10 transition-all placeholder:text-[#9ca3af] bg-white'
-const labelClass = 'block text-[13px] font-medium text-[#374151] mb-1.5'
+  'w-full h-9 px-4 text-[13px] border border-[#e5e7eb] rounded-lg outline-none focus:border-[#1a6cf5] focus:ring-2 focus:ring-[#1a6cf5]/10 transition-all placeholder:text-[#9ca3af] placeholder:text-[13px] bg-white'
+const labelClass = 'block text-[10px] uppercase tracking-wider text-[#9ca3af] mb-1.5'
 
 export default function HotelEventForm() {
   const [eventName, setEventName] = useState('')
@@ -97,86 +97,86 @@ export default function HotelEventForm() {
   }
 
   return (
-    <div className="bg-white border border-[#e5e7eb] rounded-2xl p-6 shadow-sm">
-      <div className="flex flex-col gap-4">
-        {/* Event name */}
+    <div className="space-y-2.5">
+      {/* Event name */}
+      <div>
+        <label className={labelClass}>Event name</label>
+        <input
+          type="text"
+          value={eventName}
+          onChange={(e) => setEventName(e.target.value)}
+          placeholder="e.g. TechConf 2026"
+          className={inputClass}
+        />
+      </div>
+
+      {/* City with autocomplete */}
+      <div className="relative" ref={cityRef}>
+        <label className={labelClass}>Location</label>
+        <input
+          type="text"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          onFocus={() => {
+            if (suggestions.length > 0) setShowSuggestions(true)
+          }}
+          placeholder="City"
+          className={inputClass}
+        />
+
+        {showSuggestions && (suggestions.length > 0 || isLoading) && (
+          <div className="absolute left-0 right-0 top-full mt-1 bg-white border border-[#e5e7eb] rounded-lg shadow-lg overflow-hidden z-20">
+            {suggestions.length > 0 ? (
+              suggestions.map((s, i) => (
+                <button
+                  type="button"
+                  key={`${s.name}-${s.country_code}-${i}`}
+                  onClick={() => selectSuggestion(s)}
+                  className="w-full text-left px-4 py-2 hover:bg-[#f9fafb] transition-colors"
+                >
+                  <span className="text-[13px] font-medium text-[#0a0a0a]">{s.name}</span>
+                  <span className="text-[12px] text-[#6b7280] ml-2">
+                    {s.admin1 ? `${s.admin1}, ` : ''}
+                    {s.country}
+                  </span>
+                </button>
+              ))
+            ) : (
+              <p className="px-4 py-2 text-[12px] text-[#9ca3af]">Searching…</p>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Dates side by side */}
+      <div className="grid grid-cols-2 gap-2.5">
         <div>
-          <label className={labelClass}>Event name</label>
+          <label className={labelClass}>Start date</label>
           <input
-            type="text"
-            value={eventName}
-            onChange={(e) => setEventName(e.target.value)}
-            placeholder="e.g. TechConf 2026"
-            className={inputClass}
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            className={`${inputClass} text-[#374151]`}
           />
         </div>
-
-        {/* City with autocomplete */}
-        <div className="relative" ref={cityRef}>
-          <label className={labelClass}>Location</label>
+        <div>
+          <label className={labelClass}>End date</label>
           <input
-            type="text"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            onFocus={() => {
-              if (suggestions.length > 0) setShowSuggestions(true)
-            }}
-            placeholder="City"
-            className={inputClass}
+            type="date"
+            value={endDate}
+            min={startDate || undefined}
+            onChange={(e) => setEndDate(e.target.value)}
+            className={`${inputClass} text-[#374151]`}
           />
-
-          {showSuggestions && (suggestions.length > 0 || isLoading) && (
-            <div className="absolute left-0 right-0 top-full mt-1 bg-white border border-[#e5e7eb] rounded-lg shadow-lg overflow-hidden z-20">
-              {suggestions.length > 0
-                ? suggestions.map((s, i) => (
-                    <button
-                      type="button"
-                      key={`${s.name}-${s.country_code}-${i}`}
-                      onClick={() => selectSuggestion(s)}
-                      className="w-full text-left px-4 py-2.5 hover:bg-[#f9fafb] transition-colors"
-                    >
-                      <span className="text-[14px] font-medium text-[#0a0a0a]">{s.name}</span>
-                      <span className="text-[12px] text-[#6b7280] ml-2">
-                        {s.admin1 ? `${s.admin1}, ` : ''}
-                        {s.country}
-                      </span>
-                    </button>
-                  ))
-                : (
-                    <p className="px-4 py-2.5 text-[13px] text-[#9ca3af]">Searching…</p>
-                  )}
-            </div>
-          )}
         </div>
+      </div>
 
-        {/* Dates side by side */}
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className={labelClass}>Start date</label>
-            <input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              className={`${inputClass} text-[#374151]`}
-            />
-          </div>
-          <div>
-            <label className={labelClass}>End date</label>
-            <input
-              type="date"
-              value={endDate}
-              min={startDate || undefined}
-              onChange={(e) => setEndDate(e.target.value)}
-              className={`${inputClass} text-[#374151]`}
-            />
-          </div>
-        </div>
-
+      <div className="pt-1 space-y-2.5">
         <button
           type="button"
           onClick={handleSubmit}
           disabled={!eventName.trim()}
-          className="h-12 w-full bg-[#1a6cf5] text-white rounded-lg font-medium text-[14px] hover:bg-[#1558cc] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+          className="h-10 w-full bg-[#1a6cf5] text-white rounded-lg font-medium text-[13px] hover:bg-[#1558cc] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
         >
           Generate hotels for my event →
         </button>
@@ -185,7 +185,7 @@ export default function HotelEventForm() {
           href="https://calendly.com/tadas-hoperfy/30min"
           target="_blank"
           rel="noopener noreferrer"
-          className="h-11 w-full border border-[#e5e7eb] text-[#0a0a0a] rounded-lg font-medium text-[14px] hover:border-[#0a0a0a] transition-colors flex items-center justify-center"
+          className="h-10 w-full border border-[#e5e7eb] text-[#0a0a0a] rounded-lg font-medium text-[13px] hover:border-[#0a0a0a] transition-colors flex items-center justify-center"
         >
           Talk to us first
         </a>
