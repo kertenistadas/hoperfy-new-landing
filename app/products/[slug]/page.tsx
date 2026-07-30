@@ -168,7 +168,7 @@ export default async function ProductPage({ params }: Props) {
           {fullFeatures.length > 0 && <ProductFullFeatures features={fullFeatures} />}
           {data.stats?.length ? <ProductStats product={data} /> : null}
           <ProductPricing pricing={pricing} productSlug={data.slug} />
-          {geo && (
+          {geo && data.slug !== 'hotels-for-events' && (
             <ProductCompare
               competitors={geo.compare.competitors}
               features={geo.compare.features}
