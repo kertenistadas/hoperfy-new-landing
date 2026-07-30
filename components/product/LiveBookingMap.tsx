@@ -50,30 +50,21 @@ export default function LiveBookingMap() {
   const H = 400
 
   return (
-    <div className="relative bg-[#0d1117] rounded-2xl overflow-hidden" style={{ minHeight: '420px' }}>
-      {/* World map SVG background - dot grid representing continents */}
+    <div
+      className="relative bg-[#0d1117] rounded-2xl overflow-hidden"
+      style={{
+        minHeight: '420px',
+        backgroundImage: 'url("/worldmap.png")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      {/* Dark overlay over the world map background */}
+      <div className="absolute inset-0 bg-[#0d1117]/75 rounded-2xl" />
+
+      {/* SVG holds the animated booking pins only */}
       <svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
-        {/* Europe */}
-        {[[360,95],[370,90],[380,88],[390,92],[395,98],[385,105],[375,102],[365,100],[372,95],[382,96]].map(([cx,cy],i) => <circle key={`eu${i}`} cx={cx} cy={cy} r="2" fill="#1a6cf5" opacity="0.2"/>)}
-        {/* North America */}
-        {[[160,85],[175,90],[185,95],[195,100],[170,100],[180,108],[165,95],[155,92],[190,88],[200,105]].map(([cx,cy],i) => <circle key={`na${i}`} cx={cx} cy={cy} r="2" fill="#1a6cf5" opacity="0.2"/>)}
-        {/* South America */}
-        {[[220,190],[230,200],[225,215],[215,225],[210,210],[220,205],[228,195],[235,210]].map(([cx,cy],i) => <circle key={`sa${i}`} cx={cx} cy={cy} r="2" fill="#1a6cf5" opacity="0.2"/>)}
-        {/* Africa */}
-        {[[375,160],[385,170],[380,185],[370,195],[365,175],[375,165],[382,178],[368,168]].map(([cx,cy],i) => <circle key={`af${i}`} cx={cx} cy={cy} r="2" fill="#1a6cf5" opacity="0.2"/>)}
-        {/* Asia */}
-        {[[480,90],[500,95],[520,100],[540,105],[510,85],[530,90],[550,98],[490,100],[460,95],[470,88]].map(([cx,cy],i) => <circle key={`as${i}`} cx={cx} cy={cy} r="2" fill="#1a6cf5" opacity="0.2"/>)}
-        {/* Australia */}
-        {[[590,225],[605,230],[615,225],[600,220],[608,235],[595,228]].map(([cx,cy],i) => <circle key={`au${i}`} cx={cx} cy={cy} r="2" fill="#1a6cf5" opacity="0.2"/>)}
-
-        {/* Grid lines */}
-        {[0,0.25,0.5,0.75,1].map((f,i) => (
-          <line key={`gl${i}`} x1="0" y1={f*H} x2={W} y2={f*H} stroke="#1a6cf5" strokeWidth="0.3" opacity="0.1"/>
-        ))}
-        {[0,0.25,0.5,0.75,1].map((f,i) => (
-          <line key={`gv${i}`} x1={f*W} y1="0" x2={f*W} y2={H} stroke="#1a6cf5" strokeWidth="0.3" opacity="0.1"/>
-        ))}
-
         {/* Booking pins */}
         {activePins.map((pin) => {
           const { x, y } = latLngToXY(pin.lat, pin.lng, W, H)
