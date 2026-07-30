@@ -168,7 +168,7 @@ export default async function ProductPage({ params }: Props) {
                   <div>
                     <ProductHero product={data} />
                   </div>
-                  <div className="pt-8 md:pt-20">
+                  <div className="pt-8 md:pt-20 px-6 md:px-0">
                     <LiveBookingMap />
                     <p className="text-[11px] text-[#9ca3af] text-center mt-3">Real bookings processed by Hoperfy</p>
                   </div>
