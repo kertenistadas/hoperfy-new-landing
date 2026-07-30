@@ -22,7 +22,6 @@ export default function HotelEventForm() {
   const [suggestions, setSuggestions] = useState<CitySuggestion[]>([])
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [submitting, setSubmitting] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
   const cityRef = useRef<HTMLDivElement>(null)
   const justSelectedRef = useRef(false)
@@ -90,27 +89,11 @@ export default function HotelEventForm() {
     setShowSuggestions(false)
   }
 
-  async function handleSubmit() {
-    if (!eventName.trim() || submitting) return
-    setSubmitting(true)
-    try {
-      await fetch('/api/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          eventName: eventName.trim(),
-          eventLocation: city.trim() || undefined,
-          eventStartDate: startDate || undefined,
-          eventEndDate: endDate || undefined,
-          source: 'hotels-hero-form',
-        }),
-      })
-    } catch {
-      // Non-blocking — still open the modal so the user can continue.
-    } finally {
-      setSubmitting(false)
-      setModalOpen(true)
-    }
+  // No save here — the event data is carried into the modal, which writes a
+  // single lead on final submit (with the email collected there).
+  function handleSubmit() {
+    if (!eventName.trim()) return
+    setModalOpen(true)
   }
 
   return (
@@ -192,10 +175,10 @@ export default function HotelEventForm() {
         <button
           type="button"
           onClick={handleSubmit}
-          disabled={!eventName.trim() || submitting}
+          disabled={!eventName.trim()}
           className="h-12 w-full bg-[#1a6cf5] text-white rounded-lg font-medium text-[14px] hover:bg-[#1558cc] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          {submitting ? 'Saving…' : 'Generate hotels for my event →'}
+          Generate hotels for my event →
         </button>
 
         <a
@@ -216,6 +199,10 @@ export default function HotelEventForm() {
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         source="hotels-hero-form"
+        initialEventName={eventName}
+        initialEventLocation={city}
+        initialEventStartDate={startDate}
+        initialEventEndDate={endDate}
       />
     </div>
   )

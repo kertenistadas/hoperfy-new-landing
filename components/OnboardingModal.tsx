@@ -7,6 +7,10 @@ type Props = {
   onClose: () => void
   source?: string
   initialEmail?: string
+  initialEventName?: string
+  initialEventLocation?: string
+  initialEventStartDate?: string
+  initialEventEndDate?: string
 }
 
 type ProductInterest = 'tickets' | 'hotels' | 'both'
@@ -36,16 +40,25 @@ function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
-export default function OnboardingModal({ isOpen, onClose, source, initialEmail }: Props) {
+export default function OnboardingModal({
+  isOpen,
+  onClose,
+  source,
+  initialEmail,
+  initialEventName,
+  initialEventLocation,
+  initialEventStartDate,
+  initialEventEndDate,
+}: Props) {
   const [step, setStep] = useState(1)
   const [email, setEmail] = useState(initialEmail ?? '')
   const [emailError, setEmailError] = useState('')
   const [productInterest, setProductInterest] = useState<ProductInterest | null>(null)
-  const [eventName, setEventName] = useState('')
+  const [eventName, setEventName] = useState(initialEventName ?? '')
   const [attendees, setAttendees] = useState('')
-  const [eventStartDate, setEventStartDate] = useState('')
-  const [eventEndDate, setEventEndDate] = useState('')
-  const [eventLocation, setEventLocation] = useState('')
+  const [eventStartDate, setEventStartDate] = useState(initialEventStartDate ?? '')
+  const [eventEndDate, setEventEndDate] = useState(initialEventEndDate ?? '')
+  const [eventLocation, setEventLocation] = useState(initialEventLocation ?? '')
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
 
@@ -56,15 +69,15 @@ export default function OnboardingModal({ isOpen, onClose, source, initialEmail 
       setEmail(initialEmail ?? '')
       setEmailError('')
       setProductInterest(null)
-      setEventName('')
+      setEventName(initialEventName ?? '')
       setAttendees('')
-      setEventStartDate('')
-      setEventEndDate('')
-      setEventLocation('')
+      setEventStartDate(initialEventStartDate ?? '')
+      setEventEndDate(initialEventEndDate ?? '')
+      setEventLocation(initialEventLocation ?? '')
       setSubmitting(false)
       setSubmitError('')
     }
-  }, [isOpen, initialEmail])
+  }, [isOpen, initialEmail, initialEventName, initialEventLocation, initialEventStartDate, initialEventEndDate])
 
   // Lock body scroll + close on Escape while open
   useEffect(() => {
@@ -83,32 +96,18 @@ export default function OnboardingModal({ isOpen, onClose, source, initialEmail 
 
   if (!isOpen) return null
 
-  async function handleNextFromStep1() {
+  function handleNextFromStep1() {
     if (!isValidEmail(email)) {
       setEmailError('Please enter a valid email address.')
       return
     }
     setEmailError('')
-    try {
-      await fetch('/api/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, source: source ?? 'homepage' }),
-      })
-    } catch {}
     setStep(2)
   }
 
-  async function handleClose() {
-    if (step === 1 && isValidEmail(email)) {
-      try {
-        await fetch('/api/signup', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, source: source ?? 'homepage' }),
-        })
-      } catch {}
-    }
+  // A single lead is written only on final submit (submitLead), so closing the
+  // modal early saves nothing.
+  function handleClose() {
     onClose()
   }
 
