@@ -19,8 +19,6 @@ export default function LiveBookingMap() {
   const [activePins, setActivePins] = useState<ActivePin[]>([])
   const [currentBooking, setCurrentBooking] = useState<Booking | null>(null)
   const [bookingIndex, setBookingIndex] = useState(0)
-  const [totalRevenue, setTotalRevenue] = useState(0)
-  const [bookingCount, setBookingCount] = useState(0)
   const idRef = useRef(0)
 
   useEffect(() => {
@@ -30,8 +28,6 @@ export default function LiveBookingMap() {
 
       setActivePins(prev => [...prev.slice(-8), newPin])
       setCurrentBooking(booking)
-      setTotalRevenue(prev => prev + booking.price)
-      setBookingCount(prev => prev + 1)
       setBookingIndex(prev => (prev + 1) % BOOKINGS.length)
 
       setTimeout(() => {
@@ -51,9 +47,9 @@ export default function LiveBookingMap() {
 
   return (
     <div
-      className="relative bg-[#0d1117] rounded-2xl overflow-hidden"
+      className="relative bg-[#0a0a0a] rounded-xl overflow-hidden border border-[#e5e7eb]"
       style={{
-        minHeight: '420px',
+        minHeight: '360px',
         backgroundImage: 'url("/worldmap.png")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -61,7 +57,7 @@ export default function LiveBookingMap() {
       }}
     >
       {/* Dark overlay over the world map background */}
-      <div className="absolute inset-0 bg-[#0d1117]/75 rounded-2xl" />
+      <div className="absolute inset-0 bg-[#0a0a0a]/65 rounded-xl" />
 
       {/* SVG holds the animated booking pins only */}
       <svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
@@ -87,7 +83,7 @@ export default function LiveBookingMap() {
       {currentBooking && (
         <div
           key={bookingIndex}
-          className="absolute bottom-4 left-4 bg-white rounded-xl p-4 shadow-2xl max-w-[280px]"
+          className="absolute bottom-4 left-4 bg-white rounded-xl p-4 shadow-lg border border-[#e5e7eb] max-w-[280px]"
           style={{ animation: 'slideUp 0.4s ease' }}
         >
           <div className="flex items-start gap-3">
@@ -96,23 +92,11 @@ export default function LiveBookingMap() {
               <p className="text-[10px] font-bold text-green-600 uppercase tracking-widest mb-0.5">Live booking</p>
               <p className="text-[13px] font-semibold text-[#0a0a0a] leading-tight">{currentBooking.hotel}</p>
               <p className="text-[11px] text-[#6b7280] mt-0.5">{currentBooking.city}, {currentBooking.country}</p>
-              <p className="text-[14px] font-black text-[#1a6cf5] mt-1">€{currentBooking.price.toLocaleString()} profit</p>
+              <p className="text-[14px] font-black text-[#1a6cf5] mt-1">€{currentBooking.price.toLocaleString()} value</p>
             </div>
           </div>
         </div>
       )}
-
-      {/* Stats top right */}
-      <div className="absolute top-4 right-4 flex gap-2">
-        <div className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg px-3 py-2 text-center">
-          <p className="text-[9px] text-white/40 uppercase tracking-widest">Bookings</p>
-          <p className="text-[15px] font-bold text-white">{bookingCount}</p>
-        </div>
-        <div className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg px-3 py-2 text-center">
-          <p className="text-[9px] text-white/40 uppercase tracking-widest">Revenue</p>
-          <p className="text-[15px] font-bold text-[#4d8ef7]">€{Math.round(totalRevenue).toLocaleString()}</p>
-        </div>
-      </div>
 
       {/* Live indicator top left */}
       <div className="absolute top-4 left-4 flex items-center gap-2 bg-black/40 backdrop-blur-sm border border-white/10 rounded-full px-3 py-1.5">
