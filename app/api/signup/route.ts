@@ -11,16 +11,16 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const { email, productInterest, eventName, attendees, eventStartDate, eventEndDate, eventLocation, source } = body
 
-    if (!email || !isValidEmail(email)) {
-      return NextResponse.json({ error: 'Invalid email' }, { status: 400 })
-    }
+    // Email is optional. Save it only when a valid one is provided; otherwise
+    // still save the lead with whatever other fields came through.
+    const validEmail = typeof email === 'string' && isValidEmail(email) ? email : null
 
     const mutation = {
       mutations: [
         {
           create: {
             _type: 'lead',
-            email,
+            email: validEmail,
             productInterest: productInterest ?? null,
             eventName: eventName ?? null,
             attendees: attendees ?? null,

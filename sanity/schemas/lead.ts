@@ -9,7 +9,7 @@ export default defineType({
       name: 'email',
       title: 'Email',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      description: 'Optional — some leads (e.g. the hotels event form) are saved before an email is collected.',
     }),
     defineField({
       name: 'productInterest',
