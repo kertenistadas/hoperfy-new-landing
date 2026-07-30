@@ -18,6 +18,7 @@ import ProductPricing from '@/components/product/ProductPricing'
 import ProductFullFeatures from '@/components/product/ProductFullFeatures'
 import ProductRevenueCalculator from '@/components/product/ProductRevenueCalculator'
 import LiveBookingMap from '@/components/product/LiveBookingMap'
+import ProductHeroCTA from '@/components/product/ProductHeroCTA'
 import { productGeo, buildProductJsonLd } from './geoData'
 
 export const dynamic = 'force-dynamic'
@@ -162,19 +163,38 @@ export default async function ProductPage({ params }: Props) {
       <NavWrapper>
         <main>
           {data.slug === 'hotels-for-events' ? (
-            <div className="pb-0 bg-white">
+            <section className="pt-32 pb-0 px-6 bg-white">
               <div className="max-w-5xl mx-auto">
-                <div className="grid md:grid-cols-2 gap-12 items-start">
-                  <div>
-                    <ProductHero product={data} />
+                {/* Top row — two blocks side by side */}
+                <div className="grid md:grid-cols-2 gap-8 mb-8">
+                  {/* Block 1 — Headline */}
+                  <div className="flex items-start">
+                    <div>
+                      <p className="eyebrow mb-4">{data.tagline}</p>
+                      <h1 className="text-[2.75rem] md:text-[3.5rem] font-black leading-[1.05] tracking-tight text-[#0a0a0a]">
+                        {data.heroHeadline ?? data.title}
+                      </h1>
+                    </div>
                   </div>
-                  <div className="pt-8 md:pt-20 px-6 md:px-0">
+
+                  {/* Block 2 — Live map */}
+                  <div>
                     <LiveBookingMap />
-                    <p className="text-[11px] text-[#9ca3af] text-center mt-3">Real bookings processed by Hoperfy</p>
+                    <p className="text-[11px] text-[#9ca3af] text-center mt-2">Real bookings processed by Hoperfy</p>
+                  </div>
+                </div>
+
+                {/* Block 3 — Full width subtitle + CTA */}
+                <div className="border-t border-[#e5e7eb] pt-8 pb-16">
+                  <div className="max-w-2xl">
+                    <p className="text-[16px] font-light text-[#6b7280] leading-relaxed mb-8">
+                      {data.heroSubtitle ?? data.description}
+                    </p>
+                    <ProductHeroCTA product={data} />
                   </div>
                 </div>
               </div>
-            </div>
+            </section>
           ) : (
             <ProductHero product={data} />
           )}
