@@ -27,6 +27,9 @@ type ComparisonRow = {
 const comparisonRows: ComparisonRow[] = [
   { feature: 'Hotel booking fee', hoperfy: 'Free', eventbrite: 'N/A', cvent: 'Commission-based' },
   { feature: 'Ticket fee', hoperfy: '2.5%', eventbrite: '3.7% + €0.99', cvent: 'Custom / high' },
+  { feature: 'Free events', hoperfy: 'Free', eventbrite: 'Free', cvent: 'Custom' },
+  { feature: 'Payment processing fee', hoperfy: '1.5%–2.9%', eventbrite: '2.9% + fixed', cvent: 'Custom' },
+  { feature: 'Bring your own payment provider', hoperfy: '✓', eventbrite: '✗', cvent: '✗' },
   { feature: 'Instant payouts', hoperfy: '✓', eventbrite: '✗', cvent: '✗' },
   { feature: 'White-label branding', hoperfy: '✓', eventbrite: '✗', cvent: 'Partial' },
   { feature: 'Managed setup', hoperfy: '✓', eventbrite: '✗', cvent: '✗' },
@@ -45,6 +48,16 @@ const pricingFaqs = [
     question: 'Are there any hidden fees on ticketing?',
     answer:
       'No. The 2.5% fee is all-in. No setup fee, no monthly fee, no payout fee, no fee on refunds. You always know exactly what you are paying.',
+  },
+  {
+    question: 'Is Hoperfy free for free events?',
+    answer:
+      'Yes. If you are running a free event with no paid tickets, Hoperfy charges nothing. No platform fee, no processing fee, no hidden costs.',
+  },
+  {
+    question: 'What payment processing fees apply?',
+    answer:
+      'Hoperfy uses Stripe for payment processing. Stripe charges between 1.5% and 2.9% per transaction depending on your location and card type. You can also connect your own payment provider if you prefer.',
   },
   {
     question: 'What is included in managed setup?',
