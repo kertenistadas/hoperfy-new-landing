@@ -17,6 +17,7 @@ import ProductCompare from '@/components/product/ProductCompare'
 import ProductPricing from '@/components/product/ProductPricing'
 import ProductFullFeatures from '@/components/product/ProductFullFeatures'
 import ProductRevenueCalculator from '@/components/product/ProductRevenueCalculator'
+import LiveBookingMap from '@/components/product/LiveBookingMap'
 import { productGeo, buildProductJsonLd } from './geoData'
 
 export const dynamic = 'force-dynamic'
@@ -160,7 +161,23 @@ export default async function ProductPage({ params }: Props) {
       />
       <NavWrapper>
         <main>
-          <ProductHero product={data} />
+          {data.slug === 'hotels-for-events' ? (
+            <div className="pb-0 bg-white">
+              <div className="max-w-5xl mx-auto">
+                <div className="grid md:grid-cols-2 gap-12 items-start">
+                  <div>
+                    <ProductHero product={data} />
+                  </div>
+                  <div className="pt-8 md:pt-20">
+                    <LiveBookingMap />
+                    <p className="text-[11px] text-[#9ca3af] text-center mt-3">Real bookings processed by Hoperfy</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <ProductHero product={data} />
+          )}
           {data.slug === 'hotels-for-events' && <ProductRevenueCalculator />}
           {data.problems?.length ? <ProductProblems product={data} /> : null}
           {data.featuresList?.length ? <ProductFeatures product={data} /> : null}

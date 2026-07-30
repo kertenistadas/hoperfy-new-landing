@@ -1,0 +1,140 @@
+'use client'
+
+import { useState, useEffect, useRef } from 'react'
+
+const BOOKINGS = [{"price":3536.0,"hotel":"Hotel Crowne Plaza Festival City","country":"United Arab Emirates","city":"Dubai","lat":25.2048,"lng":55.2708},{"price":791.0,"hotel":"Hotel Villa Emilia","country":"Spain","city":"Barcelona","lat":41.3851,"lng":2.1734},{"price":452.0,"hotel":"Antiga Casa Buenavista","country":"Spain","city":"Barcelona","lat":41.3851,"lng":2.1734},{"price":431.0,"hotel":"Occidental Barcelona 1929","country":"Spain","city":"Barcelona","lat":41.3851,"lng":2.1734},{"price":503.0,"hotel":"Ofelias Hotel Barcelona 4Sup","country":"Spain","city":"Barcelona","lat":41.3851,"lng":2.1734},{"price":309.0,"hotel":"Fira Centric","country":"Spain","city":"Barcelona","lat":41.3851,"lng":2.1734},{"price":419.0,"hotel":"Fira Centric","country":"Spain","city":"Barcelona","lat":41.3851,"lng":2.1734},{"price":447.0,"hotel":"Cram Hotel","country":"Spain","city":"Barcelona","lat":41.3851,"lng":2.1734},{"price":130.0,"hotel":"Lavington Residences By Trianum","country":"Kenya","city":"Nairobi","lat":-1.2921,"lng":36.8219},{"price":226.0,"hotel":"Arco Barcelona Hotel","country":"Spain","city":"Barcelona","lat":41.3851,"lng":2.1734},{"price":286.0,"hotel":"B-Hotel","country":"Spain","city":"Barcelona","lat":41.3851,"lng":2.1734},{"price":314.0,"hotel":"Hotel Indigo Barcelona Plaza Espana by IHG","country":"Spain","city":"Barcelona","lat":41.3851,"lng":2.1734},{"price":371.0,"hotel":"InterContinental Barcelona by IHG","country":"Spain","city":"Barcelona","lat":41.3851,"lng":2.1734},{"price":303.0,"hotel":"Holiday Inn Orlando International Dr-ICON by IHG","country":"United States of America","city":"Orlando","lat":28.5383,"lng":-81.3792},{"price":458.0,"hotel":"Cinnamon Grand Colombo","country":"Sri Lanka","city":"Colombo","lat":6.9271,"lng":79.8612},{"price":322.0,"hotel":"Cinnamon Life at City of Dreams","country":"Sri Lanka","city":"Colombo","lat":6.9271,"lng":79.8612},{"price":273.0,"hotel":"Wola Jana Olbrachta","country":"Poland","city":"Warsaw","lat":52.2297,"lng":21.0122},{"price":177.0,"hotel":"The Goodtime Hotel","country":"United States of America","city":"Miami Beach","lat":25.7907,"lng":-80.13},{"price":1362.0,"hotel":"Corporate Inn Sunnyvale","country":"United States of America","city":"Sunnyvale","lat":37.3688,"lng":-122.0363},{"price":58.0,"hotel":"ibis budget Katowice Centrum","country":"Poland","city":"Katowice","lat":50.2649,"lng":19.0238},{"price":597.0,"hotel":"ibis Kaunas Centre","country":"Lithuania","city":"Kaunas","lat":54.8985,"lng":23.9036},{"price":490.0,"hotel":"Residence Inn by Marriott Sunnyvale Silicon Valley II","country":"United States of America","city":"Sunnyvale","lat":37.3688,"lng":-122.0363},{"price":405.0,"hotel":"Al Seef Heritage Hotel Dubai","country":"United Arab Emirates","city":"Dubai","lat":25.2048,"lng":55.2708},{"price":856.0,"hotel":"Larkspur Landing Sunnyvale","country":"United States of America","city":"Sunnyvale","lat":37.3688,"lng":-122.0363},{"price":682.0,"hotel":"Sunday Suites Excelsior Hotel Deira","country":"United Arab Emirates","city":"Dubai","lat":25.2048,"lng":55.2708},{"price":386.0,"hotel":"Movenpick Grand Al Bustan Dubai","country":"United Arab Emirates","city":"Dubai","lat":25.2048,"lng":55.2708},{"price":675.0,"hotel":"AC Hotel by Marriott Sunnyvale Cupertino","country":"United States of America","city":"Sunnyvale","lat":37.3688,"lng":-122.0363},{"price":384.0,"hotel":"Porto Bello Hotel Resort & Spa","country":"Turkiye","city":"Antalya","lat":36.8969,"lng":30.7133},{"price":2211.0,"hotel":"Holiday Inn Rome EUR Parco Dei Medici","country":"Italy","city":"Rome","lat":41.9028,"lng":12.4964},{"price":975.0,"hotel":"Sheraton Rome Parco de Medici","country":"Italy","city":"Rome","lat":41.9028,"lng":12.4964},{"price":405.0,"hotel":"Hotel Grand Pacific","country":"Singapore","city":"Singapore","lat":1.3521,"lng":103.8198},{"price":1024.0,"hotel":"QT Singapore","country":"Singapore","city":"Singapore","lat":1.3521,"lng":103.8198},{"price":407.0,"hotel":"Renaissance Brussels Hotel","country":"Belgium","city":"Brussels","lat":50.8503,"lng":4.3517},{"price":226.0,"hotel":"NH Brussels EU Berlaymont","country":"Belgium","city":"Brussels","lat":50.8503,"lng":4.3517},{"price":108.0,"hotel":"Pure White","country":"Czech Republic","city":"Prague","lat":50.0755,"lng":14.4378},{"price":299.0,"hotel":"All Suites Bordeaux Lac","country":"France","city":"Bordeaux","lat":44.8378,"lng":-0.5792},{"price":177.0,"hotel":"Holiday Inn Express London Greenwich","country":"United Kingdom","city":"London","lat":51.5074,"lng":-0.1278},{"price":715.0,"hotel":"Europe Hotel","country":"Armenia","city":"Yerevan","lat":40.1792,"lng":44.4991},{"price":492.0,"hotel":"Marski by Scandic","country":"Finland","city":"Helsinki","lat":60.1699,"lng":24.9384},{"price":638.0,"hotel":"DoubleTree by Hilton New York Downtown","country":"United States of America","city":"New York","lat":40.7128,"lng":-74.006},{"price":311.0,"hotel":"Kaunas City","country":"Lithuania","city":"Kaunas","lat":54.8985,"lng":23.9036},{"price":829.0,"hotel":"CABINN Apartments","country":"Denmark","city":"Copenhagen","lat":55.6761,"lng":12.5683},{"price":537.0,"hotel":"CABINN Metro Hotel","country":"Denmark","city":"Copenhagen","lat":55.6761,"lng":12.5683},{"price":427.0,"hotel":"Crowne Plaza Copenhagen Towers","country":"Denmark","city":"Copenhagen","lat":55.6761,"lng":12.5683},{"price":1764.0,"hotel":"Grand Nikko Tokyo Daiba","country":"Japan","city":"Tokyo","lat":35.6762,"lng":139.6503},{"price":242.0,"hotel":"Focus Hotel Premium Gdansk","country":"Poland","city":"Gdansk","lat":54.352,"lng":18.6466},{"price":601.0,"hotel":"Kalev Spa Hotel & Waterpark","country":"Estonia","city":"Tallinn","lat":59.437,"lng":24.7536},{"price":379.0,"hotel":"Rija Old Town Hotel","country":"Estonia","city":"Tallinn","lat":59.437,"lng":24.7536},{"price":300.0,"hotel":"Tallink Spa and Conference Hotel","country":"Estonia","city":"Tallinn","lat":59.437,"lng":24.7536},{"price":858.0,"hotel":"Point A Edinburgh Haymarket","country":"United Kingdom","city":"Edinburgh","lat":55.9533,"lng":-3.1883},{"price":207.0,"hotel":"BEI Hotel San Francisco","country":"United States of America","city":"San Francisco","lat":37.7749,"lng":-122.4194},{"price":1264.0,"hotel":"Intercity Sao Paulo Nacoes Unidas","country":"Brazil","city":"Sao Paulo","lat":-23.5505,"lng":-46.6333},{"price":1133.0,"hotel":"Ilunion Bilbao Hotel","country":"Spain","city":"Bilbao","lat":43.263,"lng":-2.935},{"price":662.0,"hotel":"Hotel Melia Bilbao","country":"Spain","city":"Bilbao","lat":43.263,"lng":-2.935},{"price":1811.0,"hotel":"W Sao Paulo","country":"Brazil","city":"Sao Paulo","lat":-23.5505,"lng":-46.6333},{"price":465.0,"hotel":"City Lodge Hotel GrandWest","country":"South Africa","city":"Cape Town","lat":-33.9249,"lng":18.4241},{"price":1289.0,"hotel":"Le Meridien Dubai Hotel & Conference Centre","country":"United Arab Emirates","city":"Dubai","lat":25.2048,"lng":55.2708},{"price":934.0,"hotel":"Vida Creek Harbour","country":"United Arab Emirates","city":"Dubai","lat":25.2048,"lng":55.2708},{"price":4007.0,"hotel":"Sofitel Dubai The Obelisk","country":"United Arab Emirates","city":"Dubai","lat":25.2048,"lng":55.2708},{"price":244.0,"hotel":"Maidan Palace Hotel","country":"Ukraine","city":"Kyiv","lat":50.4501,"lng":30.5234},{"price":638.0,"hotel":"Prana Resort Nandana","country":"Thailand","city":"Koh Samui","lat":9.512,"lng":100.0136},{"price":936.0,"hotel":"Skyline Hotel","country":"Germany","city":"Frankfurt","lat":50.1109,"lng":8.6821},{"price":182.0,"hotel":"Radisson Blu Daugava Hotel","country":"Latvia","city":"Riga","lat":56.9496,"lng":24.1052},{"price":89.0,"hotel":"Wellton Riga Hotel & SPA","country":"Latvia","city":"Riga","lat":56.9496,"lng":24.1052},{"price":128.0,"hotel":"Rixwell Old Riga Palace Hotel","country":"Latvia","city":"Riga","lat":56.9496,"lng":24.1052},{"price":195.0,"hotel":"Hotel Royal Prague","country":"Czech Republic","city":"Prague","lat":50.0755,"lng":14.4378}]
+
+const DISPLAY_INTERVAL_MS = 4000
+
+type Booking = typeof BOOKINGS[0]
+type ActivePin = Booking & { id: number; opacity: number }
+
+function latLngToXY(lat: number, lng: number, width: number, height: number) {
+  const x = ((lng + 180) / 360) * width
+  const y = ((90 - lat) / 180) * height
+  return { x, y }
+}
+
+export default function LiveBookingMap() {
+  const [activePins, setActivePins] = useState<ActivePin[]>([])
+  const [currentBooking, setCurrentBooking] = useState<Booking | null>(null)
+  const [bookingIndex, setBookingIndex] = useState(0)
+  const [totalRevenue, setTotalRevenue] = useState(0)
+  const [bookingCount, setBookingCount] = useState(0)
+  const idRef = useRef(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const booking = BOOKINGS[bookingIndex % BOOKINGS.length]
+      const newPin: ActivePin = { ...booking, id: idRef.current++, opacity: 1 }
+
+      setActivePins(prev => [...prev.slice(-8), newPin])
+      setCurrentBooking(booking)
+      setTotalRevenue(prev => prev + booking.price)
+      setBookingCount(prev => prev + 1)
+      setBookingIndex(prev => (prev + 1) % BOOKINGS.length)
+
+      setTimeout(() => {
+        setActivePins(prev => prev.map(p => p.id === newPin.id ? { ...p, opacity: 0 } : p))
+      }, 7000)
+
+      setTimeout(() => {
+        setActivePins(prev => prev.filter(p => p.id !== newPin.id))
+      }, 8000)
+    }, DISPLAY_INTERVAL_MS)
+
+    return () => clearInterval(interval)
+  }, [bookingIndex])
+
+  const W = 800
+  const H = 400
+
+  return (
+    <div className="relative bg-[#0d1117] rounded-2xl overflow-hidden" style={{ minHeight: '420px' }}>
+      {/* World map SVG background - dot grid representing continents */}
+      <svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
+        {/* Europe */}
+        {[[360,95],[370,90],[380,88],[390,92],[395,98],[385,105],[375,102],[365,100],[372,95],[382,96]].map(([cx,cy],i) => <circle key={`eu${i}`} cx={cx} cy={cy} r="2" fill="#1a6cf5" opacity="0.2"/>)}
+        {/* North America */}
+        {[[160,85],[175,90],[185,95],[195,100],[170,100],[180,108],[165,95],[155,92],[190,88],[200,105]].map(([cx,cy],i) => <circle key={`na${i}`} cx={cx} cy={cy} r="2" fill="#1a6cf5" opacity="0.2"/>)}
+        {/* South America */}
+        {[[220,190],[230,200],[225,215],[215,225],[210,210],[220,205],[228,195],[235,210]].map(([cx,cy],i) => <circle key={`sa${i}`} cx={cx} cy={cy} r="2" fill="#1a6cf5" opacity="0.2"/>)}
+        {/* Africa */}
+        {[[375,160],[385,170],[380,185],[370,195],[365,175],[375,165],[382,178],[368,168]].map(([cx,cy],i) => <circle key={`af${i}`} cx={cx} cy={cy} r="2" fill="#1a6cf5" opacity="0.2"/>)}
+        {/* Asia */}
+        {[[480,90],[500,95],[520,100],[540,105],[510,85],[530,90],[550,98],[490,100],[460,95],[470,88]].map(([cx,cy],i) => <circle key={`as${i}`} cx={cx} cy={cy} r="2" fill="#1a6cf5" opacity="0.2"/>)}
+        {/* Australia */}
+        {[[590,225],[605,230],[615,225],[600,220],[608,235],[595,228]].map(([cx,cy],i) => <circle key={`au${i}`} cx={cx} cy={cy} r="2" fill="#1a6cf5" opacity="0.2"/>)}
+
+        {/* Grid lines */}
+        {[0,0.25,0.5,0.75,1].map((f,i) => (
+          <line key={`gl${i}`} x1="0" y1={f*H} x2={W} y2={f*H} stroke="#1a6cf5" strokeWidth="0.3" opacity="0.1"/>
+        ))}
+        {[0,0.25,0.5,0.75,1].map((f,i) => (
+          <line key={`gv${i}`} x1={f*W} y1="0" x2={f*W} y2={H} stroke="#1a6cf5" strokeWidth="0.3" opacity="0.1"/>
+        ))}
+
+        {/* Booking pins */}
+        {activePins.map((pin) => {
+          const { x, y } = latLngToXY(pin.lat, pin.lng, W, H)
+          return (
+            <g key={pin.id} style={{ transition: 'opacity 1s ease', opacity: pin.opacity }}>
+              <circle cx={x} cy={y} r="14" fill="none" stroke="#1a6cf5" strokeWidth="1">
+                <animate attributeName="r" from="6" to="22" dur="2s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" from="0.8" to="0" dur="2s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx={x} cy={y} r="5" fill="#1a6cf5" stroke="white" strokeWidth="1.5"/>
+            </g>
+          )
+        })}
+      </svg>
+
+      {/* Dark overlay gradient */}
+      <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, transparent 40%, #0d1117 100%)' }}/>
+
+      {/* Live booking toast - bottom left */}
+      {currentBooking && (
+        <div
+          key={bookingIndex}
+          className="absolute bottom-4 left-4 bg-white rounded-xl p-4 shadow-2xl max-w-[280px]"
+          style={{ animation: 'slideUp 0.4s ease' }}
+        >
+          <div className="flex items-start gap-3">
+            <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5 shrink-0 animate-pulse"/>
+            <div className="min-w-0">
+              <p className="text-[10px] font-bold text-green-600 uppercase tracking-widest mb-0.5">Live booking</p>
+              <p className="text-[13px] font-semibold text-[#0a0a0a] leading-tight">{currentBooking.hotel}</p>
+              <p className="text-[11px] text-[#6b7280] mt-0.5">{currentBooking.city}, {currentBooking.country}</p>
+              <p className="text-[14px] font-black text-[#1a6cf5] mt-1">€{currentBooking.price.toLocaleString()} profit</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Stats top right */}
+      <div className="absolute top-4 right-4 flex gap-2">
+        <div className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg px-3 py-2 text-center">
+          <p className="text-[9px] text-white/40 uppercase tracking-widest">Bookings</p>
+          <p className="text-[15px] font-bold text-white">{bookingCount}</p>
+        </div>
+        <div className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg px-3 py-2 text-center">
+          <p className="text-[9px] text-white/40 uppercase tracking-widest">Revenue</p>
+          <p className="text-[15px] font-bold text-[#4d8ef7]">€{Math.round(totalRevenue).toLocaleString()}</p>
+        </div>
+      </div>
+
+      {/* Live indicator top left */}
+      <div className="absolute top-4 left-4 flex items-center gap-2 bg-black/40 backdrop-blur-sm border border-white/10 rounded-full px-3 py-1.5">
+        <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"/>
+        <span className="text-[10px] font-semibold text-white/70 uppercase tracking-wider">Live</span>
+      </div>
+
+      <style>{`
+        @keyframes slideUp {
+          from { transform: translateY(8px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+      `}</style>
+    </div>
+  )
+}
