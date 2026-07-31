@@ -138,7 +138,7 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
     _id: 'ticketing-for-events',
     title: 'Ticketing for Events',
     slug: 'ticketing-for-events',
-    tagline: 'Multi-platform ticket sales',
+    tagline: 'Multi-platform ticket sales for event teams',
     description:
       'Sell across every channel without losing track of who bought what. One dashboard, unified reporting, and payouts that actually make sense.',
     features: [
@@ -169,70 +169,66 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
       'Live in 5 minutes',
     ],
     stat: { value: '3x', label: 'faster setup vs. legacy platforms' },
-    heroHeadline: 'Sell everywhere. Manage from one place.',
+    heroHeadline: 'See exactly what your ticketing platform is keeping',
     heroSubtitle:
-      'Multi-platform ticket sales with unified reporting, instant payouts, and none of the integration headaches.',
+      'Every paid ticket carries a percentage fee and a settlement delay. Move the sliders to see what that costs you — and what you would keep with Hoperfy.',
     heroCta: 'Get early access',
-    problemHeadline: 'Selling across channels should not mean losing control.',
-    problems: [
-      {
-        title: 'Platform lock-in',
-        description: 'Legacy ticketing platforms trap your event and your data on their terms.',
-      },
-      {
-        title: 'Delayed payouts',
-        description: 'You wait weeks for money that attendees already paid.',
-      },
-      {
-        title: 'Data silos',
-        description: 'Every channel keeps its own data, so you never see the full picture.',
-      },
-    ],
-    featuresHeadline: 'One dashboard for every channel you sell on.',
+    problemHeadline: '',
+    problems: [],
+    featuresHeadline: 'Everything included',
     featuresList: [
       {
-        title: 'Multi-channel selling',
-        description: 'Sell across web, app, and partner channels from a single setup.',
+        title: 'Multi-channel ticket sales',
+        description:
+          'Sell from your own website, partner platforms and resellers at the same time. One inventory, all channels, zero overselling.',
       },
       {
-        title: 'Dynamic pricing',
-        description: 'Adjust pricing and capacity in real time as demand shifts.',
+        title: 'Dynamic pricing and capacity',
+        description:
+          'Early bird rates, price tiers and capacity limits that update automatically. No manual changes, no spreadsheet tracking.',
       },
       {
         title: 'Unified attendee data',
-        description: 'Every sale flows into one place, no matter where it happened.',
+        description:
+          'Every sale from every channel lands in one dashboard. Who bought, when, where and how much they paid — in real time, and it is yours.',
       },
       {
         title: 'Instant payouts',
-        description: 'Get paid as tickets sell, with no hidden fees.',
+        description:
+          'Revenue hits your account as tickets sell. No settlement cycles, no chasing the platform for your own money.',
       },
       {
-        title: 'QR check-in',
-        description: 'Fast, reliable access management at the door.',
+        title: 'QR check-in and access control',
+        description:
+          'Fast door management that works offline, handles high volume, and gives your team real-time entry counts.',
       },
       {
-        title: 'Unified reporting',
-        description: 'See performance across every channel in one report.',
+        title: 'Hotel booking layer',
+        description:
+          'Attendees book rooms from your event page across 2M+ properties. You earn commission instead of answering emails.',
       },
     ],
-    howItWorksHeadline: 'From setup to first sale in minutes.',
+    howItWorksHeadline: 'From setup to sold out',
     steps: [
       {
-        title: 'Create your event',
-        description: 'Set up tickets, pricing, and capacity in one place.',
+        title: 'Tell us about your event',
+        description:
+          'Share your event details, ticket types, and pricing. Our team sets everything up — you do not configure anything.',
       },
       {
-        title: 'Connect your channels',
-        description: 'Plug in web, app, and partner channels without integration work.',
+        title: 'Get your branded ticket sales page',
+        description:
+          'We build your ticketing setup in your brand. Your logo, your design, ready to go live within 24–48 hours.',
       },
       {
-        title: 'Sell and get paid',
-        description: 'Start selling everywhere and receive instant payouts.',
+        title: 'Start selling and get paid instantly',
+        description:
+          'Share the link, connect your channels, and watch tickets sell. Revenue hits your account in real time.',
       },
     ],
     stats: [
-      { value: '3x', label: 'faster setup' },
-      { value: '0', label: 'days payout delay' },
+      { value: '2.5%', label: 'flat platform fee on paid tickets' },
+      { value: '0 days', label: 'payout delay' },
       { value: '100%', label: 'attendee data ownership' },
     ],
   },

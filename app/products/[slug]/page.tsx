@@ -19,6 +19,9 @@ import ProductFullFeatures from '@/components/product/ProductFullFeatures'
 import ProductRevenueCalculator from '@/components/product/ProductRevenueCalculator'
 import LiveBookingMap from '@/components/product/LiveBookingMap'
 import HotelEventForm from '@/components/product/HotelEventForm'
+import { TicketingFeeProvider } from '@/components/product/ticketing/TicketingFeeContext'
+import TicketingHero from '@/components/product/ticketing/TicketingHero'
+import TicketingFeeSummary from '@/components/product/ticketing/TicketingFeeSummary'
 import { productGeo, buildProductJsonLd } from './geoData'
 
 export const dynamic = 'force-dynamic'
@@ -154,6 +157,26 @@ export default async function ProductPage({ params }: Props) {
         publisher: { '@id': 'https://hoperfy.com/#organization' },
       }
 
+  // Shared section slots (rendered in a different order/wrapper per product).
+  const problemsSection = data.problems?.length ? <ProductProblems product={data} /> : null
+  const featuresSection = data.featuresList?.length ? <ProductFeatures product={data} /> : null
+  const stepsSection = data.steps?.length ? <ProductHowItWorks product={data} /> : null
+  const fullFeaturesSection =
+    fullFeatures.length > 0 ? <ProductFullFeatures features={fullFeatures} /> : null
+  const statsSection = data.stats?.length ? <ProductStats product={data} /> : null
+  const pricingSection = <ProductPricing pricing={pricing} productSlug={data.slug} />
+  const compareSection = geo ? (
+    <ProductCompare competitors={geo.compare.competitors} features={geo.compare.features} />
+  ) : null
+  const testimonialsSection =
+    testimonials && testimonials.length > 0 ? (
+      <TestimonialsSection testimonials={testimonials} />
+    ) : null
+  const ctaSection = <ProductCTA product={data} />
+  const faqSection = geo?.faqs?.length ? (
+    <ProductFAQ faqs={geo.faqs} title="Common questions" />
+  ) : null
+
   return (
     <>
       <script
@@ -163,73 +186,93 @@ export default async function ProductPage({ params }: Props) {
       <NavWrapper>
         <main>
           {data.slug === 'hotels-for-events' ? (
-            <section className="pt-32 pb-0 px-6 bg-white">
-              <div className="max-w-5xl mx-auto">
-                {/* Top row — headline left, map right */}
-                <div className="grid md:grid-cols-2 gap-8 mb-8 items-start">
-                  <div>
-                    <p className="eyebrow mb-4">{data.tagline}</p>
-                    <h1 className="text-[2.5rem] md:text-[3rem] font-black leading-[1.05] tracking-tight text-[#0a0a0a]">
-                      {data.heroHeadline ?? data.title}
-                    </h1>
-                  </div>
-                  <div>
-                    <LiveBookingMap />
-                    <p className="text-[11px] text-[#9ca3af] text-center mt-2">Real bookings processed by Hoperfy</p>
-                  </div>
-                </div>
-
-                {/* Bottom block — full width, two columns */}
-                <div className="border-t border-[#e5e7eb] pt-8 pb-16">
-                  <div className="grid md:grid-cols-2 gap-10 items-center">
-                    {/* Left — subtitle + trust signals */}
+            <>
+              <section className="pt-32 pb-0 px-6 bg-white">
+                <div className="max-w-5xl mx-auto">
+                  {/* Top row — headline left, map right */}
+                  <div className="grid md:grid-cols-2 gap-8 mb-8 items-start">
                     <div>
-                      <p className="text-[16px] font-light text-[#6b7280] leading-relaxed mb-6">
-                        {data.heroSubtitle ?? data.description}
-                      </p>
-                      <div className="flex flex-col gap-2">
-                        {[
-                          'Free to set up — no credit card required',
-                          '2,000,000+ hotels worldwide',
-                          'Live in 5 minutes',
-                          'We handle all delegate support',
-                        ].map((item, i) => (
-                          <span key={i} className="flex items-center gap-2 text-[13px] text-[#6b7280]">
-                            <span className="text-[#1a6cf5] font-bold">✓</span> {item}
-                          </span>
-                        ))}
+                      <p className="eyebrow mb-4">{data.tagline}</p>
+                      <h1 className="text-[2.5rem] md:text-[3rem] font-black leading-[1.05] tracking-tight text-[#0a0a0a]">
+                        {data.heroHeadline ?? data.title}
+                      </h1>
+                    </div>
+                    <div>
+                      <LiveBookingMap />
+                      <p className="text-[11px] text-[#9ca3af] text-center mt-2">Real bookings processed by Hoperfy</p>
+                    </div>
+                  </div>
+
+                  {/* Bottom block — full width, two columns */}
+                  <div className="border-t border-[#e5e7eb] pt-8 pb-16">
+                    <div className="grid md:grid-cols-2 gap-10 items-center">
+                      {/* Left — subtitle + trust signals */}
+                      <div>
+                        <p className="text-[16px] font-light text-[#6b7280] leading-relaxed mb-6">
+                          {data.heroSubtitle ?? data.description}
+                        </p>
+                        <div className="flex flex-col gap-2">
+                          {[
+                            'Free to set up — no credit card required',
+                            '2,000,000+ hotels worldwide',
+                            'Live in 5 minutes',
+                            'We handle all delegate support',
+                          ].map((item, i) => (
+                            <span key={i} className="flex items-center gap-2 text-[13px] text-[#6b7280]">
+                              <span className="text-[#1a6cf5] font-bold">✓</span> {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Right — event form */}
+                      <div>
+                        <HotelEventForm />
                       </div>
                     </div>
-
-                    {/* Right — event form */}
-                    <div>
-                      <HotelEventForm />
-                    </div>
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
+              <ProductRevenueCalculator />
+              {problemsSection}
+              {featuresSection}
+              {stepsSection}
+              {fullFeaturesSection}
+              {statsSection}
+              {pricingSection}
+              {testimonialsSection}
+              {ctaSection}
+              {faqSection}
+            </>
+          ) : data.slug === 'ticketing-for-events' ? (
+            <TicketingFeeProvider>
+              <TicketingHero product={data} />
+              <TicketingFeeSummary />
+              {featuresSection}
+              {stepsSection}
+              {fullFeaturesSection}
+              {statsSection}
+              {pricingSection}
+              {compareSection}
+              {testimonialsSection}
+              {ctaSection}
+              {faqSection}
+            </TicketingFeeProvider>
           ) : (
-            <ProductHero product={data} />
+            <>
+              <ProductHero product={data} />
+              {problemsSection}
+              {featuresSection}
+              {stepsSection}
+              {fullFeaturesSection}
+              {statsSection}
+              {pricingSection}
+              {compareSection}
+              {testimonialsSection}
+              {ctaSection}
+              {faqSection}
+            </>
           )}
-          {data.slug === 'hotels-for-events' && <ProductRevenueCalculator />}
-          {data.problems?.length ? <ProductProblems product={data} /> : null}
-          {data.featuresList?.length ? <ProductFeatures product={data} /> : null}
-          {data.steps?.length ? <ProductHowItWorks product={data} /> : null}
-          {fullFeatures.length > 0 && <ProductFullFeatures features={fullFeatures} />}
-          {data.stats?.length ? <ProductStats product={data} /> : null}
-          <ProductPricing pricing={pricing} productSlug={data.slug} />
-          {geo && data.slug !== 'hotels-for-events' && (
-            <ProductCompare
-              competitors={geo.compare.competitors}
-              features={geo.compare.features}
-            />
-          )}
-          {testimonials && testimonials.length > 0 && (
-            <TestimonialsSection testimonials={testimonials} />
-          )}
-          <ProductCTA product={data} />
-          {geo?.faqs?.length ? <ProductFAQ faqs={geo.faqs} title="Common questions" /> : null}
         </main>
       </NavWrapper>
     </>

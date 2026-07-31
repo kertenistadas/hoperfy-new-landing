@@ -201,36 +201,47 @@ export const productGeo: Record<string, ProductGeo> = {
     },
     faqs: [
       {
+        question: 'So what does it actually cost?',
+        answer:
+          'Free events: nothing at all. Paid tickets: a flat 2.5% platform fee, plus Stripe processing of roughly 1.5–2.9% depending on card type and region. You can connect your own payment gateway and keep your negotiated processing rate.',
+      },
+      {
+        question: 'How can payouts be instant?',
+        answer:
+          'Funds settle to your connected account as sales happen rather than being pooled and released after the event. There is no 30–90 day settlement window and no manual payout request.',
+      },
+      {
         question: 'Is Hoperfy a good Eventbrite alternative?',
         answer:
-          'For professional event teams running their own events, yes. Hoperfy gives you more control over branding, instant payouts instead of delayed settlements, and unified data across every sales channel — things Eventbrite does not offer.',
+          'For organisers running their own events, yes. You get more control over branding, payouts as tickets sell instead of delayed settlement, and unified data across every sales channel.',
       },
       {
-        question: 'Can I sell tickets across multiple platforms at once?',
+        question: 'What size events is this built for?',
         answer:
-          'Yes. Hoperfy connects your ticket inventory to multiple sales channels simultaneously — your own website, partner platforms, and resellers — and syncs everything in real time so you never oversell.',
+          'The smallest event on Hoperfy was 20 people; the largest was 70,000. The setup process is the same either way — we do it for you.',
       },
       {
-        question: 'How fast are payouts with Hoperfy ticketing?',
+        question: 'Can I sell on my own site and partner platforms at once?',
         answer:
-          'Payouts are instant. As tickets sell, the revenue hits your account in real time. There are no 30 to 90 day settlement delays like you get with most ticketing platforms.',
+          'Yes. One inventory pool syncs across your site, partner platforms and resellers in real time, so you cannot oversell a tier.',
       },
       {
-        question: 'What size events is Hoperfy ticketing built for?',
+        question: 'Do I own my attendee data?',
         answer:
-          'Smallest event that Hoperfy ever managed was 20 people, our largest partner event is 70,000 attendees. Hoperfy is suited for all types of event sizes and geographies.',
+          'Yes. Every sale from every channel lands in your dashboard with the buyer details. It is your list, exportable — not an audience we resell back to you.',
       },
     ],
     compare: {
-      competitors: ['Eventbrite / Legacy platforms'],
+      competitors: ['Eventbrite / legacy platforms'],
       features: [
-        { label: 'Instant payouts', hoperfy: true, competitors: false },
-        { label: 'Zero percentage fees', hoperfy: true, competitors: false },
-        { label: 'Multi-channel sales from one dashboard', hoperfy: true, competitors: false },
+        { label: 'Platform fee on paid tickets', hoperfy: true, competitors: false },
+        { label: 'Fee on free events', hoperfy: true, competitors: false },
+        { label: 'Instant payouts as tickets sell', hoperfy: true, competitors: false },
         { label: 'White-label branding', hoperfy: true, competitors: false },
-        { label: 'Built-in hotel booking', hoperfy: true, competitors: false },
+        { label: 'Multi-channel from one inventory', hoperfy: true, competitors: false },
+        { label: 'Attendee data ownership', hoperfy: true, competitors: false },
+        { label: 'Hotel booking revenue layer', hoperfy: true, competitors: false },
         { label: 'QR check-in', hoperfy: true, competitors: true },
-        { label: 'Dynamic pricing', hoperfy: true, competitors: true },
       ],
     },
   },
