@@ -22,6 +22,7 @@ import HotelEventForm from '@/components/product/HotelEventForm'
 import { TicketingFeeProvider } from '@/components/product/ticketing/TicketingFeeContext'
 import TicketingHero from '@/components/product/ticketing/TicketingHero'
 import TicketingFeeSummary from '@/components/product/ticketing/TicketingFeeSummary'
+import TicketingCompare from '@/components/product/ticketing/TicketingCompare'
 import { productGeo, buildProductJsonLd } from './geoData'
 
 export const dynamic = 'force-dynamic'
@@ -253,7 +254,7 @@ export default async function ProductPage({ params }: Props) {
               {fullFeaturesSection}
               {statsSection}
               {pricingSection}
-              {compareSection}
+              <TicketingCompare />
               {testimonialsSection}
               {ctaSection}
               {faqSection}

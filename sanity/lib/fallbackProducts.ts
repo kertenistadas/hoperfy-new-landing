@@ -218,7 +218,7 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
       {
         title: 'Get your branded ticket sales page',
         description:
-          'We build your ticketing setup in your brand. Your logo, your design, ready to go live within 24–48 hours.',
+          'We build your ticketing setup in your brand. Your logo, your design, ready to go live in 5 minutes.',
       },
       {
         title: 'Start selling and get paid instantly',
