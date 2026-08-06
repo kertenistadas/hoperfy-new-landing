@@ -19,9 +19,12 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://hoperfy.com'),
   alternates: { canonical: 'https://hoperfy.com' },
   icons: {
-    icon: [{ url: '/favicon.png', type: 'image/png' }],
-    shortcut: '/favicon.png',
-    apple: '/favicon.png',
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-192x192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: '/favicon-180x180.png',
   },
   openGraph: {
     locale: 'en_US',
