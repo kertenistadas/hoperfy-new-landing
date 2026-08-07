@@ -262,10 +262,12 @@ export default function Nav({ navPages = [], navCategories = [] }: Props) {
 
           <div className="flex items-center gap-4">
             <a
-              href="/#signup"
+              href="https://events.hoperfy.com/admin/signin"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hidden md:inline-block text-[13px] font-medium bg-[#1a6cf5] text-white px-4 py-2 rounded-lg hover:bg-[#1558cc] transition-colors"
             >
-              Get access
+              Your events
             </a>
 
             {/* Mobile hamburger */}
@@ -378,11 +380,13 @@ export default function Nav({ navPages = [], navCategories = [] }: Props) {
             </div>
 
             <a
-              href="/#signup"
+              href="https://events.hoperfy.com/admin/signin"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setMobileOpen(false)}
               className="mt-8 text-center text-[14px] font-medium bg-[#1a6cf5] text-white px-4 py-3 rounded-lg hover:bg-[#1558cc] transition-colors"
             >
-              Get access
+              Your events
             </a>
           </div>
         </div>
