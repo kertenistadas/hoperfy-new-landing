@@ -5,12 +5,7 @@ import OnboardingModal from '@/components/OnboardingModal'
 
 export default function PricingGrid() {
   const [modalOpen, setModalOpen] = useState(false)
-  const [modalSource, setModalSource] = useState<string>('pricing-grid')
-
-  function openModal(source: string) {
-    setModalSource(source)
-    setModalOpen(true)
-  }
+  const [preselectedProduct, setPreselectedProduct] = useState<'hotels' | 'ticketing' | 'both' | undefined>(undefined)
 
   return (
     <>
@@ -63,7 +58,7 @@ export default function PricingGrid() {
 
               <button
                 className="w-full h-12 bg-[#1a6cf5] text-white rounded-lg font-medium text-[14px] hover:bg-[#1558cc] transition-colors"
-                onClick={() => openModal('pricing-full-suite')}
+                onClick={() => { setPreselectedProduct('both'); setModalOpen(true) }}
               >
                 Get the full suite
               </button>
@@ -104,7 +99,7 @@ export default function PricingGrid() {
 
               <button
                 className="w-full h-12 border border-[#e5e7eb] text-[#0a0a0a] rounded-lg font-medium text-[14px] hover:border-[#0a0a0a] transition-colors"
-                onClick={() => openModal('pricing-ticketing')}
+                onClick={() => { setPreselectedProduct('ticketing'); setModalOpen(true) }}
               >
                 Start selling tickets
               </button>
@@ -145,7 +140,7 @@ export default function PricingGrid() {
 
               <button
                 className="w-full h-12 border border-[#e5e7eb] text-[#0a0a0a] rounded-lg font-medium text-[14px] hover:border-[#0a0a0a] transition-colors"
-                onClick={() => openModal('pricing-hotels')}
+                onClick={() => { setPreselectedProduct('hotels'); setModalOpen(true) }}
               >
                 Set up hotel booking free
               </button>
@@ -161,8 +156,9 @@ export default function PricingGrid() {
 
       <OnboardingModal
         isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        source={modalSource}
+        onClose={() => { setModalOpen(false); setPreselectedProduct(undefined) }}
+        source="pricing-page"
+        initialProductInterest={preselectedProduct}
       />
     </>
   )

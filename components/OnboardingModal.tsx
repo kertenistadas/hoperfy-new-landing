@@ -11,14 +11,15 @@ type Props = {
   initialEventLocation?: string
   initialEventStartDate?: string
   initialEventEndDate?: string
+  initialProductInterest?: 'hotels' | 'ticketing' | 'both'
 }
 
-type ProductInterest = 'tickets' | 'hotels' | 'both'
+type ProductInterest = 'ticketing' | 'hotels' | 'both'
 
 const CALENDLY_URL = 'https://calendly.com/tadas-hoperfy/30min'
 
 const productOptions: { value: ProductInterest; title: string; description: string }[] = [
-  { value: 'tickets', title: 'Ticketing', description: 'Sell tickets across multiple channels' },
+  { value: 'ticketing', title: 'Ticketing', description: 'Sell tickets across multiple channels' },
   { value: 'hotels', title: 'Hotel booking', description: 'White-label hotel booking for attendees' },
   { value: 'both', title: 'Both', description: 'Full event commerce suite' },
 ]
@@ -31,7 +32,7 @@ const attendeeOptions: { value: string; label: string }[] = [
 ]
 
 const productLabels: Record<ProductInterest, string> = {
-  tickets: 'Ticketing',
+  ticketing: 'Ticketing',
   hotels: 'Hotel booking',
   both: 'Both',
 }
@@ -49,11 +50,12 @@ export default function OnboardingModal({
   initialEventLocation,
   initialEventStartDate,
   initialEventEndDate,
+  initialProductInterest,
 }: Props) {
   const [step, setStep] = useState(1)
   const [email, setEmail] = useState(initialEmail ?? '')
   const [emailError, setEmailError] = useState('')
-  const [productInterest, setProductInterest] = useState<ProductInterest | null>(null)
+  const [productInterest, setProductInterest] = useState<ProductInterest | null>(initialProductInterest ?? null)
   const [eventName, setEventName] = useState(initialEventName ?? '')
   const [attendees, setAttendees] = useState('')
   const [eventStartDate, setEventStartDate] = useState(initialEventStartDate ?? '')
@@ -68,7 +70,7 @@ export default function OnboardingModal({
       setStep(1)
       setEmail(initialEmail ?? '')
       setEmailError('')
-      setProductInterest(null)
+      setProductInterest(initialProductInterest ?? null)
       setEventName(initialEventName ?? '')
       setAttendees('')
       setEventStartDate(initialEventStartDate ?? '')
@@ -77,7 +79,15 @@ export default function OnboardingModal({
       setSubmitting(false)
       setSubmitError('')
     }
-  }, [isOpen, initialEmail, initialEventName, initialEventLocation, initialEventStartDate, initialEventEndDate])
+  }, [isOpen, initialEmail, initialEventName, initialEventLocation, initialEventStartDate, initialEventEndDate, initialProductInterest])
+
+  // Skip step 2 when a product is pre-selected
+  useEffect(() => {
+    if (initialProductInterest && step === 2) {
+      setProductInterest(initialProductInterest)
+      setStep(3)
+    }
+  }, [step, initialProductInterest])
 
   // Lock body scroll + close on Escape while open
   useEffect(() => {
@@ -149,6 +159,22 @@ export default function OnboardingModal({
   const showCounter = step >= 1 && step <= 4
   const progress = (step / 5) * 100
 
+  const modalTitle = initialProductInterest === 'both'
+    ? 'Set up your full event suite'
+    : initialProductInterest === 'hotels'
+    ? 'Set up hotel booking for your event'
+    : initialProductInterest === 'ticketing'
+    ? 'Set up ticketing for your event'
+    : "Let's get started"
+
+  const productEyebrow = productInterest === 'both'
+    ? 'Full Suite'
+    : productInterest === 'hotels'
+    ? 'Hotels for Events'
+    : productInterest === 'ticketing'
+    ? 'Ticketing for Events'
+    : null
+
   return (
     <div
       className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4"
@@ -205,7 +231,7 @@ export default function OnboardingModal({
         {step === 1 && (
           <div>
             <h2 className="text-[1.5rem] font-black tracking-tight text-[#0a0a0a] mb-2">
-              Let&apos;s get started
+              {modalTitle}
             </h2>
             <p className="text-[15px] font-light text-[#6b7280] mb-6">
               What&apos;s your work email?
@@ -236,7 +262,7 @@ export default function OnboardingModal({
         {step === 2 && (
           <div>
             <h2 className="text-[1.5rem] font-black tracking-tight text-[#0a0a0a] mb-2">
-              What do you need?
+              {initialProductInterest ? modalTitle : 'What do you need?'}
             </h2>
             <p className="text-[15px] font-light text-[#6b7280] mb-6">
               Choose what you want to set up for your event
@@ -267,6 +293,9 @@ export default function OnboardingModal({
         {/* Step 3 — Event details */}
         {step === 3 && (
           <div>
+            {productEyebrow && (
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-[#1a6cf5] mb-2">{productEyebrow}</p>
+            )}
             <h2 className="text-[1.5rem] font-black tracking-tight text-[#0a0a0a] mb-2">
               Tell us about your event
             </h2>
@@ -324,6 +353,9 @@ export default function OnboardingModal({
         {/* Step 4 — When & where */}
         {step === 4 && (
           <div>
+            {productEyebrow && (
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-[#1a6cf5] mb-2">{productEyebrow}</p>
+            )}
             <h2 className="text-[1.5rem] font-black tracking-tight text-[#0a0a0a] mb-2">
               When and where?
             </h2>

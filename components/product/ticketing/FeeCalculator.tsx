@@ -30,13 +30,14 @@ export default function FeeCalculator() {
   const platforms: { key: PlatformKey; label: string }[] = [
     { key: 'eventbrite', label: 'Eventbrite' },
     { key: 'legacy', label: 'Legacy box office' },
-    { key: 'diy', label: 'Own site + Stripe' },
+    { key: 'diy', label: 'Own site + Stripe *' },
   ]
 
   const currencies: CurrencyKey[] = ['€', '$', '£']
 
   return (
-    <div className="bg-white border border-[#e5e7eb] rounded-2xl p-6 shadow-sm">
+    <div>
+    <div className="bg-white border border-[#e5e7eb] rounded-2xl p-6 shadow-sm h-full flex flex-col">
       {/* Currency toggle */}
       <div className="flex justify-between items-center mb-6">
         <p className="text-[12px] font-semibold text-[#9ca3af] uppercase tracking-wider">Fee calculator</p>
@@ -181,23 +182,18 @@ export default function FeeCalculator() {
             </p>
             <p className="text-[14px] font-black text-[#0a0a0a]">Worth checking the trade-off</p>
             <p className="text-[11px] text-[#6b7280] mt-1">
-              At this volume a {platformLabel.toLowerCase()} has lower fees. Talk to us before deciding.
+              We haven&apos;t factored in development costs and ongoing maintenance. If you build your own.
             </p>
           </>
         ) : (
           <>
-            <p className="text-[11px] font-semibold text-[#1a6cf5] uppercase tracking-wider mb-1">
-              You keep {fmt(savings, currency)} more
-            </p>
             <p className="text-[14px] font-black text-[#0a0a0a]">
-              {fmt(savings, currency)} better off vs {platformLabel}
-            </p>
-            <p className="text-[11px] text-[#6b7280] mt-1">
-              Paid out as tickets sell, not {payoutDelayDays} days after your event.
+              You earn {fmt(savings, currency)} more!
             </p>
           </>
         )}
       </div>
+    </div>
     </div>
   )
 }

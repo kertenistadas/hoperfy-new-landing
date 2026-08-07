@@ -6,7 +6,7 @@ export default function TicketingHero({ product }: { product: ProductDetail }) {
   return (
     <section className="pt-32 pb-0 px-6 bg-white">
       <div className="max-w-5xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-10 items-start mb-8">
+        <div className="grid md:grid-cols-2 gap-10 items-stretch mb-8">
           {/* Left — copy */}
           <div>
             <p className="eyebrow mb-4">{product.tagline}</p>

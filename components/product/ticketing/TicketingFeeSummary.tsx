@@ -1,7 +1,8 @@
 'use client'
 
-import Link from 'next/link'
+import { useState } from 'react'
 import { useTicketingFee } from './TicketingFeeContext'
+import OnboardingModal from '@/components/OnboardingModal'
 
 function fmt(value: number, currency: string) {
   return `${currency}${Math.round(Math.abs(value)).toLocaleString()}`
@@ -10,81 +11,122 @@ function fmt(value: number, currency: string) {
 export default function TicketingFeeSummary() {
   const {
     savings,
-    isNegative,
     currency,
-    gross,
     hoperfyTotal,
     competitorTotal,
     platformLabel,
-    payoutDelayDays,
     ticketsSold,
     ticketPrice,
+    platform,
   } = useTicketingFee()
 
+  const hotelProfit = Math.round(ticketsSold * 0.3 * 2 * ticketPrice * 2 * 0.10)
+  const [modalOpen, setModalOpen] = useState(false)
+
   return (
+    <>
     <section className="py-20 px-6 bg-[#f9fafb] border-t border-[#e5e7eb]">
       <div className="max-w-5xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Left — dynamic result */}
+
+          {/* Left column */}
           <div>
-            <p className="eyebrow mb-3">At your numbers</p>
-            <h2 className="text-[1.75rem] md:text-[2.25rem] font-black tracking-tight text-[#0a0a0a] mb-4">
-              {isNegative
-                ? `Hoperfy costs ${fmt(Math.abs(savings), currency)} more than ${platformLabel}`
-                : `You keep ${fmt(savings, currency)} more with Hoperfy`}
-            </h2>
-            <p className="text-[15px] font-light text-[#6b7280] leading-relaxed mb-6">
-              {isNegative
-                ? `At ${ticketsSold.toLocaleString()} tickets at ${currency}${ticketPrice}, a ${platformLabel.toLowerCase()} has lower platform fees. The trade-off is a ${payoutDelayDays}-day payout delay and no hotel revenue layer. Talk to us if you are at this scale.`
-                : `On ${ticketsSold.toLocaleString()} tickets at ${currency}${ticketPrice}, Hoperfy's fees are ${fmt(hoperfyTotal, currency)} vs ${fmt(competitorTotal, currency)} with ${platformLabel}. That ${fmt(savings, currency)} lands in your account as tickets sell — not ${payoutDelayDays} days after your event.`}
-            </p>
-            <Link
-              href="https://calendly.com/tadas-hoperfy/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[13px] font-medium text-[#1a6cf5] hover:underline"
-            >
-              Book 30 minutes to talk through your numbers →
-            </Link>
+            {platform === 'diy' ? (
+              <>
+                <p className="eyebrow mb-3">You could be earning more</p>
+                <h2 className="text-[1.75rem] md:text-[2.25rem] font-black tracking-tight text-[#0a0a0a] mb-4">
+                  Your attendees are already spending on hotels
+                </h2>
+                <p className="text-[15px] font-light text-[#6b7280] leading-relaxed mb-6">
+                  If {Math.round(ticketsSold * 0.3).toLocaleString()} of your attendees book hotels for {currency}{Math.round(ticketPrice * 2)} avg spend per night, that&apos;s{' '}
+                  <span className="font-semibold text-[#0a0a0a]">
+                    {currency}{hotelProfit.toLocaleString()} in hotel profit
+                  </span>{' '}
+                  you could be earning — for free.
+                </p>
+                <p className="text-[14px] text-[#6b7280] font-light mb-6">
+                  Hoperfy hotel booking is free to set up. You earn 30–50% of hotel booking profits. No extra work for your team.
+                </p>
+                <a
+                  href="/products/hotels-for-events"
+                  className="text-[13px] font-medium text-[#1a6cf5] hover:underline"
+                >
+                  Learn about hotel booking for events →
+                </a>
+              </>
+            ) : (
+              <>
+                <p className="eyebrow mb-3">At your numbers</p>
+                <h2 className="text-[1.75rem] md:text-[2.25rem] font-black tracking-tight text-[#0a0a0a] mb-4">
+                  You earn {fmt(savings, currency)} more with Hoperfy
+                </h2>
+                <p className="text-[15px] font-light text-[#6b7280] leading-relaxed mb-4">
+                  On {ticketsSold.toLocaleString()} tickets at {currency}{ticketPrice}, Hoperfy&apos;s total fees are {fmt(hoperfyTotal, currency)} vs {fmt(competitorTotal, currency)} with {platformLabel}. That&apos;s {fmt(savings, currency)} that stays in your account — paid out as tickets sell.
+                </p>
+                <p className="text-[13px] text-[#6b7280] mt-4">
+                  Add hotel booking for free and earn an extra{' '}
+                  <span className="font-semibold text-[#0a0a0a]">
+                    {currency}{hotelProfit.toLocaleString()}
+                  </span>{' '}
+                  in hotel profit on top.{' '}
+                  <button
+                    onClick={() => setModalOpen(true)}
+                    className="text-[#1a6cf5] hover:underline text-[13px]"
+                  >
+                    Learn more →
+                  </button>
+                </p>
+              </>
+            )}
           </div>
 
-          {/* Right — breakdown */}
-          <div className="space-y-3">
-            <div className="bg-white border border-[#e5e7eb] rounded-xl p-5">
-              <div className="flex justify-between items-center mb-3">
-                <p className="text-[13px] font-semibold text-[#0a0a0a]">Hoperfy</p>
-                <p className="text-[13px] font-black text-[#1a6cf5]">{fmt(hoperfyTotal, currency)}</p>
+          {/* Right column */}
+          <div className="flex flex-col gap-4">
+            {platform === 'diy' ? (
+              <div className="bg-[#eef4ff] border border-[#b8d0fe] rounded-xl p-6 text-center">
+                <p className="text-[11px] font-semibold text-[#1a6cf5] uppercase tracking-wider mb-2">Estimated hotel profit</p>
+                <p className="text-[3rem] font-black text-[#1a6cf5] leading-none">
+                  {currency}{hotelProfit.toLocaleString()}
+                </p>
+                <p className="text-[12px] text-[#6b7280] mt-2">
+                  estimated hotel profit per event (10% of booking revenue)
+                </p>
+                <a
+                  href="/products/hotels-for-events"
+                  className="mt-4 inline-block text-[13px] font-medium bg-[#1a6cf5] text-white px-6 py-2.5 rounded-lg hover:bg-[#1558cc] transition-colors"
+                >
+                  Add hotel booking — it&apos;s free →
+                </a>
               </div>
-              <div className="h-2 bg-[#eef4ff] rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-[#1a6cf5] rounded-full transition-all duration-300"
-                  style={{ width: `${Math.min(100, (hoperfyTotal / Math.max(hoperfyTotal, competitorTotal, 1)) * 100)}%` }}
-                />
-              </div>
-              <p className="text-[11px] text-[#6b7280] mt-1.5">Paid out instantly as tickets sell</p>
-            </div>
+            ) : (
+              <>
+                <div className="bg-[#eef4ff] border border-[#b8d0fe] rounded-xl p-5">
+                  <p className="text-[10px] font-semibold text-[#1a6cf5] uppercase tracking-widest mb-1">You keep with Hoperfy</p>
+                  <p className="text-[2.5rem] font-black text-[#1a6cf5] leading-none">{fmt(savings, currency)}</p>
+                  <p className="text-[11px] text-[#6b7280] mt-1">more vs {platformLabel}</p>
+                </div>
 
-            <div className="bg-white border border-[#e5e7eb] rounded-xl p-5">
-              <div className="flex justify-between items-center mb-3">
-                <p className="text-[13px] font-semibold text-[#0a0a0a]">{platformLabel}</p>
-                <p className="text-[13px] font-black text-[#0a0a0a]">{fmt(competitorTotal, currency)}</p>
-              </div>
-              <div className="h-2 bg-[#f3f4f6] rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-[#374151] rounded-full transition-all duration-300"
-                  style={{ width: `${Math.min(100, (competitorTotal / Math.max(hoperfyTotal, competitorTotal, 1)) * 100)}%` }}
-                />
-              </div>
-              <p className="text-[11px] text-[#6b7280] mt-1.5">Released {payoutDelayDays} days after your event</p>
-            </div>
-
-            <div className="bg-[#f9fafb] border border-[#e5e7eb] rounded-xl p-4 text-center">
-              <p className="text-[11px] text-[#6b7280] mb-0.5">Gross ticket revenue</p>
-              <p className="text-[20px] font-black text-[#0a0a0a]">{fmt(gross, currency)}</p>
-            </div>
+<div className="bg-white border border-[#e5e7eb] rounded-xl p-5">
+                  <p className="text-[10px] font-semibold text-[#6b7280] uppercase tracking-widest mb-1">Possible hotel profit on top</p>
+                  <p className="text-[2rem] font-black text-[#0a0a0a] leading-none">
+                    +{currency}{hotelProfit.toLocaleString()}
+                  </p>
+                  <p className="text-[11px] text-[#6b7280] mt-1">estimated if you add hotel booking (free)</p>
+                </div>
+              </>
+            )}
           </div>
+
         </div>
       </div>
     </section>
+
+    <OnboardingModal
+      isOpen={modalOpen}
+      onClose={() => setModalOpen(false)}
+      source="ticketing-hotel-upsell"
+      initialProductInterest="both"
+    />
+    </>
   )
 }
