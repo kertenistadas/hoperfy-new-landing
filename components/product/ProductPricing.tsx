@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import PricingCard from '@/components/PricingCard'
 import { fallbackPricingBySlug } from '@/sanity/lib/fallbackPricing'
 import type { Pricing } from '@/types'
@@ -29,11 +28,7 @@ export default function ProductPricing({ pricing, productSlug }: Props) {
           <PricingCard pricing={data} source={`${productSlug}-product-pricing`} />
         </div>
 
-        <div className="mt-6">
-          <Link href="/pricing" className="text-[13px] text-[#1a6cf5] hover:text-[#1558cc] transition-colors">
-            See full pricing comparison →
-          </Link>
-        </div>
+
       </div>
     </section>
   )
