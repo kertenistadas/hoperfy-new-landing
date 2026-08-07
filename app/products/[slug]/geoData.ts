@@ -83,7 +83,7 @@ export const productGeo: Record<string, ProductGeo> = {
       {
         question: 'Do I need to have hotel contracts already in place?',
         answer:
-          'No. Hoperfy contracts hotels on your behalf. You do not need existing hotel relationships, negotiated rates, or contracts. Just tell us your event location and size — we handle everything from there.',
+          'No. Hoperfy is a full-service event housing management solution. We contract hotels on your behalf across 2,000,000+ properties worldwide. No existing hotel relationships, negotiated rates, or contracts required — just tell us your event location and size.',
       },
       {
         question: 'How many hotels does Hoperfy work with?',
@@ -99,22 +99,17 @@ export const productGeo: Record<string, ProductGeo> = {
       {
         question: "Our team is already stretched. Won't this add to the workload?",
         answer:
-          'The opposite. One conversation with us is all it takes to get set up. After that, Hoperfy runs the hotel booking - including all delegate communication, changes, and problems. Most event teams tell us it saves them 15–20 hours per event.',
+          'The opposite. Most event teams spend 15–20 hours per event on hotel coordination — chasing room block software updates, handling delegate queries, managing contracts. Hoperfy removes that entire workload. One conversation to set up, then we run everything.',
       },
       {
         question: 'How is Hoperfy different from Cvent Passkey or HotelMap?',
         answer:
-          "HotelMap and Cvent Passkey require your team to manage the platform. Hoperfy is a fully managed service — we build the booking page, manage the hotels, and handle all delegate support. You don't manage anything.",
+          "Unlike Cvent Passkey, EventPipe, or HotelMap, Hoperfy is a fully managed white-label hotel booking service for events — not a self-service platform your team has to learn. We build the booking page, manage the hotels, handle room block software tracking, and support all delegate queries. You do nothing after the first call.",
       },
       {
         question: 'Is hotel booking really free?',
         answer:
-          'Yes. Hoperfy earns through its hotel network partnerships. You get a fully managed, white-label hotel booking experience at no cost — and you keep 30-50% of profits from hotel revenue.',
-      },
-      {
-        question: 'Will this create more support emails or calls for my team?',
-        answer:
-          "No. Hoperfy's support team handles all delegate-facing questions, changes, and cancellations directly. Your team never fields a hotel-related call.",
+          "Yes. Hoperfy's white-label hotel booking for events is free to set up. We earn through hotel network partnerships. You get a fully managed event hotel booking platform at no cost — and keep 30–50% of hotel revenue profits.",
       },
       {
         question: 'What happens if a hotel booking goes wrong?',
@@ -130,6 +125,11 @@ export const productGeo: Record<string, ProductGeo> = {
         question: 'What size events is this built for?',
         answer:
           "Hoperfy works best for events with 200 or more attendees — conferences, trade shows, festivals, corporate events, and sports tournaments. If your event is smaller, get in touch and we'll let you know if we're a good fit.",
+      },
+      {
+        question: 'Is Hoperfy a good alternative to EventPipe or Cvent Passkey?',
+        answer:
+          "Yes. Hoperfy is a modern alternative to EventPipe, Cvent Passkey, and legacy conference hotel booking software. The key difference: Hoperfy is fully managed — we do the work, not your team. White-label branding, 2M+ properties, instant setup, and zero platform fees make it the leading event hotel booking platform for professional event teams.",
       },
     ],
     compare: {

@@ -32,7 +32,7 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
     stat: { value: '40%', label: 'more hotel revenue per event' },
     heroHeadline: 'Your attendees are already booking hotels. Zero extra work for your team.',
     heroSubtitle:
-      'For a 500-person event, attendees typically spend €80,000–€150,000 on accommodation — through Booking.com, not through you. Hoperfy gives your event its own hotel booking page, free. We contract the hotels, handle all delegate support, and manage everything. Your team does nothing.',
+      'For a 500-person event, attendees typically spend €80,000–€150,000 on accommodation — through Booking.com, not through you. Hoperfy is the white-label hotel booking platform for event teams. We contract the hotels, handle all delegate support, and manage everything. Free to set up. Live in 5 minutes.',
     heroCta: 'Get early access',
     problemHeadline: "We've heard every objection. Here's the honest answer to each one.",
     problems: [
@@ -62,7 +62,7 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
           'For a 500-person event, attendees typically spend €80,000–€150,000 on accommodation. Right now, that revenue goes to Booking.com or Expedia. Hoperfy lets you capture it — for free.',
       },
     ],
-    featuresHeadline: 'What your attendees get. What your team never has to deal with.',
+    featuresHeadline: 'White-label hotel booking software built for event teams',
     featuresList: [
       {
         title: 'Fully white-labelled booking page',
@@ -110,7 +110,7 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
           'Managed setup by our team. You share your event details and hotel contracts in one call. We build and launch the booking page. No dev work, no technical setup.',
       },
     ],
-    howItWorksHeadline: 'One conversation. Then we handle everything.',
+    howItWorksHeadline: 'Set up your event hotel booking in 5 minutes',
     steps: [
       {
         title: 'One call with our team',
