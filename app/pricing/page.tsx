@@ -1,14 +1,8 @@
 import type { Metadata } from 'next'
-import { client } from '@/sanity/lib/client'
-import { pricingQuery } from '@/sanity/lib/queries'
-import { fallbackPricing } from '@/sanity/lib/fallbackPricing'
-import type { Pricing } from '@/types'
 import NavWrapper from '@/components/NavWrapper'
-import PricingCards from '@/components/PricingCards'
+import PricingGrid from '@/components/PricingGrid'
 import ProductFAQ from '@/components/product/ProductFAQ'
 import CTAButtons from '@/components/CTAButtons'
-
-export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: { absolute: 'Pricing — Simple, transparent pricing | Hoperfy' },
@@ -25,59 +19,34 @@ type ComparisonRow = {
 }
 
 const comparisonRows: ComparisonRow[] = [
-  { feature: 'Hotel booking fee', hoperfy: 'Free', eventbrite: 'N/A', cvent: 'Commission-based' },
-  { feature: 'Ticket fee', hoperfy: '2.5%', eventbrite: '3.7% + €0.99', cvent: 'Custom / high' },
+  { feature: 'Ticketing fee', hoperfy: '2%', eventbrite: '~3.7% + fixed fee', cvent: 'Custom / high' },
+  { feature: 'Hotel booking profit payout', hoperfy: '50%', eventbrite: 'N/A', cvent: 'You pay them' },
+  { feature: 'Hotels + ticketing in one platform', hoperfy: '✓', eventbrite: '✗', cvent: '✗' },
   { feature: 'Free events', hoperfy: 'Free', eventbrite: 'Free', cvent: 'Custom' },
-  { feature: 'Payment processing fee', hoperfy: '1.5%–2.9%', eventbrite: '2.9% + fixed', cvent: 'Custom' },
   { feature: 'Bring your own payment provider', hoperfy: '✓', eventbrite: '✗', cvent: '✗' },
   { feature: 'Instant payouts', hoperfy: '✓', eventbrite: '✗', cvent: '✗' },
   { feature: 'White-label branding', hoperfy: '✓', eventbrite: '✗', cvent: 'Partial' },
-  { feature: 'Managed setup', hoperfy: '✓', eventbrite: '✗', cvent: '✗' },
-  { feature: 'Hotels + ticketing in one platform', hoperfy: '✓', eventbrite: '✗', cvent: '✗' },
+  { feature: 'Who makes the setup', hoperfy: '✓ Us', eventbrite: '✗ You', cvent: '✗ You' },
   { feature: 'Monthly fee', hoperfy: 'None', eventbrite: 'None', cvent: 'Yes' },
-  { feature: 'Lock-in contract', hoperfy: 'None', eventbrite: 'None', cvent: 'Yes' },
+  { feature: 'Payment processing fee', hoperfy: '0.1%–2.9%', eventbrite: '2.9% + fixed', cvent: 'Custom' },
 ]
 
 const pricingFaqs = [
   {
-    question: 'How is hotel booking free?',
-    answer:
-      'Hoperfy earns through its hotel network partnerships. You get a fully managed, white-label hotel booking experience at no cost — and you keep hotel revenue.',
-  },
-  {
     question: 'Are there any hidden fees on ticketing?',
-    answer:
-      'No. The 2.5% fee is all-in. No setup fee, no monthly fee, no payout fee, no fee on refunds. You always know exactly what you are paying.',
-  },
-  {
-    question: 'Is Hoperfy free for free events?',
-    answer:
-      'Yes. If you are running a free event with no paid tickets, Hoperfy charges nothing. No platform fee, no processing fee, no hidden costs.',
+    answer: 'No. The 2–2.5% fee is all-in. No setup fee, no monthly fee, no payout fee, no fee on refunds. You always know exactly what you are paying.',
   },
   {
     question: 'What payment processing fees apply?',
-    answer:
-      'Hoperfy uses Stripe for payment processing. Stripe charges between 1.5% and 2.9% per transaction depending on your location and card type. You can also connect your own payment provider if you prefer.',
-  },
-  {
-    question: 'What is included in managed setup?',
-    answer:
-      'Our team builds your hotel booking page or ticketing setup for you. We handle the configuration, branding, and hotel connections. Most setups go live in up to 5 minutes.',
-  },
-  {
-    question: 'Is there a minimum event size?',
-    answer:
-      'Hoperfy works with small / medium / large events, our biggest partner event is 70000 attendees, smallest 20.',
+    answer: 'Hoperfy uses Stripe for card payment processing and accepts direct payments. Banks charge between 0.1% and 2.9% per transaction depending on your location, card type, and transfer currency. You can also connect your own payment provider if you prefer.',
   },
   {
     question: 'Can I use both products together?',
-    answer:
-      'Yes. Many event teams use both hotel booking and ticketing through Hoperfy. Hotel booking stays free, and ticketing is still 2.5% per ticket.',
+    answer: 'Yes. Many event teams use both hotel booking and ticketing through Hoperfy. Hotel booking stays free but the payout goes from 30% to 50% per booking, and ticketing goes down from 2.5% to 2% per ticket.',
   },
   {
     question: 'Is there a long-term contract?',
-    answer:
-      'No. There are no lock-in contracts. You pay per event or per ticket — nothing more.',
+    answer: 'No. There are no lock-in contracts.',
   },
 ]
 
@@ -88,10 +57,7 @@ function CompareCell({ value }: { value: string }) {
   return <span className="text-[#374151]">{value}</span>
 }
 
-export default async function PricingPage() {
-  const sanityPricing = await client.fetch<Pricing[]>(pricingQuery).catch(() => [])
-  const pricing = sanityPricing && sanityPricing.length > 0 ? sanityPricing : fallbackPricing
-
+export default function PricingPage() {
   return (
     <NavWrapper>
       <main>
@@ -108,9 +74,7 @@ export default async function PricingPage() {
         </section>
 
         {/* Pricing cards */}
-        <section className="max-w-6xl mx-auto px-6 pb-24">
-          <PricingCards pricing={pricing} />
-        </section>
+        <PricingGrid />
 
         {/* Comparison table */}
         <section className="py-24 px-6 border-t border-[#e5e7eb]">
@@ -136,8 +100,12 @@ export default async function PricingPage() {
                   {comparisonRows.map((row, i) => (
                     <tr key={row.feature} className={i % 2 === 0 ? 'bg-white' : 'bg-[#f9fafb]'}>
                       <td className="py-4 px-5 text-[14px] text-[#374151]">{row.feature}</td>
-                      <td className="py-4 px-5 text-[14px] text-[#1a6cf5] font-semibold">
-                        {row.hoperfy}
+                      <td className="py-4 px-5 text-[14px]">
+                        {row.hoperfy.startsWith('✓') ? (
+                          <span className="font-semibold text-[#1a6cf5]">{row.hoperfy}</span>
+                        ) : (
+                          <span className="font-semibold text-[#0a0a0a]">{row.hoperfy}</span>
+                        )}
                       </td>
                       <td className="py-4 px-5 text-[14px]">
                         <CompareCell value={row.eventbrite} />
