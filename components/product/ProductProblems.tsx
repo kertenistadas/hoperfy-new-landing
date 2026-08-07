@@ -9,23 +9,38 @@ export default function ProductProblems({ product }: Props) {
 
   return (
     <section className="py-24 px-6 bg-[#f9fafb]">
-      <div className="max-w-5xl mx-auto">
-        {product.problemHeadline && (
-          <h2 className="text-[1.75rem] md:text-[2.25rem] font-black tracking-tight text-[#0a0a0a] mb-16 max-w-2xl">
-            {product.problemHeadline}
+      <div className="max-w-3xl mx-auto">
+        <div className="mb-12">
+          <p className="eyebrow mb-3">Objections we hear</p>
+          <h2 className="text-[1.75rem] md:text-[2.25rem] font-black tracking-tight text-[#0a0a0a]">
+            {product.problemHeadline ?? 'We have heard every objection.'}
           </h2>
-        )}
+        </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {product.problems.map((problem, i) => (
-            <div key={i} className="border border-[#e5e7eb] bg-white rounded-xl p-6">
-              <p className="text-[13px] font-semibold text-[#d1d5db] mb-4">
-                {String(i + 1).padStart(2, '0')}
-              </p>
-              <h3 className="text-[1.125rem] font-black text-[#0a0a0a] mb-3">{problem.title}</h3>
-              <p className="text-[14px] font-light text-[#6b7280] leading-relaxed">
-                {problem.description}
-              </p>
+        <div className="flex flex-col gap-6">
+          {product.problems.map((p, i) => (
+            <div key={i} className="flex flex-col gap-2">
+
+              {/* Objection bubble - left side */}
+              <div className="flex flex-col items-start">
+                <span className="text-[10px] font-semibold text-[#9ca3af] uppercase tracking-wider mb-1 ml-3">
+                  Event organizer
+                </span>
+                <div className="bg-[#f3f4f6] rounded-2xl rounded-tl-sm px-5 py-4 max-w-[80%]">
+                  <p className="text-[14px] font-semibold text-[#0a0a0a]">{p.title}</p>
+                </div>
+              </div>
+
+              {/* Response bubble - right side */}
+              <div className="flex flex-col items-end">
+                <span className="text-[10px] font-semibold text-[#1a6cf5] uppercase tracking-wider mb-1 mr-3">
+                  Hoperfy
+                </span>
+                <div className="bg-[#1a6cf5] rounded-2xl rounded-tr-sm px-5 py-4 max-w-[80%]">
+                  <p className="text-[14px] font-light text-white leading-relaxed">{p.description}</p>
+                </div>
+              </div>
+
             </div>
           ))}
         </div>
