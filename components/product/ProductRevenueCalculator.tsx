@@ -205,6 +205,7 @@ export default function ProductRevenueCalculator() {
                       <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
                         avg. {currencySymbol}{regionRates[region]}/night
                       </span>
+                      <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>Profit</span>
                     </div>
                   )}
                   {city.length > 2 && !region && !showSuggestions && !isLoadingSuggestions && (
