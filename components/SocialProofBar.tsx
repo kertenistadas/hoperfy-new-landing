@@ -29,9 +29,9 @@ export default function SocialProofBar({ data }: Props) {
   }, [])
 
   return (
-    <section className="border-t border-b border-[#e5e7eb] bg-white">
+    <section className="border-t border-b border-[#e5e7eb] bg-[#f5f5f5]">
 
-      <p className="text-[11px] font-semibold tracking-widest uppercase text-[#c4c9d0] text-center py-6">
+      <p className="text-[11px] font-semibold tracking-widest uppercase text-[#b0b0b0] text-center py-6">
         Trusted by 100+ events and event teams
       </p>
 
@@ -55,13 +55,13 @@ export default function SocialProofBar({ data }: Props) {
 
 function LogoCell({ company }: { company: SocialProof['companies'][0] }) {
   const inner = (
-    <div className="relative flex flex-col items-center justify-center px-6 py-8 border-r border-b border-[#f3f4f6] h-24 group hover:bg-[#f9fafb] transition-colors">
+    <div className="relative flex flex-col items-center justify-center px-6 py-8 border-r border-b border-[#ebebeb] h-24 group bg-[#f5f5f5] hover:bg-[#eeeeee] transition-colors">
       {company.logoUrl ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={company.logoUrl}
           alt={company.name}
-          className="h-7 w-auto object-contain max-w-[110px] grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+          className="h-7 w-auto object-contain max-w-[110px] opacity-70 group-hover:opacity-100 transition-all duration-300"
         />
       ) : (
         <span className="text-[13px] font-semibold text-[#9ca3af] group-hover:text-[#374151] transition-colors text-center">
