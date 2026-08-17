@@ -97,7 +97,7 @@ export default function HotelEventForm() {
   }
 
   return (
-    <div className="space-y-2.5">
+    <div className="space-y-2.5 overflow-hidden">
       {/* Event name */}
       <div>
         <label className={labelClass}>Event name</label>
@@ -156,7 +156,7 @@ export default function HotelEventForm() {
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className={`${inputClass} text-[#374151]`}
+            className={`${inputClass} text-[#374151] box-border`}
           />
         </div>
         <div>
@@ -166,7 +166,7 @@ export default function HotelEventForm() {
             value={endDate}
             min={startDate || undefined}
             onChange={(e) => setEndDate(e.target.value)}
-            className={`${inputClass} text-[#374151]`}
+            className={`${inputClass} text-[#374151] box-border`}
           />
         </div>
       </div>
