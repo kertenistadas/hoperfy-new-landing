@@ -148,15 +148,15 @@ export default function HotelEventForm() {
         )}
       </div>
 
-      {/* Dates side by side */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+      {/* Dates stacked */}
+      <div className="flex flex-col gap-3">
         <div>
           <label className={labelClass}>Start date</label>
           <input
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className={`${inputClass} text-[#374151] box-border`}
+            className="w-full h-10 px-3 text-[13px] border border-[#e5e7eb] rounded-lg outline-none focus:border-[#1a6cf5] transition-all box-border"
           />
         </div>
         <div>
@@ -166,7 +166,7 @@ export default function HotelEventForm() {
             value={endDate}
             min={startDate || undefined}
             onChange={(e) => setEndDate(e.target.value)}
-            className={`${inputClass} text-[#374151] box-border`}
+            className="w-full h-10 px-3 text-[13px] border border-[#e5e7eb] rounded-lg outline-none focus:border-[#1a6cf5] transition-all box-border"
           />
         </div>
       </div>
