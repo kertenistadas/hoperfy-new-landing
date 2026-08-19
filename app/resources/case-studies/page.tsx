@@ -30,6 +30,7 @@ export default async function CaseStudiesPage() {
     <>
       <script
         type="application/ld+json"
+        async
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
       />
       <NavWrapper>

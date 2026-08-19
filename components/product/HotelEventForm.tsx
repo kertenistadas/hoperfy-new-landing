@@ -11,7 +11,7 @@ type CitySuggestion = {
 }
 
 const inputClass =
-  'w-full h-9 px-4 text-[13px] border border-[#e5e7eb] rounded-lg outline-none focus:border-[#1a6cf5] focus:ring-2 focus:ring-[#1a6cf5]/10 transition-all placeholder:text-[#9ca3af] placeholder:text-[13px] bg-white'
+  'w-full max-w-full box-border h-9 px-4 text-[13px] border border-[#e5e7eb] rounded-lg outline-none focus:border-[#1a6cf5] focus:ring-2 focus:ring-[#1a6cf5]/10 transition-all placeholder:text-[#9ca3af] placeholder:text-[13px] bg-white'
 const labelClass = 'block text-[10px] uppercase tracking-wider text-[#9ca3af] mb-1.5'
 
 export default function HotelEventForm() {

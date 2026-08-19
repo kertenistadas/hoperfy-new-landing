@@ -182,6 +182,7 @@ export default async function ProductPage({ params }: Props) {
     <>
       <script
         type="application/ld+json"
+        async
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <NavWrapper>
@@ -205,8 +206,8 @@ export default async function ProductPage({ params }: Props) {
                   </div>
 
                   {/* Bottom block — full width, two columns */}
-                  <div className="border-t border-[#e5e7eb] pt-8 pb-16">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center overflow-hidden">
+                  <div className="border-t border-[#e5e7eb] pt-8 pb-16 overflow-hidden">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start overflow-hidden">
                       {/* Left — subtitle + trust signals */}
                       <div>
                         <p className="text-[16px] font-light text-[#6b7280] leading-relaxed mb-6">

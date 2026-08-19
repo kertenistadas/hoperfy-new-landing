@@ -77,6 +77,7 @@ export default async function CaseStudyPage({ params }: Props) {
     <>
       <script
         type="application/ld+json"
+        async
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <NavWrapper>
