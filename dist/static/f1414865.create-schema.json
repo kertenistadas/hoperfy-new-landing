@@ -1728,17 +1728,7 @@
   {
     "fields": [
       {
-        "validation": [
-          {
-            "level": "error",
-            "rules": [
-              {
-                "flag": "presence",
-                "constraint": "required"
-              }
-            ]
-          }
-        ],
+        "description": "Optional — some leads (e.g. the hotels event form) are saved before an email is collected.",
         "name": "email",
         "type": "string"
       },
@@ -1756,6 +1746,10 @@
             {
               "title": "Both tickets and hotels",
               "value": "both"
+            },
+            {
+              "title": "Speaker housing",
+              "value": "speaker-housing"
             }
           ]
         },

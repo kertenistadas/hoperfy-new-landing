@@ -9,9 +9,9 @@ import NavWrapper from '@/components/NavWrapper'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Products — White-Label Hotel Booking & Event Ticketing',
+  title: 'Products — White-Label Hotel Booking, Event Ticketing & Speaker Housing',
   description:
-    'Two products built for event teams: white-label hotel booking with room block management, and multi-platform ticket sales with instant payouts.',
+    'Three products built for event teams: white-label hotel booking with room block management, multi-platform ticket sales with instant payouts, and fully managed speaker accommodation.',
   alternates: { canonical: 'https://hoperfy.com/products' },
 }
 
@@ -40,7 +40,7 @@ export default async function ProductsPage() {
           <div className="max-w-5xl mx-auto">
             <p className="eyebrow mb-3">What we build</p>
             <h1 className="text-[2.5rem] md:text-[3.25rem] font-black leading-[1.05] tracking-tight text-[#0a0a0a]">
-              Two products. One platform.
+              Three products. One platform.
             </h1>
           </div>
         </section>

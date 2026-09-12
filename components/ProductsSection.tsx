@@ -135,10 +135,10 @@ export default function ProductsSection({ products }: Props) {
         </div>
       </div>
 
-      {/* BLOCK 2 & 3 — Hotels and Ticketing side by side */}
-      <div className="grid md:grid-cols-2">
+      {/* BLOCK 2, 3 & 4 — Hotels, Ticketing and Speaker Housing side by side */}
+      <div className="grid md:grid-cols-3">
         {/* Hotels — white bg */}
-        <div className="px-10 py-16 border-r border-[#e5e7eb]">
+        <div className="px-10 py-16 border-b md:border-b-0 md:border-r border-[#e5e7eb]">
           <p className="eyebrow mb-3">Hotels for Events</p>
           <h3 className="text-[1.5rem] font-black tracking-tight text-[#0a0a0a] mb-3">
             Just need hotel booking?
@@ -172,7 +172,7 @@ export default function ProductsSection({ products }: Props) {
         </div>
 
         {/* Ticketing — light gray bg */}
-        <div className="px-10 py-16 bg-[#f9fafb]">
+        <div className="px-10 py-16 bg-[#f9fafb] border-b md:border-b-0 md:border-r border-[#e5e7eb]">
           <p className="eyebrow mb-3">Ticketing for Events</p>
           <h3 className="text-[1.5rem] font-black tracking-tight text-[#0a0a0a] mb-3">
             Just need ticketing?
@@ -202,6 +202,40 @@ export default function ProductsSection({ products }: Props) {
             className="text-[13px] font-medium text-[#1a6cf5] hover:underline"
           >
             Learn more about Ticketing for Events →
+          </Link>
+        </div>
+
+        {/* Speaker Housing — white bg */}
+        <div className="px-10 py-16">
+          <p className="eyebrow mb-3">Speaker Housing</p>
+          <h3 className="text-[1.5rem] font-black tracking-tight text-[#0a0a0a] mb-3">
+            Just need speaker housing?
+          </h3>
+          <p className="text-[14px] font-light text-[#6b7280] leading-relaxed mb-2">
+            You set the guidelines, we book the rooms, send vouchers directly to speakers, and handle every change.
+          </p>
+          <p className="text-[13px] font-medium text-[#1a6cf5] mb-8">
+            Works standalone. No platform needed.
+          </p>
+          <ul className="space-y-2.5 mb-8">
+            {[
+              'You set guidelines, we book everything',
+              'Vouchers sent directly to speakers',
+              'Changes handled during travel',
+              'One clean rooming list, always current',
+              'No limit on number of speakers',
+            ].map((f, i) => (
+              <li key={i} className="flex items-start gap-2.5">
+                <span className="text-[#1a6cf5] text-[13px] shrink-0 mt-0.5">✓</span>
+                <span className="text-[13px] text-[#374151]">{f}</span>
+              </li>
+            ))}
+          </ul>
+          <Link
+            href="/products/speaker-housing"
+            className="text-[13px] font-medium text-[#1a6cf5] hover:underline"
+          >
+            Learn more about Speaker Housing →
           </Link>
         </div>
       </div>

@@ -15,6 +15,11 @@ const products = [
     title: 'Ticketing for Events',
     description: 'Multi-platform ticket sales in one dashboard',
   },
+  {
+    href: '/products/speaker-housing',
+    title: 'Speaker Housing',
+    description: 'We handle accommodation for your speakers',
+  },
 ]
 
 const resources = [
