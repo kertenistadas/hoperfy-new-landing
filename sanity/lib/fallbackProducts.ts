@@ -291,6 +291,6 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
       'Clean rooming list, always current',
       'Works standalone',
     ],
-    stat: { value: '0', label: 'speaker housing emails for your team' },
+    stat: { value: '500+', label: 'speakers per event' },
   },
 }

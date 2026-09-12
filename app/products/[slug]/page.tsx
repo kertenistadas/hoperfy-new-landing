@@ -271,7 +271,6 @@ export default async function ProductPage({ params }: Props) {
               <SpeakerHousingPage />
               {data.steps?.length > 0 && <ProductHowItWorks product={data} />}
               {(data.fullFeatures?.length ?? 0) > 0 && <ProductFullFeatures features={data.fullFeatures ?? []} />}
-              {data.stats?.length > 0 && <ProductStats product={data} />}
               {testimonials && testimonials.length > 0 && <TestimonialsSection testimonials={testimonials} />}
               <ProductCTA product={data} />
               {geo?.faqs?.length > 0 && <ProductFAQ faqs={geo.faqs} title="Common questions" />}
