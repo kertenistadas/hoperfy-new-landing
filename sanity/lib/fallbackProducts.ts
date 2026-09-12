@@ -232,4 +232,65 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
       { value: '100%', label: 'attendee data ownership' },
     ],
   },
+  'speaker-housing': {
+    _id: 'speaker-housing',
+    title: 'Speaker Housing',
+    tagline: 'Speaker accommodation management for event teams',
+    slug: 'speaker-housing',
+    heroHeadline: 'You worry about the speakers. We take care of their housing.',
+    heroSubtitle:
+      'Booking hotels for speakers means chasing preferences, sending confirmations, handling last-minute changes and tracking who is staying where. Hoperfy takes the entire speaker accommodation workflow off your plate, whether you use Hoperfy for anything else or not.',
+    heroCta: 'Hand over speaker housing',
+    problemHeadline: '',
+    problems: [],
+    featuresHeadline: '',
+    featuresList: [],
+    howItWorksHeadline: 'Send us the list. That is the whole job.',
+    steps: [
+      {
+        title: 'Share your speakers and your guidelines',
+        description:
+          'Send us the speaker list, your dates, and either specific hotels or a budget range. If you are not sure what to book, we will recommend options.',
+      },
+      {
+        title: 'We book and send the vouchers',
+        description:
+          'Hoperfy books each room and sends confirmations and vouchers directly to every speaker. You receive the rooming list.',
+      },
+      {
+        title: 'We handle everything after that',
+        description:
+          'Extensions, cancellations, room changes, early arrivals, special requests. Every speaker question about accommodation goes to us, not to you.',
+      },
+    ],
+    stats: [
+      { value: '1–200+', label: 'speakers per event, no limit' },
+      { value: '0', label: 'speaker housing emails for your team' },
+      { value: '2M+', label: 'properties worldwide' },
+    ],
+    fullFeatures: [
+      'You set the guidelines or we recommend options',
+      'Booking across multiple hotels, not one forced block',
+      'Vouchers and confirmations sent directly to speakers',
+      'All speaker accommodation questions handled by Hoperfy',
+      'Extensions, cancellations and changes managed during travel',
+      'Single rooming list showing who stays where',
+      'Works independently, no need to use Hoperfy for anything else',
+      'No limit on number of speakers',
+      'Access to 2,000,000+ properties worldwide',
+      'Flights and airport transfers available on request',
+      'Different hotels for different speaker groups',
+      'Direct communication with speakers, not through your team',
+    ],
+    description:
+      'Speaker accommodation management for event teams. You set the guidelines, Hoperfy books the rooms, sends the vouchers, and handles every change.',
+    features: [
+      'You set guidelines, we book everything',
+      'Vouchers sent directly to speakers',
+      'Changes handled during travel',
+      'Clean rooming list, always current',
+      'Works standalone',
+    ],
+    stat: { value: '0', label: 'speaker housing emails for your team' },
+  },
 }

@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
-import { productBySlugQuery, testimonialsQuery, pricingByProductQuery } from '@/sanity/lib/queries'
+import { productBySlugQuery, testimonialsQuery, pricingByProductQuery, socialProofQuery } from '@/sanity/lib/queries'
 import { fallbackProductDetails } from '@/sanity/lib/fallbackProducts'
-import type { ProductDetail, Testimonial, Pricing } from '@/types'
+import type { ProductDetail, Testimonial, Pricing, SocialProof } from '@/types'
 import NavWrapper from '@/components/NavWrapper'
 import TestimonialsSection from '@/components/TestimonialsSection'
 import ProductHero from '@/components/product/ProductHero'
@@ -23,6 +23,7 @@ import { TicketingFeeProvider } from '@/components/product/ticketing/TicketingFe
 import TicketingHero from '@/components/product/ticketing/TicketingHero'
 import TicketingFeeSummary from '@/components/product/ticketing/TicketingFeeSummary'
 import TicketingCompare from '@/components/product/ticketing/TicketingCompare'
+import SpeakerHousingPage from '@/components/product/speaker-housing/SpeakerHousingPage'
 import { productGeo, buildProductJsonLd } from './geoData'
 
 export const dynamic = 'force-dynamic'
@@ -133,6 +134,10 @@ export default async function ProductPage({ params }: Props) {
 
   const pricing = await client
     .fetch<Pricing | null>(pricingByProductQuery, { slug })
+    .catch(() => null)
+
+  const socialProof = await client
+    .fetch<SocialProof>(socialProofQuery)
     .catch(() => null)
 
   const fullFeatures = data.fullFeatures ?? []
@@ -260,6 +265,17 @@ export default async function ProductPage({ params }: Props) {
               {ctaSection}
               {faqSection}
             </TicketingFeeProvider>
+          ) : data.slug === 'speaker-housing' ? (
+            <>
+              <ProductHero product={data} socialProof={socialProof} />
+              <SpeakerHousingPage />
+              {data.steps?.length > 0 && <ProductHowItWorks product={data} />}
+              {(data.fullFeatures?.length ?? 0) > 0 && <ProductFullFeatures features={data.fullFeatures ?? []} />}
+              {data.stats?.length > 0 && <ProductStats product={data} />}
+              {testimonials && testimonials.length > 0 && <TestimonialsSection testimonials={testimonials} />}
+              <ProductCTA product={data} />
+              {geo?.faqs?.length > 0 && <ProductFAQ faqs={geo.faqs} title="Common questions" />}
+            </>
           ) : (
             <>
               <ProductHero product={data} />

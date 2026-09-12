@@ -245,6 +245,104 @@ export const productGeo: Record<string, ProductGeo> = {
       ],
     },
   },
+  'speaker-housing': {
+    metadata: {
+      title: { absolute: 'Speaker Housing Management for Events | Hoperfy' },
+      description:
+        'Hoperfy manages all speaker accommodation for your event — booking rooms, sending vouchers directly to speakers, handling changes, and keeping one live rooming list. Zero speaker housing emails for your team.',
+      keywords: [
+        'speaker housing management',
+        'hotel booking for conference speakers',
+        'speaker accommodation service',
+        'event speaker hotel booking',
+        'speaker housing for events',
+        'speaker rooming list management',
+        'conference speaker accommodation',
+        'managed speaker housing',
+      ],
+      alternates: { canonical: `${BASE_URL}/products/speaker-housing` },
+      openGraph: {
+        title: 'Speaker Housing Management for Events | Hoperfy',
+        description:
+          'Send us the speaker list. Hoperfy books the rooms, sends vouchers, and handles every change — zero speaker housing emails for your team.',
+        url: `${BASE_URL}/products/speaker-housing`,
+        type: 'website',
+      },
+    },
+    software: {
+      '@type': 'SoftwareApplication',
+      name: 'Speaker Housing by Hoperfy',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Web',
+      description:
+        'Fully managed speaker accommodation service for event teams. Hoperfy books hotels, sends vouchers directly to speakers, handles all changes, and maintains a live rooming list — with zero work from your team after the initial briefing.',
+      url: `${BASE_URL}/products/speaker-housing`,
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+        description: 'Contact for pricing',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Hoperfy',
+        url: BASE_URL,
+      },
+      featureList: [
+        'Booking across multiple hotels by speaker tier',
+        'Vouchers and confirmations sent directly to speakers',
+        'All speaker accommodation questions handled by Hoperfy',
+        'Extensions, cancellations and changes managed during travel',
+        'Single live rooming list',
+        'Works independently of other Hoperfy products',
+      ],
+    },
+    faqs: [
+      {
+        question: 'Does this only work if we use Hoperfy for attendee hotel booking too?',
+        answer:
+          'No. Speaker housing is a standalone service. You can use it whether or not you use Hoperfy for anything else. Just send us your speaker list and we handle the rest.',
+      },
+      {
+        question: 'How do speakers receive their hotel confirmation?',
+        answer:
+          'Directly from Hoperfy. We send the booking confirmation and voucher to each speaker at the email address you provide. You do not need to forward anything or chase anyone.',
+      },
+      {
+        question: 'What happens if a speaker needs to change their dates or cancel?',
+        answer:
+          'They contact Hoperfy, not you. We handle all modifications directly with the speaker and the hotel, update the rooming list, and issue a new voucher where needed. Your team is not in the loop unless you want to be.',
+      },
+      {
+        question: 'Can speakers stay at different hotels?',
+        answer:
+          'Yes. We can book speakers across multiple properties — typically grouped by tier, proximity to the venue, or individual preference. You still receive one consolidated rooming list showing who is where.',
+      },
+      {
+        question: 'Do you have a limit on how many speakers you can manage?',
+        answer:
+          'No. We handle speaker lists from a handful of keynotes to conferences with 200 or more speakers. The process is the same regardless of size.',
+      },
+      {
+        question: 'Can you arrange flights and transfers as well?',
+        answer:
+          'Yes, on request. If you need flights or airport transfers arranged for speakers, let us know when you brief us and we will include them as part of the service.',
+      },
+    ],
+    compare: {
+      competitors: ['In-house / spreadsheet management'],
+      features: [
+        { label: 'Zero speaker housing emails to your team', hoperfy: true, competitors: false },
+        { label: 'Vouchers sent directly to each speaker', hoperfy: true, competitors: false },
+        { label: 'Changes handled without involving your team', hoperfy: true, competitors: false },
+        { label: 'Live rooming list, always current', hoperfy: true, competitors: false },
+        { label: 'Works standalone, no platform lock-in', hoperfy: true, competitors: false },
+        { label: 'Flights and transfers on request', hoperfy: true, competitors: false },
+        { label: 'Multiple hotels across speaker tiers', hoperfy: true, competitors: true },
+        { label: 'Access to 2M+ properties worldwide', hoperfy: true, competitors: false },
+      ],
+    },
+  },
 }
 
 /** Builds the JSON-LD @graph (SoftwareApplication + FAQPage) for a product. */

@@ -20,6 +20,7 @@ export default defineType({
           { title: 'Tickets only', value: 'tickets' },
           { title: 'Hotels only', value: 'hotels' },
           { title: 'Both tickets and hotels', value: 'both' },
+          { title: 'Speaker housing', value: 'speaker-housing' },
         ],
       },
     }),

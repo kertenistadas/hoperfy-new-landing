@@ -11,10 +11,10 @@ type Props = {
   initialEventLocation?: string
   initialEventStartDate?: string
   initialEventEndDate?: string
-  initialProductInterest?: 'hotels' | 'ticketing' | 'both'
+  initialProductInterest?: 'hotels' | 'ticketing' | 'both' | 'speaker-housing'
 }
 
-type ProductInterest = 'ticketing' | 'hotels' | 'both'
+type ProductInterest = 'ticketing' | 'hotels' | 'both' | 'speaker-housing'
 
 const CALENDLY_URL = 'https://calendly.com/tadas-hoperfy/30min'
 
@@ -22,6 +22,7 @@ const productOptions: { value: ProductInterest; title: string; description: stri
   { value: 'ticketing', title: 'Ticketing', description: 'Sell tickets across multiple channels' },
   { value: 'hotels', title: 'Hotel booking', description: 'White-label hotel booking for attendees' },
   { value: 'both', title: 'Both', description: 'Full event commerce suite' },
+  { value: 'speaker-housing', title: 'Housing for speakers', description: 'We handle accommodation for your speakers' },
 ]
 
 const attendeeOptions: { value: string; label: string }[] = [
@@ -35,6 +36,7 @@ const productLabels: Record<ProductInterest, string> = {
   ticketing: 'Ticketing',
   hotels: 'Hotel booking',
   both: 'Both',
+  'speaker-housing': 'Housing for speakers',
 }
 
 function isValidEmail(email: string) {
@@ -123,7 +125,7 @@ export default function OnboardingModal({
 
   function selectProduct(value: ProductInterest) {
     setProductInterest(value)
-    setStep(3)
+    setStep(value === 'speaker-housing' ? 4 : 3)
   }
 
   async function submitLead() {
@@ -156,8 +158,14 @@ export default function OnboardingModal({
     }
   }
 
+  const isSpeakerFlow = productInterest === 'speaker-housing'
   const showCounter = step >= 1 && step <= 4
-  const progress = (step / 5) * 100
+  // Speaker-housing flow is 3 steps (1, 2, 4 → displayed as 1, 2, 3)
+  const displayStep = isSpeakerFlow ? (step === 4 ? 3 : step) : step
+  const totalSteps = isSpeakerFlow ? 3 : 4
+  const progress = isSpeakerFlow
+    ? (displayStep / totalSteps) * 100
+    : (step / 5) * 100
 
   const modalTitle = initialProductInterest === 'both'
     ? 'Set up your full event suite'
@@ -211,7 +219,7 @@ export default function OnboardingModal({
           {step >= 2 && step <= 4 && (
             <button
               type="button"
-              onClick={() => setStep((s) => s - 1)}
+              onClick={() => setStep(isSpeakerFlow && step === 4 ? 2 : step - 1)}
               className="text-[13px] text-[#6b7280] hover:text-[#0a0a0a] transition-colors flex items-center gap-1"
             >
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -222,7 +230,7 @@ export default function OnboardingModal({
           )}
           {showCounter && (
             <span className="text-[12px] font-medium text-[#9ca3af] ml-auto">
-              Step {step} of 4
+              Step {displayStep} of {totalSteps}
             </span>
           )}
         </div>
@@ -357,10 +365,12 @@ export default function OnboardingModal({
               <p className="text-[10px] font-semibold uppercase tracking-widest text-[#1a6cf5] mb-2">{productEyebrow}</p>
             )}
             <h2 className="text-[1.5rem] font-black tracking-tight text-[#0a0a0a] mb-2">
-              When and where?
+              {isSpeakerFlow ? 'When and where is your event?' : 'When and where?'}
             </h2>
             <p className="text-[15px] font-light text-[#6b7280] mb-6">
-              Last bit — both optional.
+              {isSpeakerFlow
+                ? 'We need the dates and location to start sourcing hotels for your speakers.'
+                : 'Last bit — both optional.'}
             </p>
 
             <div className="flex flex-col gap-3">
@@ -419,10 +429,14 @@ export default function OnboardingModal({
         {step === 5 && (
           <div>
             <h2 className="text-[1.5rem] font-black tracking-tight text-[#0a0a0a] mb-2">
-              You&apos;re all set.
+              {isSpeakerFlow ? <>Got it.</> : <>You are all set.</>}
             </h2>
             <p className="text-[15px] font-light text-[#6b7280] mb-6">
-              We&apos;re setting up your event. You should get an email from us shortly.
+              {isSpeakerFlow ? (
+                <>We will contact you shortly, usually we need 5 to 10 minutes to get familiar with your event, to get the speaker list and your guidelines.</>
+              ) : (
+                <>We are setting up your event. You should get an email from us shortly.</>
+              )}
             </p>
 
             <div className="rounded-xl border border-[#e5e7eb] bg-[#f9fafb] p-4 mb-6 text-[14px]">
