@@ -91,6 +91,7 @@ export default function FAQSection() {
 
       <script
         type="application/ld+json"
+        async
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',

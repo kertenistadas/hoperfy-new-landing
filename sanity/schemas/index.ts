@@ -11,5 +11,9 @@ import blogPost from './blogPost'
 import caseStudy from './caseStudy'
 import pricing from './pricing'
 import lead from './lead'
+import event from './event'
+import eventCategory from './eventCategory'
+import eventCity from './eventCity'
+import eventCountry from './eventCountry'
 
-export const schemaTypes = [hero, product, testimonial, socialProof, legalPage, page, navCategory, footerCategory, blogCategory, blogPost, caseStudy, pricing, lead]
+export const schemaTypes = [hero, product, testimonial, socialProof, legalPage, page, navCategory, footerCategory, blogCategory, blogPost, caseStudy, pricing, lead, event, eventCategory, eventCity, eventCountry]

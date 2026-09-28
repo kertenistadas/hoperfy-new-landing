@@ -171,3 +171,53 @@ export type Pricing = {
     fullFeatures?: string[]
   }
 }
+
+export type EventFAQ = { question: string; answer: string }
+
+/** SEO/GEO fields shared by the events directory taxonomy documents. */
+type EventSeoFields = {
+  metaTitle?: string
+  metaDescription?: string
+  intro?: string
+  faqs?: EventFAQ[]
+}
+
+export type EventCategory = EventSeoFields & {
+  _id: string
+  title: string
+  slug: string
+  description?: string
+}
+
+export type EventCountry = EventSeoFields & {
+  _id: string
+  name: string
+  slug: string
+  description?: string
+}
+
+export type EventCity = EventSeoFields & {
+  _id: string
+  name: string
+  slug: string
+  description?: string
+  country: { name: string; slug: string; description?: string }
+}
+
+export type EventItem = {
+  _id: string
+  name: string
+  slug: string
+  startDate: string
+  endDate?: string
+  venue?: string
+  website?: string
+  attendees?: number
+  ticketPriceFrom?: string
+  organizer?: string
+  format?: string
+  description?: string
+  logoUrl?: string
+  city: { name: string; slug: string; description?: string; country: { name: string; slug: string; description?: string } }
+  category: { title: string; slug: string; description?: string }
+}

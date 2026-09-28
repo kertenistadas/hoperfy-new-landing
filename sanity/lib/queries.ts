@@ -299,3 +299,73 @@ export const legalPageQuery = groq`
     body
   }
 `
+
+// ---------------------------------------------------------------------------
+// Events Directory
+//
+// Every event query takes a $cutoff date (see getCutoffDate in lib/eventUtils)
+// so events that ended more than 12 months ago are never returned.
+// ---------------------------------------------------------------------------
+
+export const allEventsQuery = groq`
+  *[_type == "event" && (endDate >= $cutoff || startDate >= $cutoff)] | order(startDate asc) {
+    _id, name, "slug": slug.current, startDate, endDate, venue, website,
+    attendees, ticketPriceFrom, organizer, format, description,
+    "logoUrl": logo.asset->url,
+    "city": city->{ name, "slug": slug.current, "country": country->{ name, "slug": slug.current } },
+    "category": category->{ title, "slug": slug.current }
+  }
+`
+
+export const eventBySlugQuery = groq`
+  *[_type == "event" && slug.current == $slug][0] {
+    _id, name, "slug": slug.current, startDate, endDate, venue, website,
+    attendees, ticketPriceFrom, organizer, format, description,
+    "logoUrl": logo.asset->url,
+    "city": city->{ name, "slug": slug.current, description, "country": country->{ name, "slug": slug.current, description } },
+    "category": category->{ title, "slug": slug.current, description }
+  }
+`
+
+export const eventCategoriesQuery = groq`*[_type == "eventCategory"] | order(order asc) { _id, title, "slug": slug.current, description, metaTitle, metaDescription, intro, faqs }`
+
+export const categoryBySlugQuery = groq`*[_type == "eventCategory" && slug.current == $slug][0] { _id, title, "slug": slug.current, description, metaTitle, metaDescription, intro, faqs }`
+export const eventCountriesQuery = groq`*[_type == "eventCountry"] | order(name asc) { _id, name, "slug": slug.current, description }`
+export const eventCitiesQuery = groq`*[_type == "eventCity"] | order(name asc) { _id, name, "slug": slug.current, description, "country": country->{ name, "slug": slug.current } }`
+
+export const eventsByCountryQuery = groq`
+  *[_type == "event" && city->country->slug.current == $country && (endDate >= $cutoff || startDate >= $cutoff)] | order(startDate asc) {
+    _id, name, "slug": slug.current, startDate, endDate, venue, attendees, ticketPriceFrom, format,
+    "logoUrl": logo.asset->url,
+    "city": city->{ name, "slug": slug.current, "country": country->{ name, "slug": slug.current } },
+    "category": category->{ title, "slug": slug.current }
+  }
+`
+
+export const eventsByCityQuery = groq`
+  *[_type == "event" && city->slug.current == $city && (endDate >= $cutoff || startDate >= $cutoff)] | order(startDate asc) {
+    _id, name, "slug": slug.current, startDate, endDate, venue, attendees, ticketPriceFrom, format,
+    "logoUrl": logo.asset->url,
+    "city": city->{ name, "slug": slug.current, description, "country": country->{ name, "slug": slug.current, description } },
+    "category": category->{ title, "slug": slug.current }
+  }
+`
+
+export const eventsByCategoryQuery = groq`
+  *[_type == "event" && category->slug.current == $category && (endDate >= $cutoff || startDate >= $cutoff)] | order(startDate asc) {
+    _id, name, "slug": slug.current, startDate, endDate, venue, attendees, ticketPriceFrom, format,
+    "logoUrl": logo.asset->url,
+    "city": city->{ name, "slug": slug.current, "country": country->{ name, "slug": slug.current } },
+    "category": category->{ title, "slug": slug.current }
+  }
+`
+
+export const countryBySlugQuery = groq`*[_type == "eventCountry" && slug.current == $slug][0] { _id, name, "slug": slug.current, description, metaTitle, metaDescription, intro, faqs }`
+export const cityBySlugQuery = groq`*[_type == "eventCity" && slug.current == $slug][0] { _id, name, "slug": slug.current, description, metaTitle, metaDescription, intro, faqs, "country": country->{ name, "slug": slug.current, description } }`
+
+export const citiesByCountryQuery = groq`
+  *[_type == "eventCity" && country->slug.current == $country] | order(name asc) {
+    _id, name, "slug": slug.current, description,
+    "country": country->{ name, "slug": slug.current }
+  }
+`

@@ -33,6 +33,11 @@ const resources = [
     description: 'How event teams use Hoperfy',
     href: '/resources/case-studies',
   },
+  {
+    title: 'Events Directory',
+    description: 'Browse conferences and events worldwide',
+    href: '/events',
+  },
 ]
 
 type NavLink = { title: string; slug: string }

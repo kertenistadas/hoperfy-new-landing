@@ -42,6 +42,19 @@ export default defineConfig({
             S.documentTypeListItem('navCategory').title('Navigation Categories'),
             S.divider(),
             S.documentTypeListItem('footerCategory').title('Footer Categories'),
+            S.divider(),
+            S.listItem()
+              .title('Events Directory')
+              .child(
+                S.list()
+                  .title('Events Directory')
+                  .items([
+                    S.documentTypeListItem('event').title('Events'),
+                    S.documentTypeListItem('eventCategory').title('Categories'),
+                    S.documentTypeListItem('eventCity').title('Cities'),
+                    S.documentTypeListItem('eventCountry').title('Countries'),
+                  ]),
+              ),
           ]),
     }),
     visionTool(),
