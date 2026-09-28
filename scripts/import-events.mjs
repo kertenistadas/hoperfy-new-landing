@@ -1,10 +1,13 @@
 // Usage: SANITY_API_TOKEN=xxx NEXT_PUBLIC_SANITY_PROJECT_ID=xxx node scripts/import-events.mjs events.csv
+//        ... node scripts/import-events.mjs events.csv --update
 //
 // Required CSV columns: event_name, slug, start_date, end_date, city, country, category, website
 // Optional CSV columns: venue, attendees, ticket_price_from, organizer, format, description
 //
 // Countries, cities and categories are created on demand and reused across rows.
-// Rows whose slug already exists as an event are skipped, so re-running is safe.
+// Rows whose slug already exists are skipped, so re-running is safe. Pass
+// --update to patch those existing events with the non-empty CSV values
+// instead — useful for backfilling descriptions onto an earlier import.
 
 import { readFileSync } from 'node:fs'
 import { createClient } from '@sanity/client'
@@ -12,7 +15,10 @@ import { createClient } from '@sanity/client'
 const token = process.env.SANITY_API_TOKEN
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET ?? 'production'
-const csvPath = process.argv[2]
+
+const args = process.argv.slice(2)
+const shouldUpdate = args.includes('--update')
+const csvPath = args.find((arg) => !arg.startsWith('--'))
 
 if (!token) {
   console.error('Missing SANITY_API_TOKEN environment variable.')
@@ -23,7 +29,7 @@ if (!projectId) {
   process.exit(1)
 }
 if (!csvPath) {
-  console.error('Usage: node scripts/import-events.mjs <path-to-csv>')
+  console.error('Usage: node scripts/import-events.mjs <path-to-csv> [--update]')
   process.exit(1)
 }
 
@@ -161,6 +167,36 @@ async function findOrCreateCategory(title) {
   return created._id
 }
 
+/**
+ * Maps a CSV row to event document fields. Empty CSV cells are omitted so a
+ * patch never blanks out a value that already exists in Sanity.
+ */
+function buildFields(row, { cityId, categoryId, applyFormatDefault }) {
+  const fields = {
+    name: row.event_name,
+    startDate: row.start_date,
+    city: { _type: 'reference', _ref: cityId },
+    category: { _type: 'reference', _ref: categoryId },
+  }
+
+  if (row.end_date) fields.endDate = row.end_date
+  if (row.website) fields.website = row.website
+  if (row.venue) fields.venue = row.venue
+  if (row.organizer) fields.organizer = row.organizer
+  if (row.ticket_price_from) fields.ticketPriceFrom = row.ticket_price_from
+  if (row.description) fields.description = row.description
+
+  if (row.format) fields.format = row.format
+  else if (applyFormatDefault) fields.format = 'in-person'
+
+  if (row.attendees) {
+    const attendees = Number(String(row.attendees).replace(/[^0-9]/g, ''))
+    if (Number.isFinite(attendees) && attendees > 0) fields.attendees = attendees
+  }
+
+  return fields
+}
+
 async function main() {
   const rows = splitRows(readFileSync(csvPath, 'utf8'))
   if (rows.length < 2) {
@@ -177,6 +213,7 @@ async function main() {
   }
 
   let created = 0
+  let updated = 0
   let skipped = 0
   let failed = 0
 
@@ -197,8 +234,9 @@ async function main() {
     }
 
     try {
-      const exists = await client.fetch('*[_type == "event" && slug.current == $slug][0]._id', { slug })
-      if (exists) {
+      const existingId = await client.fetch('*[_type == "event" && slug.current == $slug][0]._id', { slug })
+
+      if (existingId && !shouldUpdate) {
         skipped++
         continue
       }
@@ -207,37 +245,29 @@ async function main() {
       const cityId = await findOrCreateCity(row.city, countryId)
       const categoryId = await findOrCreateCategory(row.category)
 
-      const doc = {
-        _type: 'event',
-        name,
-        slug: { _type: 'slug', current: slug },
-        startDate: row.start_date,
-        city: { _type: 'reference', _ref: cityId },
-        category: { _type: 'reference', _ref: categoryId },
-        format: row.format || 'in-person',
-      }
+      // On update, format is only set when the CSV says so — otherwise the
+      // 'in-person' default would clobber a value set by hand in the Studio.
+      const fields = buildFields(row, { cityId, categoryId, applyFormatDefault: !existingId })
 
-      if (row.end_date) doc.endDate = row.end_date
-      if (row.website) doc.website = row.website
-      if (row.venue) doc.venue = row.venue
-      if (row.organizer) doc.organizer = row.organizer
-      if (row.ticket_price_from) doc.ticketPriceFrom = row.ticket_price_from
-      if (row.description) doc.description = row.description
-      if (row.attendees) {
-        const attendees = Number(String(row.attendees).replace(/[^0-9]/g, ''))
-        if (Number.isFinite(attendees) && attendees > 0) doc.attendees = attendees
+      if (existingId) {
+        await client.patch(existingId).set(fields).commit()
+        updated++
+        console.log(`~ ${name} (${Object.keys(fields).length} fields patched)`)
+      } else {
+        await client.create({ _type: 'event', slug: { _type: 'slug', current: slug }, ...fields })
+        created++
+        console.log(`✓ ${name}`)
       }
-
-      await client.create(doc)
-      created++
-      console.log(`✓ ${name}`)
     } catch (error) {
       failed++
       console.error(`✗ Row ${i + 1} (${name}): ${error.message}`)
     }
   }
 
-  console.log(`\nDone. Created ${created}, skipped ${skipped}, failed ${failed}.`)
+  console.log(`\nDone. Created ${created}, updated ${updated}, skipped ${skipped}, failed ${failed}.`)
+  if (!shouldUpdate && skipped > 0) {
+    console.log('Re-run with --update to patch the skipped events from the CSV.')
+  }
 }
 
 main().catch((error) => {

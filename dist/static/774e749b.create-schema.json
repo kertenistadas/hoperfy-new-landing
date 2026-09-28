@@ -1840,5 +1840,549 @@
     "name": "lead",
     "type": "document",
     "title": "Leads"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "Event Name"
+      },
+      {
+        "options": {
+          "source": "name"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "startDate",
+        "type": "date"
+      },
+      {
+        "name": "endDate",
+        "type": "date"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "to": [
+          {
+            "type": "eventCity"
+          }
+        ],
+        "name": "city",
+        "type": "reference"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "to": [
+          {
+            "type": "eventCategory"
+          }
+        ],
+        "name": "category",
+        "type": "reference"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "name": "website",
+        "type": "url",
+        "title": "Website URL"
+      },
+      {
+        "description": "Optional",
+        "name": "venue",
+        "type": "string"
+      },
+      {
+        "description": "Optional",
+        "name": "attendees",
+        "type": "number",
+        "title": "Expected Attendees"
+      },
+      {
+        "description": "Optional, e.g. €199",
+        "name": "ticketPriceFrom",
+        "type": "string"
+      },
+      {
+        "description": "Optional",
+        "name": "organizer",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "In-person",
+              "value": "in-person"
+            },
+            {
+              "title": "Hybrid",
+              "value": "hybrid"
+            },
+            {
+              "title": "Virtual",
+              "value": "virtual"
+            }
+          ]
+        },
+        "initialValue": "in-person",
+        "name": "format",
+        "type": "string"
+      },
+      {
+        "rows": 6,
+        "description": "SEO description shown on the event page. Aim for 150-250 words. Covers what the event is, where and when, who attends, and why it matters.",
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": false
+        },
+        "description": "Optional",
+        "name": "logo",
+        "type": "image"
+      }
+    ],
+    "name": "event",
+    "type": "document",
+    "title": "Events"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "rows": 3,
+        "description": "Optional. Used in meta descriptions for category pages.",
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 60
+              }
+            ]
+          }
+        ],
+        "description": "Optional. Overrides the auto-generated page title. Max 60 chars.",
+        "name": "metaTitle",
+        "type": "string"
+      },
+      {
+        "rows": 2,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 160
+              }
+            ]
+          }
+        ],
+        "description": "Optional. Overrides the auto-generated meta description. Max 160 chars.",
+        "name": "metaDescription",
+        "type": "text"
+      },
+      {
+        "rows": 4,
+        "description": "Shown at the top of the page. 2-3 sentences about this category, country or city.",
+        "name": "intro",
+        "type": "text",
+        "title": "Intro Paragraph"
+      },
+      {
+        "description": "Optional. Shown at the bottom of the page and used for FAQPage schema.",
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "question",
+                "type": "string"
+              },
+              {
+                "rows": 3,
+                "name": "answer",
+                "type": "text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "faqs",
+        "type": "array",
+        "title": "FAQs"
+      },
+      {
+        "name": "order",
+        "type": "number",
+        "title": "Display Order"
+      }
+    ],
+    "name": "eventCategory",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "City Name"
+      },
+      {
+        "options": {
+          "source": "name"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "to": [
+          {
+            "type": "eventCountry"
+          }
+        ],
+        "name": "country",
+        "type": "reference"
+      },
+      {
+        "rows": 4,
+        "description": "Optional. One paragraph about this city as an events destination.",
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 60
+              }
+            ]
+          }
+        ],
+        "description": "Optional. Overrides the auto-generated page title. Max 60 chars.",
+        "name": "metaTitle",
+        "type": "string"
+      },
+      {
+        "rows": 2,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 160
+              }
+            ]
+          }
+        ],
+        "description": "Optional. Overrides the auto-generated meta description. Max 160 chars.",
+        "name": "metaDescription",
+        "type": "text"
+      },
+      {
+        "rows": 4,
+        "description": "Shown at the top of the page. 2-3 sentences about this category, country or city.",
+        "name": "intro",
+        "type": "text",
+        "title": "Intro Paragraph"
+      },
+      {
+        "description": "Optional. Shown at the bottom of the page and used for FAQPage schema.",
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "question",
+                "type": "string"
+              },
+              {
+                "rows": 3,
+                "name": "answer",
+                "type": "text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "faqs",
+        "type": "array",
+        "title": "FAQs"
+      }
+    ],
+    "name": "eventCity",
+    "type": "document",
+    "title": "City"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "Country Name"
+      },
+      {
+        "options": {
+          "source": "name"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "rows": 4,
+        "description": "Optional. One paragraph about the events scene in this country.",
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 60
+              }
+            ]
+          }
+        ],
+        "description": "Optional. Overrides the auto-generated page title. Max 60 chars.",
+        "name": "metaTitle",
+        "type": "string"
+      },
+      {
+        "rows": 2,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 160
+              }
+            ]
+          }
+        ],
+        "description": "Optional. Overrides the auto-generated meta description. Max 160 chars.",
+        "name": "metaDescription",
+        "type": "text"
+      },
+      {
+        "rows": 4,
+        "description": "Shown at the top of the page. 2-3 sentences about this category, country or city.",
+        "name": "intro",
+        "type": "text",
+        "title": "Intro Paragraph"
+      },
+      {
+        "description": "Optional. Shown at the bottom of the page and used for FAQPage schema.",
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "question",
+                "type": "string"
+              },
+              {
+                "rows": 3,
+                "name": "answer",
+                "type": "text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "faqs",
+        "type": "array",
+        "title": "FAQs"
+      }
+    ],
+    "name": "eventCountry",
+    "type": "document",
+    "title": "Country"
   }
 ]

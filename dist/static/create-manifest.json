@@ -1,5 +1,5 @@
 {
-  "createdAt": "2026-09-12T08:43:59.534Z",
+  "createdAt": "2026-09-28T15:43:12.525Z",
   "studioVersion": "5.31.1",
   "version": 3,
   "workspaces": [
@@ -13,7 +13,7 @@
       },
       "name": "hoperfy",
       "projectId": "2p72wli5",
-      "schema": "f1414865.create-schema.json",
+      "schema": "774e749b.create-schema.json",
       "title": "Hoperfy CMS",
       "tools": "ef87c8fe.create-tools.json"
     }
