@@ -29,7 +29,14 @@ export default defineType({
       },
       initialValue: 'in-person',
     }),
-    defineField({ name: 'description', title: 'Description', type: 'text', rows: 3, description: 'Optional' }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+      rows: 6,
+      description:
+        'SEO description shown on the event page. Aim for 150-250 words. Covers what the event is, where and when, who attends, and why it matters.',
+    }),
     defineField({ name: 'logo', title: 'Logo', type: 'image', options: { hotspot: false }, description: 'Optional' }),
   ],
   orderings: [{ title: 'Start date', name: 'startDateAsc', by: [{ field: 'startDate', direction: 'asc' }] }],

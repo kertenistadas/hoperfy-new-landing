@@ -26,6 +26,21 @@ async function getEvent(slug: string): Promise<EventItem | null> {
   return client.fetch<EventItem | null>(eventBySlugQuery, { slug }).catch(() => null)
 }
 
+/** Stand-in copy for events whose description has not been written yet. */
+function autoDescription(event: EventItem, dateRange: string) {
+  const cityName = event.city?.name ?? ''
+  const countryName = event.city?.country?.name ?? ''
+  const category = event.category?.title ?? 'industry'
+  return `${event.name} takes place in ${cityName}, ${countryName}${dateRange ? ` from ${dateRange}` : ''}. This ${category.toLowerCase()} event brings together professionals from across the sector. Attendees travelling to ${cityName} can arrange accommodation and event logistics through Hoperfy.`
+}
+
+/** Meta descriptions get cut at a word boundary so they never end mid-word. */
+function truncate(text: string, max = 160) {
+  if (text.length <= max) return text
+  const cut = text.slice(0, max - 1)
+  return `${cut.replace(/\s+\S*$/, '') || cut}…`
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const event = await getEvent(slug)
@@ -39,9 +54,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const countryName = event.city?.country?.name ?? ''
   const dateRange = formatDateRange(event.startDate, event.endDate)
   const title = `${event.name} — ${cityName}, ${countryName} | Hoperfy`
-  const description =
-    event.description ||
-    `${event.name} takes place in ${cityName}, ${countryName} on ${dateRange}. Find hotels and ticketing for this event.`
+  const description = truncate(event.description || autoDescription(event, dateRange))
 
   return {
     title: { absolute: title },
@@ -70,6 +83,7 @@ export default async function EventPage({ params }: Props) {
   const countrySlug = event.city?.country?.slug
   const dateRange = formatDateRange(event.startDate, event.endDate)
   const past = isPastEvent(event.endDate, event.startDate)
+  const description = event.description || autoDescription(event, dateRange)
 
   const otherEvents = citySlug
     ? await client
@@ -100,7 +114,7 @@ export default async function EventPage({ params }: Props) {
         ? 'https://schema.org/MixedEventAttendanceMode'
         : 'https://schema.org/OfflineEventAttendanceMode',
     eventStatus: 'https://schema.org/EventScheduled',
-    ...(event.description ? { description: event.description } : {}),
+    description,
     ...(event.logoUrl ? { image: event.logoUrl } : {}),
     location: {
       '@type': 'Place',
@@ -220,16 +234,14 @@ export default async function EventPage({ params }: Props) {
             </section>
           )}
 
-          {/* Description */}
-          {event.description && (
-            <section className="pb-10 px-6">
-              <div className="max-w-5xl mx-auto">
-                <p className="text-[16px] font-light text-[#6b7280] leading-relaxed max-w-3xl">
-                  {event.description}
-                </p>
-              </div>
-            </section>
-          )}
+          {/* Description — authored copy, or generated stand-in copy */}
+          <section className="pb-10 px-6">
+            <div className="max-w-5xl mx-auto">
+              <p className="text-[15px] font-light text-[#6b7280] leading-relaxed max-w-2xl">
+                {description}
+              </p>
+            </div>
+          </section>
 
           {/* CTAs */}
           <section className="pb-16 px-6">
