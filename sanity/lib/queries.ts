@@ -308,7 +308,7 @@ export const legalPageQuery = groq`
 // ---------------------------------------------------------------------------
 
 export const allEventsQuery = groq`
-  *[_type == "event" && (endDate >= $cutoff || startDate >= $cutoff)] | order(startDate asc) {
+  *[_type == "event" && (!defined(startDate) || endDate >= $cutoff || startDate >= $cutoff)] | order(defined(startDate) desc, startDate asc) {
     _id, name, "slug": slug.current, startDate, endDate, venue, website,
     attendees, ticketPriceFrom, organizer, format, description,
     "logoUrl": logo.asset->url,
@@ -334,7 +334,7 @@ export const eventCountriesQuery = groq`*[_type == "eventCountry"] | order(name 
 export const eventCitiesQuery = groq`*[_type == "eventCity"] | order(name asc) { _id, name, "slug": slug.current, description, "country": country->{ name, "slug": slug.current } }`
 
 export const eventsByCountryQuery = groq`
-  *[_type == "event" && city->country->slug.current == $country && (endDate >= $cutoff || startDate >= $cutoff)] | order(startDate asc) {
+  *[_type == "event" && city->country->slug.current == $country && (!defined(startDate) || endDate >= $cutoff || startDate >= $cutoff)] | order(defined(startDate) desc, startDate asc) {
     _id, name, "slug": slug.current, startDate, endDate, venue, attendees, ticketPriceFrom, format,
     "logoUrl": logo.asset->url,
     "city": city->{ name, "slug": slug.current, "country": country->{ name, "slug": slug.current } },
@@ -343,7 +343,7 @@ export const eventsByCountryQuery = groq`
 `
 
 export const eventsByCityQuery = groq`
-  *[_type == "event" && city->slug.current == $city && (endDate >= $cutoff || startDate >= $cutoff)] | order(startDate asc) {
+  *[_type == "event" && city->slug.current == $city && (!defined(startDate) || endDate >= $cutoff || startDate >= $cutoff)] | order(defined(startDate) desc, startDate asc) {
     _id, name, "slug": slug.current, startDate, endDate, venue, attendees, ticketPriceFrom, format,
     "logoUrl": logo.asset->url,
     "city": city->{ name, "slug": slug.current, description, "country": country->{ name, "slug": slug.current, description } },
@@ -352,7 +352,7 @@ export const eventsByCityQuery = groq`
 `
 
 export const eventsByCategoryQuery = groq`
-  *[_type == "event" && category->slug.current == $category && (endDate >= $cutoff || startDate >= $cutoff)] | order(startDate asc) {
+  *[_type == "event" && category->slug.current == $category && (!defined(startDate) || endDate >= $cutoff || startDate >= $cutoff)] | order(defined(startDate) desc, startDate asc) {
     _id, name, "slug": slug.current, startDate, endDate, venue, attendees, ticketPriceFrom, format,
     "logoUrl": logo.asset->url,
     "city": city->{ name, "slug": slug.current, "country": country->{ name, "slug": slug.current } },

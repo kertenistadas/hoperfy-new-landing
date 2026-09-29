@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { client } from '@/sanity/lib/client'
 import { eventBySlugQuery, eventsByCityQuery } from '@/sanity/lib/queries'
 import type { EventItem } from '@/types'
-import { formatDateRange, getCutoffDate, isExpiredEvent, isPastEvent } from '@/lib/eventUtils'
+import { formatEventDate, getCutoffDate, isExpiredEvent, isPastEvent } from '@/lib/eventUtils'
 import NavWrapper from '@/components/NavWrapper'
 import EventCTAs from '@/components/events/EventCTAs'
 import EventListCard from '@/components/events/EventListCard'
@@ -31,7 +31,12 @@ function autoDescription(event: EventItem, dateRange: string) {
   const cityName = event.city?.name ?? ''
   const countryName = event.city?.country?.name ?? ''
   const category = event.category?.title ?? 'industry'
-  return `${event.name} takes place in ${cityName}, ${countryName}${dateRange ? ` from ${dateRange}` : ''}. This ${category.toLowerCase()} event brings together professionals from across the sector. Attendees travelling to ${cityName} can arrange accommodation and event logistics through Hoperfy.`
+
+  if (!event.startDate) {
+    return `${event.name} takes place in ${cityName}, ${countryName}. Dates to be announced.`
+  }
+
+  return `${event.name} takes place in ${cityName}, ${countryName} from ${dateRange}. This ${category.toLowerCase()} event brings together professionals from across the sector. Attendees travelling to ${cityName} can arrange accommodation and event logistics through Hoperfy.`
 }
 
 /** Meta descriptions get cut at a word boundary so they never end mid-word. */
@@ -52,7 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const cityName = event.city?.name ?? ''
   const countryName = event.city?.country?.name ?? ''
-  const dateRange = formatDateRange(event.startDate, event.endDate)
+  const dateRange = formatEventDate(event.startDate, event.endDate)
   const title = `${event.name} — ${cityName}, ${countryName} | Hoperfy`
   const description = truncate(event.description || autoDescription(event, dateRange))
 
@@ -81,7 +86,7 @@ export default async function EventPage({ params }: Props) {
   const citySlug = event.city?.slug
   const countryName = event.city?.country?.name ?? ''
   const countrySlug = event.city?.country?.slug
-  const dateRange = formatDateRange(event.startDate, event.endDate)
+  const dateRange = formatEventDate(event.startDate, event.endDate)
   const past = isPastEvent(event.endDate, event.startDate)
   const description = event.description || autoDescription(event, dateRange)
 
@@ -105,7 +110,9 @@ export default async function EventPage({ params }: Props) {
     '@context': 'https://schema.org',
     '@type': 'Event',
     name: event.name,
-    startDate: event.startDate,
+    // schema.org requires startDate; an unannounced event simply omits it
+    // rather than emitting a placeholder date.
+    ...(event.startDate ? { startDate: event.startDate } : {}),
     ...(event.endDate ? { endDate: event.endDate } : {}),
     eventAttendanceMode:
       event.format === 'virtual'

@@ -13,7 +13,7 @@ export default function EventCTAs({
 }: {
   eventName: string
   eventLocation: string
-  eventStartDate: string
+  eventStartDate?: string
   eventEndDate?: string
 }) {
   const [openFor, setOpenFor] = useState<Interest | null>(null)

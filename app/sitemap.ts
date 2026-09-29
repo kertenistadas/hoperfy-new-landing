@@ -82,7 +82,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .fetch<{ slug: string; publishedAt?: string }[]>(caseStudiesQuery)
       .catch(() => null),
     client
-      .fetch<{ slug: string; startDate: string; endDate?: string }[]>(allEventsQuery, { cutoff: getCutoffDate() })
+      .fetch<{ slug: string; startDate?: string; endDate?: string }[]>(allEventsQuery, { cutoff: getCutoffDate() })
       .catch(() => null),
     client
       .fetch<{ slug: string }[]>(eventCountriesQuery)

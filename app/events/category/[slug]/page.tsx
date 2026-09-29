@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import { categoryBySlugQuery, eventsByCategoryQuery } from '@/sanity/lib/queries'
 import type { EventCategory, EventItem } from '@/types'
-import { getCutoffDate, isPastEvent } from '@/lib/eventUtils'
+import { compareEvents, getCutoffDate } from '@/lib/eventUtils'
 import NavWrapper from '@/components/NavWrapper'
 import EventListCard from '@/components/events/EventListCard'
 import ProductFAQ from '@/components/product/ProductFAQ'
@@ -56,12 +56,7 @@ export default async function CategoryEventsPage({ params }: Props) {
     .catch(() => null)
 
   // Upcoming first, past events pushed to the bottom.
-  const sorted = [...(events ?? [])].sort((a, b) => {
-    const aPast = isPastEvent(a.endDate, a.startDate)
-    const bPast = isPastEvent(b.endDate, b.startDate)
-    if (aPast !== bPast) return aPast ? 1 : -1
-    return a.startDate.localeCompare(b.startDate)
-  })
+  const sorted = [...(events ?? [])].sort(compareEvents)
 
   const faqs = category.faqs ?? []
   const pageUrl = `${BASE_URL}/events/category/${slug}`

@@ -208,7 +208,7 @@ export type EventItem = {
   _id: string
   name: string
   slug: string
-  startDate: string
+  startDate?: string
   endDate?: string
   venue?: string
   website?: string

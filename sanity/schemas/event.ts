@@ -7,7 +7,7 @@ export default defineType({
   fields: [
     defineField({ name: 'name', title: 'Event Name', type: 'string', validation: (Rule) => Rule.required() }),
     defineField({ name: 'slug', title: 'Slug', type: 'slug', options: { source: 'name' }, validation: (Rule) => Rule.required() }),
-    defineField({ name: 'startDate', title: 'Start Date', type: 'date', validation: (Rule) => Rule.required() }),
+    defineField({ name: 'startDate', title: 'Start Date', type: 'date', description: 'Leave empty if dates are not yet announced' }),
     defineField({ name: 'endDate', title: 'End Date', type: 'date' }),
     defineField({ name: 'city', title: 'City', type: 'reference', to: [{ type: 'eventCity' }], validation: (Rule) => Rule.required() }),
     defineField({ name: 'category', title: 'Category', type: 'reference', to: [{ type: 'eventCategory' }], validation: (Rule) => Rule.required() }),

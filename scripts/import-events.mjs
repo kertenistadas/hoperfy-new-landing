@@ -1,8 +1,11 @@
 // Usage: SANITY_API_TOKEN=xxx NEXT_PUBLIC_SANITY_PROJECT_ID=xxx node scripts/import-events.mjs events.csv
 //        ... node scripts/import-events.mjs events.csv --update
 //
-// Required CSV columns: event_name, slug, start_date, end_date, city, country, category, website
-// Optional CSV columns: venue, attendees, ticket_price_from, organizer, format, description
+// Required CSV columns: event_name, slug, city, country, category
+// Optional CSV columns: start_date, end_date, website, venue, attendees,
+//                       ticket_price_from, organizer, format, description
+//
+// Leave start_date empty for events whose dates are not yet announced.
 //
 // Countries, cities and categories are created on demand and reused across rows.
 // Rows whose slug already exists are skipped, so re-running is safe. Pass
@@ -174,11 +177,11 @@ async function findOrCreateCategory(title) {
 function buildFields(row, { cityId, categoryId, applyFormatDefault }) {
   const fields = {
     name: row.event_name,
-    startDate: row.start_date,
     city: { _type: 'reference', _ref: cityId },
     category: { _type: 'reference', _ref: categoryId },
   }
 
+  if (row.start_date) fields.startDate = row.start_date
   if (row.end_date) fields.endDate = row.end_date
   if (row.website) fields.website = row.website
   if (row.venue) fields.venue = row.venue
@@ -205,7 +208,7 @@ async function main() {
   }
 
   const headers = parseLine(rows[0]).map((h) => h.toLowerCase())
-  const required = ['event_name', 'slug', 'start_date', 'city', 'country', 'category']
+  const required = ['event_name', 'slug', 'city', 'country', 'category']
   const missing = required.filter((col) => !headers.includes(col))
   if (missing.length > 0) {
     console.error(`CSV is missing required column(s): ${missing.join(', ')}`)
@@ -227,7 +230,7 @@ async function main() {
     const name = row.event_name
     const slug = row.slug ? slugify(row.slug) : slugify(name)
 
-    if (!name || !slug || !row.start_date || !row.city || !row.country || !row.category) {
+    if (!name || !slug || !row.city || !row.country || !row.category) {
       console.warn(`Row ${i + 1}: missing required value, skipping.`)
       skipped++
       continue

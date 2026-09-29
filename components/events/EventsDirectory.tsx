@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import type { EventCategory, EventCity, EventCountry, EventItem } from '@/types'
-import { isPastEvent } from '@/lib/eventUtils'
+import { compareEvents } from '@/lib/eventUtils'
 import EventListCard from './EventListCard'
 
 const PAGE_SIZE = 24
@@ -65,19 +65,18 @@ export default function EventsDirectory({ events, categories, countries, cities 
       if (filters.category && event.category?.slug !== filters.category) return false
       if (filters.country && event.city?.country?.slug !== filters.country) return false
       if (filters.city && event.city?.slug !== filters.city) return false
-      // Treat each event as a range and keep the ones overlapping the window.
-      if (filters.dateFrom && (event.endDate || event.startDate) < filters.dateFrom) return false
-      if (filters.dateTo && event.startDate > filters.dateTo) return false
+      // An undated event cannot satisfy a date window, so drop it once one is set.
+      if (filters.dateFrom || filters.dateTo) {
+        if (!event.startDate) return false
+        // Treat each event as a range and keep the ones overlapping the window.
+        if (filters.dateFrom && (event.endDate || event.startDate) < filters.dateFrom) return false
+        if (filters.dateTo && event.startDate > filters.dateTo) return false
+      }
       return true
     })
 
-    // Upcoming first (soonest first), past events pushed to the bottom.
-    return matches.sort((a, b) => {
-      const aPast = isPastEvent(a.endDate, a.startDate)
-      const bPast = isPastEvent(b.endDate, b.startDate)
-      if (aPast !== bPast) return aPast ? 1 : -1
-      return a.startDate.localeCompare(b.startDate)
-    })
+    // Upcoming first, then past, then events with no announced dates.
+    return matches.sort(compareEvents)
   }, [events, filters])
 
   const hasFilters = Object.values(filters).some(Boolean)

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import type { EventItem } from '@/types'
-import { formatDateRange, isPastEvent } from '@/lib/eventUtils'
+import { formatEventDate, isPastEvent } from '@/lib/eventUtils'
 
 export default function EventListCard({ event }: { event: EventItem }) {
   const past = isPastEvent(event.endDate, event.startDate)
@@ -28,7 +28,7 @@ export default function EventListCard({ event }: { event: EventItem }) {
       </h3>
 
       <p className="text-[13px] text-[#1a6cf5] font-medium mb-1">
-        {formatDateRange(event.startDate, event.endDate)}
+        {formatEventDate(event.startDate, event.endDate)}
       </p>
 
       <p className="text-[13px] text-[#6b7280] mb-3">
