@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { ProductDetail } from '@/types'
 
 type Props = {
@@ -103,7 +104,11 @@ export default function ProductFeatures({ product, eyebrow }: Props) {
               </div>
               <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">Built for Tournaments and Multi-Team Events</h3>
               <p className="text-[14px] font-light text-[#6b7280] leading-relaxed">
-                Hundreds of rooms across multiple properties, with real-time block tracking and automated rooming list exports. Hoperfy contracts every hotel and handles every team&apos;s booking questions directly.
+                Hundreds of rooms across multiple properties, with real-time block tracking and automated rooming list exports. Hoperfy contracts every hotel and handles every team&apos;s booking questions directly.{' '}
+                <Link href="/products/tournament-housing" className="text-[#1a6cf5] hover:underline">
+                  See tournament housing
+                </Link>
+                .
               </p>
             </div>
 
