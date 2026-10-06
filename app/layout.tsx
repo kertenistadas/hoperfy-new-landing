@@ -15,7 +15,6 @@ export const metadata: Metadata = {
     template: '%s | Hoperfy',
   },
   description: 'Hoperfy gives event teams white-label hotel booking and multi-platform ticket sales in one platform. No commission leakage. No integration headaches. Built for event organizers.',
-  keywords: ['hotel booking for events', 'white label hotel booking', 'event ticketing platform', 'room block management software', 'multi-channel ticketing', 'event housing management', 'hotel room block software', 'Eventbrite alternative', 'event hotel software', 'group hotel booking events'],
   metadataBase: new URL('https://hoperfy.com'),
   alternates: { canonical: 'https://hoperfy.com' },
   icons: {

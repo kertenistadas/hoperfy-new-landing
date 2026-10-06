@@ -30,27 +30,6 @@ export const dynamic = 'force-dynamic'
 
 const BASE_URL = 'https://hoperfy.com'
 
-const productKeywords: Record<string, string[]> = {
-  'hotels-for-events': [
-    'white label hotel booking',
-    'hotel booking for events',
-    'room block management software',
-    'event housing management',
-    'group hotel booking events',
-    'Cvent Passkey alternative',
-    'event hotel software',
-  ],
-  'ticketing-for-events': [
-    'event ticketing platform',
-    'multi-channel ticketing',
-    'Eventbrite alternative',
-    'sell event tickets online',
-    'instant payout ticketing',
-    'white label event ticketing',
-    'ticketing software for event teams',
-  ],
-}
-
 type Props = {
   params: Promise<{ slug: string }>
 }
@@ -107,7 +86,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
-    keywords: productKeywords[slug],
     alternates: { canonical: url },
     openGraph: {
       title,
@@ -145,7 +123,7 @@ export default async function ProductPage({ params }: Props) {
   const geo = productGeo[slug]
 
   const jsonLd = geo
-    ? buildProductJsonLd(geo)
+    ? buildProductJsonLd(geo, { slug, title: data.title })
     : {
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',

@@ -34,23 +34,19 @@ export const productGeo: Record<string, ProductGeo> = {
       title: { absolute: 'Event Housing & Hotel Booking for Event Organizers | Hoperfy' },
       description:
         'Free, fully managed event housing for event organizers. We contract the hotels and handle every attendee query. Your team does nothing.',
-      keywords: [
-        'white label hotel booking for events',
-        'event hotel booking software',
-        'room block management software',
-        'hotel booking for event organizers',
-        'Cvent Passkey alternative',
-        'event housing management software',
-        'group hotel booking events',
-        'hotel room block tracking',
-      ],
       alternates: { canonical: `${BASE_URL}/products/hotels-for-events` },
       openGraph: {
-        title: 'White-Label Hotel Booking for Events | Hoperfy',
+        title: 'Event Housing & Hotel Booking for Event Organizers | Hoperfy',
         description:
-          'Your brand, your rates, zero commission. Hoperfy replaces third-party hotel booking redirects for event teams.',
+          'Free, fully managed event housing for event organizers. We contract the hotels and handle every attendee query. Your team does nothing.',
         url: `${BASE_URL}/products/hotels-for-events`,
         type: 'website',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: 'Event Housing & Hotel Booking for Event Organizers | Hoperfy',
+        description:
+          'Free, fully managed event housing for event organizers. We contract the hotels and handle every attendee query. Your team does nothing.',
       },
     },
     eyebrow: 'Event housing for conference, festival and tournament organizers',
@@ -65,8 +61,13 @@ export const productGeo: Record<string, ProductGeo> = {
       offers: {
         '@type': 'Offer',
         price: '0',
-        priceCurrency: 'USD',
+        priceCurrency: 'EUR',
         description: 'Contact for pricing',
+      },
+      // Machine-readable counterpart to the negative definition in the hero.
+      audience: {
+        '@type': 'Audience',
+        audienceType: 'Event organizers',
       },
       publisher: {
         '@type': 'Organization',
@@ -155,16 +156,6 @@ export const productGeo: Record<string, ProductGeo> = {
       title: { absolute: 'Multi-Platform Event Ticketing Software | Hoperfy' },
       description:
         'Hoperfy gives event teams multi-channel ticket sales, dynamic pricing, instant payouts, and unified attendee data in one dashboard. The Eventbrite alternative built for professional event organizers.',
-      keywords: [
-        'event ticketing platform',
-        'multi-channel event ticketing',
-        'Eventbrite alternative',
-        'event ticketing software for organizers',
-        'white label ticketing platform',
-        'instant payout ticketing',
-        'event ticket sales dashboard',
-        'professional event ticketing',
-      ],
       alternates: { canonical: `${BASE_URL}/products/ticketing-for-events` },
       openGraph: {
         title: 'Multi-Platform Event Ticketing | Hoperfy',
@@ -253,16 +244,6 @@ export const productGeo: Record<string, ProductGeo> = {
       title: { absolute: 'Speaker Housing Management for Events | Hoperfy' },
       description:
         'Hoperfy manages all speaker accommodation for your event — booking rooms, sending vouchers directly to speakers, handling changes, and keeping one live rooming list. Zero speaker housing emails for your team.',
-      keywords: [
-        'speaker housing management',
-        'hotel booking for conference speakers',
-        'speaker accommodation service',
-        'event speaker hotel booking',
-        'speaker housing for events',
-        'speaker rooming list management',
-        'conference speaker accommodation',
-        'managed speaker housing',
-      ],
       alternates: { canonical: `${BASE_URL}/products/speaker-housing` },
       openGraph: {
         title: 'Speaker Housing Management for Events | Hoperfy',
@@ -348,8 +329,17 @@ export const productGeo: Record<string, ProductGeo> = {
   },
 }
 
-/** Builds the JSON-LD @graph (SoftwareApplication + FAQPage) for a product. */
-export function buildProductJsonLd(geo: ProductGeo) {
+/**
+ * Builds the JSON-LD @graph for a product page: SoftwareApplication, FAQPage,
+ * Organization and BreadcrumbList.
+ *
+ * The FAQPage is generated from `geo.faqs`, the same array the visible FAQ
+ * section renders from, so the two can never drift apart.
+ *
+ * The Organization node reuses the site-wide @id from app/layout.tsx so the
+ * two declarations merge into one entity rather than competing.
+ */
+export function buildProductJsonLd(geo: ProductGeo, product: { slug: string; title: string }) {
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -364,6 +354,31 @@ export function buildProductJsonLd(geo: ProductGeo) {
             text: faq.answer,
           },
         })),
+      },
+      {
+        '@type': 'Organization',
+        '@id': `${BASE_URL}/#organization`,
+        name: 'Hoperfy',
+        url: BASE_URL,
+        logo: `${BASE_URL}/logo.png`,
+        contactPoint: {
+          '@type': 'ContactPoint',
+          email: 'hello@hoperfy.com',
+          contactType: 'customer support',
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
+          { '@type': 'ListItem', position: 2, name: 'Products', item: `${BASE_URL}/products` },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: product.title,
+            item: `${BASE_URL}/products/${product.slug}`,
+          },
+        ],
       },
     ],
   }
