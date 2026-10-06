@@ -16,6 +16,9 @@ export default function ProductHowItWorks({ product }: Props) {
             <h2 className="text-[1.75rem] md:text-[2.25rem] font-black tracking-tight text-[#0a0a0a]">
               {product.howItWorksHeadline ?? 'One conversation. Then we handle everything.'}
             </h2>
+            <p className="text-[16px] font-light text-[#6b7280] leading-relaxed mt-4 max-w-2xl">
+              Your event housing runs itself after the first call.
+            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 items-stretch">

@@ -8,7 +8,7 @@ const products = [
   {
     href: '/products/hotels-for-events',
     title: 'Hotels for Events',
-    description: 'White-label hotel booking for event teams',
+    description: 'Event housing for event organizers',
   },
   {
     href: '/products/ticketing-for-events',

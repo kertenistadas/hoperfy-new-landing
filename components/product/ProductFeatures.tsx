@@ -2,16 +2,18 @@ import type { ProductDetail } from '@/types'
 
 type Props = {
   product: ProductDetail
+  /** Overrides the default section eyebrow. Other products keep 'What you get'. */
+  eyebrow?: string
 }
 
-export default function ProductFeatures({ product }: Props) {
+export default function ProductFeatures({ product, eyebrow }: Props) {
   if (!product.featuresList?.length && product.slug !== 'hotels-for-events') return null
 
   return (
     <section className="py-24 px-6 border-t border-[#e5e7eb]">
       <div className="max-w-5xl mx-auto">
         <div className="mb-16">
-          <p className="eyebrow mb-3">What you get</p>
+          <p className="eyebrow mb-3">{eyebrow ?? 'What you get'}</p>
           <h2 className="text-[1.75rem] md:text-[2.25rem] font-black tracking-tight text-[#0a0a0a]">
             {product.featuresHeadline ?? 'Everything included'}
           </h2>
@@ -86,6 +88,23 @@ export default function ProductFeatures({ product }: Props) {
                   Live availability across all hotel partners, updated automatically. Eliminate the risk of overselling and manual block updates. Your inventory is always accurate.
                 </p>
               </div>
+            </div>
+
+            {/* Tournaments and multi-team events */}
+            <div className="border border-[#e5e7eb] rounded-2xl p-8 hover:border-[#1a6cf5] hover:shadow-lg hover:shadow-blue-500/5 transition-all">
+              <div className="w-12 h-12 rounded-xl bg-[#eef4ff] flex items-center justify-center mb-5">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 4H17V10C17 12.8 14.8 15 12 15C9.2 15 7 12.8 7 10V4Z" stroke="#1a6cf5" strokeWidth="1.5" strokeLinejoin="round"/>
+                  <path d="M7 6H4V7C4 8.7 5.3 10 7 10" stroke="#1a6cf5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M17 6H20V7C20 8.7 18.7 10 17 10" stroke="#1a6cf5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 15V18" stroke="#1a6cf5" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M8 20H16" stroke="#1a6cf5" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              </div>
+              <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">Built for Tournaments and Multi-Team Events</h3>
+              <p className="text-[14px] font-light text-[#6b7280] leading-relaxed">
+                Hundreds of rooms across multiple properties, with real-time block tracking and automated rooming list exports. Hoperfy contracts every hotel and handles every team&apos;s booking questions directly.
+              </p>
             </div>
 
             {/* Full width bottom card */}

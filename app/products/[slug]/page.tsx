@@ -199,7 +199,7 @@ export default async function ProductPage({ params }: Props) {
                   {/* Top row — headline left, map right */}
                   <div className="grid md:grid-cols-2 gap-8 mb-8 items-start">
                     <div>
-                      <p className="eyebrow mb-4">{data.tagline}</p>
+                      <p className="eyebrow mb-4">{geo?.eyebrow ?? data.tagline}</p>
                       <h1 className="text-[2.5rem] md:text-[3rem] font-black leading-[1.05] tracking-tight text-[#0a0a0a]">
                         {data.heroHeadline ?? data.title}
                       </h1>
@@ -217,6 +217,11 @@ export default async function ProductPage({ params }: Props) {
                       <div>
                         <p className="text-[16px] font-light text-[#6b7280] leading-relaxed mb-6">
                           {data.heroSubtitle ?? data.description}
+                        </p>
+                        <p className="text-[15px] font-light text-[#6b7280] leading-relaxed mb-6">
+                          Hoperfy is built for event organizers who need to offer their attendees
+                          accommodation, not for hotels managing their own event spaces. If you run a
+                          conference, festival, trade show or sports tournament, this is for you.
                         </p>
                         <div className="flex flex-col gap-2">
                           {[
@@ -242,13 +247,19 @@ export default async function ProductPage({ params }: Props) {
               </section>
               <ProductRevenueCalculator />
               {problemsSection}
-              {featuresSection}
+              {/* Hotels passes its own wording; other products keep the defaults. */}
+              <ProductFeatures product={data} eyebrow="Event housing" />
               {stepsSection}
               {fullFeaturesSection}
               {statsSection}
               {pricingSection}
-              {testimonialsSection}
-              {ctaSection}
+              {testimonials && testimonials.length > 0 && (
+                <TestimonialsSection
+                  testimonials={testimonials}
+                  heading="Built with event organizers, for event organizers."
+                />
+              )}
+              <ProductCTA product={data} headline="Ready to offer your attendees hotel booking?" />
               {faqSection}
             </>
           ) : data.slug === 'ticketing-for-events' ? (

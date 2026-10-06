@@ -62,7 +62,7 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
           'For a 500-person event, attendees typically spend €80,000–€150,000 on accommodation. Right now, that revenue goes to Booking.com or Expedia. Hoperfy lets you capture it — for free.',
       },
     ],
-    featuresHeadline: 'White-label hotel booking software built for event teams',
+    featuresHeadline: 'Everything event organizers need to own attendee accommodation',
     featuresList: [
       {
         title: 'Fully white-labelled booking page',

@@ -12,6 +12,8 @@ export type CompareFeature = {
 
 export type ProductGeo = {
   metadata: Metadata
+  /** Optional hero eyebrow. Falls back to the product's tagline when unset. */
+  eyebrow?: string
   /** The SoftwareApplication node for the JSON-LD @graph. */
   software: Record<string, unknown>
   faqs: ProductFAQ[]
@@ -29,9 +31,9 @@ export type ProductGeo = {
 export const productGeo: Record<string, ProductGeo> = {
   'hotels-for-events': {
     metadata: {
-      title: { absolute: 'White-Label Hotel Booking Software for Events | Hoperfy' },
+      title: { absolute: 'Event Housing & Hotel Booking for Event Organizers | Hoperfy' },
       description:
-        'Hoperfy gives event teams a white-label hotel booking engine with room block management, negotiated rate uploads, and zero commission fees. Replace Cvent Passkey and hotel spreadsheets.',
+        'Free, fully managed event housing for event organizers. We contract the hotels and handle every attendee query. Your team does nothing.',
       keywords: [
         'white label hotel booking for events',
         'event hotel booking software',
@@ -51,6 +53,7 @@ export const productGeo: Record<string, ProductGeo> = {
         type: 'website',
       },
     },
+    eyebrow: 'Event housing for conference, festival and tournament organizers',
     software: {
       '@type': 'SoftwareApplication',
       name: 'Hotels for Events by Hoperfy',

@@ -2,9 +2,11 @@ import type { Testimonial } from '@/types'
 
 type Props = {
   testimonials: Testimonial[]
+  /** Overrides the default heading. The homepage and other products keep it. */
+  heading?: string
 }
 
-export default function TestimonialsSection({ testimonials }: Props) {
+export default function TestimonialsSection({ testimonials, heading }: Props) {
   if (!testimonials?.length) return null
 
   return (
@@ -13,7 +15,7 @@ export default function TestimonialsSection({ testimonials }: Props) {
         <div className="mb-16">
           <p className="eyebrow mb-3">What people say</p>
           <h2 className="text-[1.75rem] md:text-[2.25rem] font-black tracking-tight text-[#0a0a0a]">
-            Built with event teams, for event teams.
+            {heading ?? 'Built with event teams, for event teams.'}
           </h2>
         </div>
 
