@@ -39,6 +39,28 @@ export default defineType({
       validation: (Rule) => Rule.max(160),
     }),
     defineField({
+      name: 'keyTakeaways',
+      title: 'Key takeaways',
+      type: 'array',
+      of: [{ type: 'string' }],
+      validation: (Rule) => Rule.min(3).max(6),
+      description:
+        'Three to five self-contained facts. Each must make sense read on its own, without the article around it: include the noun and the number, avoid "it", "this" and "they". 15 to 25 words each.',
+    }),
+    defineField({
+      name: 'takeawaysCtaLabel',
+      title: 'Takeaways CTA label',
+      type: 'string',
+      description:
+        'Optional. Contextual link text shown under the takeaways, e.g. "See how Hoperfy handles event housing".',
+    }),
+    defineField({
+      name: 'takeawaysCtaHref',
+      title: 'Takeaways CTA link',
+      type: 'string',
+      description: 'Optional. Internal path, e.g. /products/hotels-for-events',
+    }),
+    defineField({
       name: 'category',
       title: 'Category',
       type: 'reference',

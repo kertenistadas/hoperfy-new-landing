@@ -128,6 +128,9 @@ export type BlogPost = BlogPostCard & {
   metaTitle: string | null
   metaDescription: string | null
   relatedProduct: { title: string; slug: string; tagline: string } | null
+  keyTakeaways?: string[] | null
+  takeawaysCtaLabel?: string | null
+  takeawaysCtaHref?: string | null
 }
 
 export type CaseStudyCard = {

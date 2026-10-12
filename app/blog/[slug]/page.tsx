@@ -8,6 +8,7 @@ import { urlFor } from '@/sanity/lib/image'
 import type { BlogPost } from '@/types'
 import NavWrapper from '@/components/NavWrapper'
 import BlogPostCard from '@/components/blog/BlogPostCard'
+import KeyTakeaways from '@/components/blog/KeyTakeaways'
 
 export const dynamic = 'force-dynamic'
 
@@ -95,6 +96,22 @@ export default async function BlogPostPage({ params }: Props) {
 
   const date = formatDate(post.publishedAt)
 
+  const body = post.body ?? []
+  const hasTakeaways = Boolean(post.keyTakeaways?.length)
+
+  // The block goes before the first H2: early in the DOM for crawlers, below
+  // the fold for readers. Articles with no H2 take it at the top of the body,
+  // after any leading image.
+  const firstH2 = body.findIndex((b) => b?._type === 'block' && b?.style === 'h2')
+  let splitAt = firstH2
+  if (splitAt < 0) {
+    splitAt = 0
+    while (splitAt < body.length && body[splitAt]?._type === 'image') splitAt++
+  }
+
+  const bodyBefore = body.slice(0, splitAt)
+  const bodyAfter = body.slice(splitAt)
+
   return (
     <NavWrapper>
       <main className="pt-32 pb-24 px-6">
@@ -120,9 +137,33 @@ export default async function BlogPostPage({ params }: Props) {
             )}
           </header>
 
-          <div className="prose-blog">
-            {post.body && <PortableText value={post.body} components={portableTextComponents} />}
-          </div>
+          {hasTakeaways ? (
+            <>
+              {bodyBefore.length > 0 && (
+                <div className="prose-blog">
+                  <PortableText value={bodyBefore} components={portableTextComponents} />
+                </div>
+              )}
+
+              <KeyTakeaways
+                takeaways={post.keyTakeaways}
+                ctaLabel={post.takeawaysCtaLabel}
+                ctaHref={post.takeawaysCtaHref}
+              />
+
+              {bodyAfter.length > 0 && (
+                <div className="prose-blog">
+                  <PortableText value={bodyAfter} components={portableTextComponents} />
+                </div>
+              )}
+            </>
+          ) : (
+            /* Untouched original branch, so articles without takeaways render
+               byte for byte as they did before this block existed. */
+            <div className="prose-blog">
+              {post.body && <PortableText value={post.body} components={portableTextComponents} />}
+            </div>
+          )}
 
           {post.relatedProduct && (
             <div className="mt-12 bg-[#eef4ff] border border-[#b8d0fe] rounded-xl p-6">

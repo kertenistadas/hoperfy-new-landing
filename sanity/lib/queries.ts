@@ -152,6 +152,9 @@ export const blogPostBySlugQuery = groq`
     author,
     excerpt,
     body,
+    keyTakeaways,
+    takeawaysCtaLabel,
+    takeawaysCtaHref,
     "category": category->{ title, "slug": slug.current },
     "relatedProduct": relatedProduct->{ title, "slug": slug.current, tagline },
     "relatedPosts": relatedPosts[]->{
