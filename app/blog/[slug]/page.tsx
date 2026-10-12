@@ -65,6 +65,49 @@ const portableTextComponents: PortableTextComponents = {
   },
 }
 
+const TAKEAWAYS_DEPTH = 0.4
+const MIN_BLOCKS_TO_SPLIT = 6
+
+/** Only the fields the placement logic needs off a Portable Text block. */
+type BodyBlock = { _type?: string; style?: string }
+
+function hasStyle(block: BodyBlock | undefined, style: string) {
+  return block?._type === 'block' && block?.style === style
+}
+
+/**
+ * Index in the body array at which the Key Takeaways block is spliced in.
+ *
+ * Aims roughly two fifths down the article, then moves forward to the next
+ * section heading so the block lands on a boundary instead of interrupting a
+ * paragraph. H3 is used only when no H2 follows the target. Articles too short
+ * to split keep the block just after the intro, past any leading image.
+ */
+function takeawaysIndex(body: BodyBlock[]): number {
+  if (body.length < MIN_BLOCKS_TO_SPLIT) {
+    let i = 0
+    while (i < body.length && body[i]?._type === 'image') i++
+    return i
+  }
+
+  const target = Math.floor(body.length * TAKEAWAYS_DEPTH)
+
+  const nextHeading = (style: string) => {
+    for (let i = target; i < body.length; i++) {
+      if (hasStyle(body[i], style)) return i
+    }
+    return -1
+  }
+
+  const h2 = nextHeading('h2')
+  if (h2 >= 0) return h2
+
+  const h3 = nextHeading('h3')
+  if (h3 >= 0) return h3
+
+  return target
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const post = await getPost(slug)
@@ -99,16 +142,7 @@ export default async function BlogPostPage({ params }: Props) {
   const body = post.body ?? []
   const hasTakeaways = Boolean(post.keyTakeaways?.length)
 
-  // The block goes before the first H2: early in the DOM for crawlers, below
-  // the fold for readers. Articles with no H2 take it at the top of the body,
-  // after any leading image.
-  const firstH2 = body.findIndex((b) => b?._type === 'block' && b?.style === 'h2')
-  let splitAt = firstH2
-  if (splitAt < 0) {
-    splitAt = 0
-    while (splitAt < body.length && body[splitAt]?._type === 'image') splitAt++
-  }
-
+  const splitAt = takeawaysIndex(body)
   const bodyBefore = body.slice(0, splitAt)
   const bodyAfter = body.slice(splitAt)
 
