@@ -16,8 +16,11 @@ export default function HeroSection({ data }: Props) {
 
   function trackFormStart() {
     if (startedRef.current) return
-    startedRef.current = true
-    trackEvent('form_start', { form_id: 'hero_email', form_location: currentPath() })
+    // Mark started only on a real push, so a consent-gated no-op on focus
+    // before accepting does not suppress the start for good.
+    if (trackEvent('form_start', { form_id: 'hero_email', form_location: currentPath() })) {
+      startedRef.current = true
+    }
   }
 
   return (
@@ -45,7 +48,12 @@ export default function HeroSection({ data }: Props) {
               className="w-full h-12 px-4 text-[14px] border border-[#e5e7eb] rounded-lg outline-none focus:border-[#1a6cf5] focus:ring-2 focus:ring-[#1a6cf5]/10 transition-all placeholder:text-[#9ca3af] bg-white"
             />
             <button
-              onClick={() => setModalOpen(true)}
+              onClick={() => {
+                // Submitting is an interaction too: it is the last chance to
+                // record the start when focus happened before consent.
+                trackFormStart()
+                setModalOpen(true)
+              }}
               className="w-full sm:w-auto h-12 px-6 text-[14px] font-medium bg-[#1a6cf5] text-white rounded-lg hover:bg-[#1558cc] transition-colors whitespace-nowrap"
             >
               Create my event →

@@ -30,8 +30,11 @@ export default function HotelEventForm() {
 
   function trackFormStart() {
     if (startedRef.current) return
-    startedRef.current = true
-    trackEvent('form_start', { form_id: 'hotel_event_form', form_location: currentPath() })
+    // Mark started only on a real push, so a consent-gated no-op on focus
+    // before accepting does not suppress the start for good.
+    if (trackEvent('form_start', { form_id: 'hotel_event_form', form_location: currentPath() })) {
+      startedRef.current = true
+    }
   }
 
   // Debounced city autocomplete via the free Open-Meteo geocoding API.
@@ -101,6 +104,9 @@ export default function HotelEventForm() {
   // single lead on final submit (with the email collected there).
   function handleSubmit() {
     if (!eventName.trim()) return
+    // Submitting is an interaction too: it is the last chance to record the
+    // start when focus happened before consent.
+    trackFormStart()
     setModalOpen(true)
   }
 
