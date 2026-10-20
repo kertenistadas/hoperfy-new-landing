@@ -6,6 +6,8 @@
  * to Sanity only.
  */
 
+import { hasAnalyticsConsent } from '@/lib/consent'
+
 type EventParams = Record<string, string | number | undefined>
 
 declare global {
@@ -16,6 +18,11 @@ declare global {
 
 export function trackEvent(name: string, params: EventParams = {}) {
   if (typeof window === 'undefined') return
+
+  // No analytics event leaves the page without analytics consent, whether the
+  // visitor has not chosen yet or has rejected. Consent signals themselves are
+  // pushed separately in lib/consent.ts and are not gated.
+  if (!hasAnalyticsConsent()) return
 
   try {
     window.dataLayer = window.dataLayer || []

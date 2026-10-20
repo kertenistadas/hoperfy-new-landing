@@ -87,11 +87,22 @@ export function readConsent(): ConsentChoice | null {
   return cachedChoice
 }
 
+/**
+ * Whether analytics consent is currently granted. The single source of truth
+ * for app code: attribution and analytics events both gate on this rather
+ * than parsing the cookie themselves.
+ */
+export function hasAnalyticsConsent(): boolean {
+  return readConsent()?.analytics === true
+}
+
 const listeners = new Set<() => void>()
 
 export function subscribeConsent(listener: () => void): () => void {
   listeners.add(listener)
-  return () => listeners.delete(listener)
+  return () => {
+    listeners.delete(listener)
+  }
 }
 
 function notify() {

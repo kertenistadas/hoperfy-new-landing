@@ -6,6 +6,8 @@
  * failure must degrade to empty values rather than break a form submit.
  */
 
+import { hasAnalyticsConsent } from '@/lib/consent'
+
 // Short, editable host lists used to classify a referrer when no UTMs exist.
 const SEARCH_HOSTS = ['google.', 'bing.', 'duckduckgo.', 'yahoo.', 'ecosia.', 'baidu.', 'yandex.']
 const SOCIAL_HOSTS = [
@@ -150,26 +152,59 @@ function currentTouch(): { touch: Touch; hasUtm: boolean; externalReferrer: bool
   }
 }
 
+// Touches for this page view, held in memory. Nothing reaches storage until
+// analytics consent is granted, and keeping them here means a visitor who
+// accepts after landing does not lose the touch that brought them.
+let pendingFirst: Touch | null = null
+let pendingLast: Touch | null = null
+let landingRecorded = false
+
 /**
- * Records first and last touch. Safe to call on every page load: first touch
- * is written once and never overwritten, last touch only updates when the load
- * carries UTMs or arrived from an external site.
+ * Parses the current touch into memory, and writes it to storage only when
+ * analytics consent is granted. Safe to call on every route change.
  */
 export function recordPageView() {
   if (typeof window === 'undefined') return
 
   try {
     const { touch, hasUtm, externalReferrer } = currentTouch()
+    const isLanding = !landingRecorded
+    landingRecorded = true
 
-    if (!safeGet('local', FIRST_KEY)) {
-      safeSet('local', FIRST_KEY, JSON.stringify(touch))
+    if (isLanding) {
+      pendingFirst = touch
+      if (hasUtm || externalReferrer) pendingLast = touch
+    } else if (hasUtm) {
+      // document.referrer does not change on client side navigation, so after
+      // the landing page only fresh UTM parameters mark a new touch. Without
+      // this, every route change re-read the original referrer and overwrote
+      // the last touch, dropping its campaign.
+      pendingLast = touch
     }
 
-    if (hasUtm || externalReferrer) {
-      safeSet('session', LAST_KEY, JSON.stringify(touch))
-    }
+    flushAttribution()
   } catch {
     // Never let tracking break a page render.
+  }
+}
+
+/**
+ * Writes the in-memory touches to storage, if analytics consent is granted.
+ * Called on every page view and again the moment consent is given. First
+ * touch is still written only once and never overwritten.
+ */
+export function flushAttribution() {
+  if (typeof window === 'undefined' || !hasAnalyticsConsent()) return
+
+  try {
+    if (pendingFirst && !safeGet('local', FIRST_KEY)) {
+      safeSet('local', FIRST_KEY, JSON.stringify(pendingFirst))
+    }
+    if (pendingLast) {
+      safeSet('session', LAST_KEY, JSON.stringify(pendingLast))
+    }
+  } catch {
+    // Storage unavailable. Attribution is best effort.
   }
 }
 
@@ -219,13 +254,45 @@ function deviceType(): string {
   }
 }
 
-/** Flat, submit-ready attribution payload. Every field is optional. */
+const EMPTY_ATTRIBUTION: Attribution = {
+  firstSource: '', firstMedium: '', firstCampaign: '', firstTerm: '', firstContent: '',
+  firstReferrer: '', firstLandingPage: '', firstTouchAt: '',
+  lastSource: '', lastMedium: '', lastCampaign: '', lastTerm: '', lastContent: '',
+  lastReferrer: '', lastTouchAt: '',
+  gclid: '', fbclid: '', liFatId: '', gaClientId: '',
+  submittedPath: '', deviceType: '', userAgent: '',
+}
+
+function currentPathname(): string {
+  try {
+    return window.location.pathname
+  } catch {
+    return ''
+  }
+}
+
+/**
+ * Flat, submit-ready attribution payload. Every field is optional.
+ *
+ * Without analytics consent, every tracking field is empty and only the
+ * non-tracking context is filled in: the path and the coarse device type.
+ * The GA client id and the raw user agent are withheld too. A lead is still
+ * created either way; attribution has never been allowed to block a submit.
+ */
 export function getAttribution(): Attribution {
   if (typeof window === 'undefined') return {}
 
   try {
-    const first = readTouch('local', FIRST_KEY)
-    const last = readTouch('session', LAST_KEY)
+    if (!hasAnalyticsConsent()) {
+      return { ...EMPTY_ATTRIBUTION, submittedPath: currentPathname(), deviceType: deviceType() }
+    }
+
+    // Prefer stored touches; fall back to this page view's in-memory ones,
+    // which covers a browser that has consented but blocks storage.
+    const storedFirst = readTouch('local', FIRST_KEY)
+    const storedLast = readTouch('session', LAST_KEY)
+    const first: Partial<Touch> = storedFirst.source !== undefined ? storedFirst : pendingFirst ?? {}
+    const last: Partial<Touch> = storedLast.source !== undefined ? storedLast : pendingLast ?? {}
     const { touch: now } = currentTouch()
 
     let params: URLSearchParams
@@ -237,13 +304,7 @@ export function getAttribution(): Attribution {
     const get = (k: string) => params.get(k) ?? ''
 
     const ga = getGaIds()
-
-    let submittedPath = ''
-    try {
-      submittedPath = window.location.pathname
-    } catch {
-      submittedPath = ''
-    }
+    const submittedPath = currentPathname()
 
     let userAgent = ''
     try {
