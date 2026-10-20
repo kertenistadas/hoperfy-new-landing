@@ -191,12 +191,29 @@ export function getGaIds(): { gaClientId: string } | null {
   }
 }
 
+// Tablet is tested first: Android tablets match the mobile pattern too.
+const TABLET_UA = /iPad|Android(?!.*Mobile)|Tablet|PlayBook|Silk/i
+const MOBILE_UA = /Mobi|iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry/i
+
+/**
+ * Derived from the user agent, not viewport width. Width mislabels a desktop
+ * browser in a narrow or split window, and a resize must not change what a
+ * lead is recorded as.
+ */
 function deviceType(): string {
   try {
-    const w = window.innerWidth
-    if (w < 768) return 'mobile'
-    if (w < 1024) return 'tablet'
-    return 'desktop'
+    const ua = navigator.userAgent || ''
+
+    if (TABLET_UA.test(ua)) return 'tablet'
+
+    // iPadOS 13+ Safari reports a Macintosh UA with no iPad token. A real Mac
+    // reports maxTouchPoints 0, so touch points separate the two.
+    if (/Macintosh/.test(ua) && (navigator.maxTouchPoints ?? 0) > 1) return 'tablet'
+
+    const uaData = (navigator as Navigator & { userAgentData?: { mobile?: boolean } }).userAgentData
+    if (typeof uaData?.mobile === 'boolean') return uaData.mobile ? 'mobile' : 'desktop'
+
+    return MOBILE_UA.test(ua) ? 'mobile' : 'desktop'
   } catch {
     return ''
   }
