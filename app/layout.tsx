@@ -5,6 +5,7 @@ import Script from 'next/script'
 import AttributionTracker from '@/components/AttributionTracker'
 import ScheduleCallTracker from '@/components/ScheduleCallTracker'
 import { CONSENT_INIT_SCRIPT } from '@/lib/consent'
+import ConsentBanner from '@/components/ConsentBanner'
 import './globals.css'
 
 const inter = Inter({
@@ -86,6 +87,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <AttributionTracker />
         </Suspense>
         <ScheduleCallTracker />
+        <ConsentBanner />
 
         {children}
         <script

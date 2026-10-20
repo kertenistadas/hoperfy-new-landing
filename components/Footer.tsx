@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { FooterCategory } from '@/types'
+import CookieSettingsButton from '@/components/CookieSettingsButton'
 
 type NavLink = { title: string; slug: string }
 
@@ -29,6 +30,13 @@ function FooterLink({ url, children }: { url: string; children: React.ReactNode 
 }
 
 export default function Footer({ footerCategories = [] }: Props) {
+  // Cookie settings sits beside the Privacy and Terms links, which live in a
+  // CMS category. It is matched by its /legal/ links rather than its title,
+  // so renaming the category in Studio does not lose it.
+  const legalCategoryId = footerCategories.find((c) =>
+    c.links?.some((link) => link.url?.startsWith('/legal/')),
+  )?._id
+
   return (
     <footer className="pt-16 pb-10 px-6 border-t border-[#e5e7eb]">
       <div className="max-w-5xl mx-auto">
@@ -43,8 +51,17 @@ export default function Footer({ footerCategories = [] }: Props) {
                     {link.label}
                   </FooterLink>
                 ))}
+                {category._id === legalCategoryId && <CookieSettingsButton className={linkClass} />}
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Withdrawing consent must always be possible, so if no legal links
+            come back from the CMS the control falls back to the bottom bar. */}
+        {!legalCategoryId && (
+          <div className="mb-6">
+            <CookieSettingsButton className={linkClass} />
           </div>
         )}
 
