@@ -1,9 +1,21 @@
 import { defineField, defineType } from 'sanity'
 
+const attributionField = (name: string, title: string, type: 'string' | 'datetime' = 'string') =>
+  defineField({ name, title, type, fieldset: 'attribution' })
+
 export default defineType({
   name: 'lead',
   title: 'Leads',
   type: 'document',
+  fieldsets: [
+    {
+      name: 'attribution',
+      title: 'Attribution',
+      description:
+        'Where this lead came from. First touch is the campaign that first brought them to the site, last touch is the campaign on the visit they converted. Captured automatically and may be empty when storage is blocked.',
+      options: { collapsible: true, collapsed: true },
+    },
+  ],
   fields: [
     defineField({
       name: 'email',
@@ -75,6 +87,33 @@ export default defineType({
       title: 'Created At',
       type: 'datetime',
     }),
+
+    // Attribution. All optional: a lead is never blocked by missing values.
+    attributionField('firstSource', 'First source'),
+    attributionField('firstMedium', 'First medium'),
+    attributionField('firstCampaign', 'First campaign'),
+    attributionField('firstTerm', 'First term'),
+    attributionField('firstContent', 'First content'),
+    attributionField('firstReferrer', 'First referrer'),
+    attributionField('firstLandingPage', 'First landing page'),
+    attributionField('firstTouchAt', 'First touch at', 'datetime'),
+
+    attributionField('lastSource', 'Last source'),
+    attributionField('lastMedium', 'Last medium'),
+    attributionField('lastCampaign', 'Last campaign'),
+    attributionField('lastTerm', 'Last term'),
+    attributionField('lastContent', 'Last content'),
+    attributionField('lastReferrer', 'Last referrer'),
+    attributionField('lastTouchAt', 'Last touch at', 'datetime'),
+
+    attributionField('gclid', 'Google click id'),
+    attributionField('fbclid', 'Facebook click id'),
+    attributionField('liFatId', 'LinkedIn click id'),
+    attributionField('gaClientId', 'GA client id'),
+
+    attributionField('submittedPath', 'Submitted from path'),
+    attributionField('deviceType', 'Device type'),
+    attributionField('userAgent', 'User agent'),
   ],
   orderings: [
     { title: 'Newest first', name: 'createdAtDesc', by: [{ field: 'createdAt', direction: 'desc' }] },

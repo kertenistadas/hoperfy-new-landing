@@ -6,6 +6,39 @@ function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
+const ATTRIBUTION_STRING_FIELDS = [
+  'firstSource', 'firstMedium', 'firstCampaign', 'firstTerm', 'firstContent',
+  'firstReferrer', 'firstLandingPage',
+  'lastSource', 'lastMedium', 'lastCampaign', 'lastTerm', 'lastContent', 'lastReferrer',
+  'gclid', 'fbclid', 'liFatId', 'gaClientId',
+  'submittedPath', 'deviceType', 'userAgent',
+] as const
+
+const ATTRIBUTION_DATE_FIELDS = ['firstTouchAt', 'lastTouchAt'] as const
+
+/**
+ * Picks known attribution keys off the request body and drops anything
+ * unusable. A malformed datetime would make Sanity reject the whole mutation,
+ * so attribution is normalised rather than trusted.
+ */
+function pickAttribution(body: Record<string, unknown>): Record<string, string | null> {
+  const out: Record<string, string | null> = {}
+
+  for (const key of ATTRIBUTION_STRING_FIELDS) {
+    const value = body[key]
+    out[key] = typeof value === 'string' && value.trim() ? value.slice(0, 1000) : null
+  }
+
+  for (const key of ATTRIBUTION_DATE_FIELDS) {
+    const value = body[key]
+    const valid =
+      typeof value === 'string' && value.trim() && !Number.isNaN(Date.parse(value))
+    out[key] = valid ? new Date(value as string).toISOString() : null
+  }
+
+  return out
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
@@ -30,6 +63,7 @@ export async function POST(req: NextRequest) {
             source: source ?? 'unknown',
             status: 'new',
             createdAt: new Date().toISOString(),
+            ...pickAttribution(body),
           },
         },
       ],

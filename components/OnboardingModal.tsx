@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { getAttribution } from '@/lib/attribution'
 
 type Props = {
   isOpen: boolean
@@ -131,11 +132,21 @@ export default function OnboardingModal({
   async function submitLead() {
     setSubmitting(true)
     setSubmitError('')
+
+    // Attribution is best effort and must never prevent a lead being created.
+    let attribution: Record<string, string> = {}
+    try {
+      attribution = getAttribution()
+    } catch {
+      attribution = {}
+    }
+
     try {
       const res = await fetch('/api/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          ...attribution,
           email,
           productInterest,
           eventName: eventName || undefined,
