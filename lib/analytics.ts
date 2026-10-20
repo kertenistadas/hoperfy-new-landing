@@ -16,13 +16,14 @@ declare global {
   }
 }
 
-export function trackEvent(name: string, params: EventParams = {}) {
-  if (typeof window === 'undefined') return
+/** Returns whether the event was actually pushed, so callers can tell a gated no-op apart. */
+export function trackEvent(name: string, params: EventParams = {}): boolean {
+  if (typeof window === 'undefined') return false
 
   // No analytics event leaves the page without analytics consent, whether the
   // visitor has not chosen yet or has rejected. Consent signals themselves are
   // pushed separately in lib/consent.ts and are not gated.
-  if (!hasAnalyticsConsent()) return
+  if (!hasAnalyticsConsent()) return false
 
   try {
     window.dataLayer = window.dataLayer || []
@@ -34,8 +35,10 @@ export function trackEvent(name: string, params: EventParams = {}) {
     }
 
     window.dataLayer.push(payload)
+    return true
   } catch {
     // Analytics is best effort and must never interrupt a user flow.
+    return false
   }
 }
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { getAttribution } from '@/lib/attribution'
 import { trackEvent, currentPath } from '@/lib/analytics'
 
@@ -79,19 +79,30 @@ export default function OnboardingModal({
   // form_start fires once per opening of the modal, on first interaction.
   const startedRef = useRef(false)
 
-  function trackFormStart() {
+  // Stable across renders: they read only a ref and module constants.
+  const trackFormStart = useCallback(() => {
     if (startedRef.current) return
-    startedRef.current = true
-    trackEvent('form_start', { form_id: FORM_ID, form_location: currentPath() })
-  }
+    // Mark started only once the event is really pushed. A consent-gated
+    // no-op must not count, or a visitor who starts before accepting would
+    // later send steps with no start.
+    if (trackEvent('form_start', { form_id: FORM_ID, form_location: currentPath() })) {
+      startedRef.current = true
+    }
+  }, [])
 
-  function trackStep(stepNumber: number) {
-    trackEvent('form_step', {
-      form_id: FORM_ID,
-      step_number: stepNumber,
-      step_name: STEP_NAMES[stepNumber] ?? '',
-    })
-  }
+  const trackStep = useCallback(
+    (stepNumber: number) => {
+      // Advancing is an interaction. With a pre-filled email the field never
+      // changes, so this is the first chance to record the start.
+      trackFormStart()
+      trackEvent('form_step', {
+        form_id: FORM_ID,
+        step_number: stepNumber,
+        step_name: STEP_NAMES[stepNumber] ?? '',
+      })
+    },
+    [trackFormStart],
+  )
 
   // Reset to a clean state each time the modal is opened
   useEffect(() => {
@@ -120,7 +131,7 @@ export default function OnboardingModal({
       // from step 2 to step 4 on every pre-selected product entry point.
       trackStep(3)
     }
-  }, [step, initialProductInterest])
+  }, [step, initialProductInterest, trackStep])
 
   // Lock body scroll + close on Escape while open
   useEffect(() => {
