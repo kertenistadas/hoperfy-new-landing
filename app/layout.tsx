@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import AttributionTracker from '@/components/AttributionTracker'
 import ScheduleCallTracker from '@/components/ScheduleCallTracker'
+import { CONSENT_INIT_SCRIPT } from '@/lib/consent'
 import './globals.css'
 
 const inter = Inter({
@@ -50,6 +51,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={inter.variable}>
       <body className="antialiased">
+        {/* Consent Mode v2 defaults. beforeInteractive is hoisted into <head>
+            and runs before any Next module, so the denied state is in place
+            before GTM loads. If GTM ran first, consent would be decorative. */}
+        <Script
+          id="consent-default"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: CONSENT_INIT_SCRIPT }}
+        />
+
         {/* GTM noscript fallback */}
         <noscript
           dangerouslySetInnerHTML={{
