@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import OnboardingModal from '@/components/OnboardingModal'
+import { trackEvent, currentPath } from '@/lib/analytics'
 
 type CitySuggestion = {
   name: string
@@ -25,6 +26,13 @@ export default function HotelEventForm() {
   const [modalOpen, setModalOpen] = useState(false)
   const cityRef = useRef<HTMLDivElement>(null)
   const justSelectedRef = useRef(false)
+  const startedRef = useRef(false)
+
+  function trackFormStart() {
+    if (startedRef.current) return
+    startedRef.current = true
+    trackEvent('form_start', { form_id: 'hotel_event_form', form_location: currentPath() })
+  }
 
   // Debounced city autocomplete via the free Open-Meteo geocoding API.
   useEffect(() => {
@@ -97,7 +105,7 @@ export default function HotelEventForm() {
   }
 
   return (
-    <div className="space-y-2.5 overflow-hidden">
+    <div className="space-y-2.5 overflow-hidden" onFocus={trackFormStart}>
       {/* Event name */}
       <div>
         <label className={labelClass}>Event name</label>

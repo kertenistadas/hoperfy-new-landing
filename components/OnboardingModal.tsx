@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { getAttribution } from '@/lib/attribution'
+import { trackEvent, currentPath } from '@/lib/analytics'
 
 type Props = {
   isOpen: boolean
@@ -18,6 +19,14 @@ type Props = {
 type ProductInterest = 'ticketing' | 'hotels' | 'both' | 'speaker-housing'
 
 const CALENDLY_URL = 'https://calendly.com/tadas-hoperfy/30min'
+
+const FORM_ID = 'onboarding_modal'
+const STEP_NAMES: Record<number, string> = {
+  1: 'email',
+  2: 'product',
+  3: 'event_details',
+  4: 'dates_location',
+}
 
 const productOptions: { value: ProductInterest; title: string; description: string }[] = [
   { value: 'ticketing', title: 'Ticketing', description: 'Sell tickets across multiple channels' },
@@ -67,9 +76,27 @@ export default function OnboardingModal({
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
 
+  // form_start fires once per opening of the modal, on first interaction.
+  const startedRef = useRef(false)
+
+  function trackFormStart() {
+    if (startedRef.current) return
+    startedRef.current = true
+    trackEvent('form_start', { form_id: FORM_ID, form_location: currentPath() })
+  }
+
+  function trackStep(stepNumber: number) {
+    trackEvent('form_step', {
+      form_id: FORM_ID,
+      step_number: stepNumber,
+      step_name: STEP_NAMES[stepNumber] ?? '',
+    })
+  }
+
   // Reset to a clean state each time the modal is opened
   useEffect(() => {
     if (isOpen) {
+      startedRef.current = false
       setStep(1)
       setEmail(initialEmail ?? '')
       setEmailError('')
@@ -89,6 +116,9 @@ export default function OnboardingModal({
     if (initialProductInterest && step === 2) {
       setProductInterest(initialProductInterest)
       setStep(3)
+      // Auto advance is still an advance: without this the funnel would jump
+      // from step 2 to step 4 on every pre-selected product entry point.
+      trackStep(3)
     }
   }, [step, initialProductInterest])
 
@@ -116,6 +146,7 @@ export default function OnboardingModal({
     }
     setEmailError('')
     setStep(2)
+    trackStep(2)
   }
 
   // A single lead is written only on final submit (submitLead), so closing the
@@ -125,8 +156,11 @@ export default function OnboardingModal({
   }
 
   function selectProduct(value: ProductInterest) {
+    trackFormStart()
     setProductInterest(value)
-    setStep(value === 'speaker-housing' ? 4 : 3)
+    const next = value === 'speaker-housing' ? 4 : 3
+    setStep(next)
+    trackStep(next)
   }
 
   async function submitLead() {
@@ -158,6 +192,13 @@ export default function OnboardingModal({
         }),
       })
       if (res.ok) {
+        // Only after the Sanity write succeeded, never optimistically.
+        trackEvent('generate_lead', {
+          form_id: FORM_ID,
+          form_location: currentPath(),
+          product: productInterest ?? undefined,
+          lead_source: source ?? undefined,
+        })
         setStep(5)
       } else {
         setSubmitError('Something went wrong. Please try again.')
@@ -204,6 +245,11 @@ export default function OnboardingModal({
       <div
         className="bg-white rounded-2xl w-full max-w-md p-8 relative"
         onClick={(e) => e.stopPropagation()}
+        // onChange bubbles from form controls only, so this fires on real
+        // interaction. onFocus cannot be used: the email field autofocuses,
+        // which would fire form_start on render. Choice buttons are not form
+        // controls, so they call trackFormStart directly.
+        onChange={trackFormStart}
       >
         {/* Progress bar */}
         <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl overflow-hidden bg-[#f3f4f6]">
@@ -339,7 +385,7 @@ export default function OnboardingModal({
                   <button
                     key={option.value}
                     type="button"
-                    onClick={() => setAttendees(selected ? '' : option.value)}
+                    onClick={() => { trackFormStart(); setAttendees(selected ? '' : option.value) }}
                     className={`h-11 rounded-lg border text-[14px] font-medium transition-colors ${
                       selected
                         ? 'border-[#1a6cf5] bg-[#eef4ff] text-[#0a0a0a]'
@@ -354,14 +400,14 @@ export default function OnboardingModal({
 
             <button
               type="button"
-              onClick={() => setStep(4)}
+              onClick={() => { setStep(4); trackStep(4) }}
               className="mt-6 h-12 w-full bg-[#1a6cf5] text-white rounded-lg font-medium hover:bg-[#1558cc] transition-colors"
             >
               Continue
             </button>
             <button
               type="button"
-              onClick={() => setStep(4)}
+              onClick={() => { setStep(4); trackStep(4) }}
               className="mt-3 w-full text-[13px] text-[#9ca3af] hover:text-[#6b7280] transition-colors"
             >
               Skip for now

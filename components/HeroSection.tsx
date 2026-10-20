@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import type { Hero } from '@/types'
 import OnboardingModal from '@/components/OnboardingModal'
+import { trackEvent, currentPath } from '@/lib/analytics'
 
 type Props = {
   data: Hero
@@ -11,6 +12,13 @@ type Props = {
 export default function HeroSection({ data }: Props) {
   const [email, setEmail] = useState('')
   const [modalOpen, setModalOpen] = useState(false)
+  const startedRef = useRef(false)
+
+  function trackFormStart() {
+    if (startedRef.current) return
+    startedRef.current = true
+    trackEvent('form_start', { form_id: 'hero_email', form_location: currentPath() })
+  }
 
   return (
     <section className="pt-32 pb-24 px-6">
@@ -31,6 +39,7 @@ export default function HeroSection({ data }: Props) {
             <input
               type="email"
               value={email}
+              onFocus={trackFormStart}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Your work email"
               className="w-full h-12 px-4 text-[14px] border border-[#e5e7eb] rounded-lg outline-none focus:border-[#1a6cf5] focus:ring-2 focus:ring-[#1a6cf5]/10 transition-all placeholder:text-[#9ca3af] bg-white"
