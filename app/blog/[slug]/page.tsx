@@ -4,12 +4,12 @@ import { notFound } from 'next/navigation'
 import { PortableText, type PortableTextComponents } from '@portabletext/react'
 import { client } from '@/sanity/lib/client'
 import { blogPostBySlugQuery } from '@/sanity/lib/queries'
-import { urlFor } from '@/sanity/lib/image'
 import type { BlogPost } from '@/types'
 import NavWrapper from '@/components/NavWrapper'
 import BlogPostCard from '@/components/blog/BlogPostCard'
 import KeyTakeaways from '@/components/blog/KeyTakeaways'
 import PostDate from '@/components/blog/PostDate'
+import BlogImage from '@/components/blog/BlogImage'
 
 export const dynamic = 'force-dynamic'
 
@@ -25,21 +25,7 @@ async function getPost(slug: string): Promise<BlogPost | null> {
 
 const portableTextComponents: PortableTextComponents = {
   types: {
-    image: ({ value }) => {
-      if (!value?.asset) return null
-      const url = urlFor(value).width(1600).fit('max').auto('format').url()
-      return (
-        <figure>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={url} alt={value.alt || ''} />
-          {value.caption && (
-            <figcaption className="text-[13px] text-[#6b7280] text-center mt-2">
-              {value.caption}
-            </figcaption>
-          )}
-        </figure>
-      )
-    },
+    image: ({ value }) => <BlogImage value={value} />,
   },
   marks: {
     link: ({ value, children }) => {

@@ -139,7 +139,8 @@ export default defineType({
               name: 'alt',
               type: 'string',
               title: 'Alt text',
-              description: 'Important for SEO and accessibility',
+              description: 'Describe what the image shows. Screen readers and search engines read this.',
+              validation: (Rule) => Rule.required(),
             }),
             defineField({
               name: 'caption',
