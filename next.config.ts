@@ -8,6 +8,17 @@ const nextConfig: NextConfig = {
         destination: '/',
         permanent: true,
       },
+      // Dead posts from the previous site, still in Search Console with backlinks.
+      {
+        source: '/blog/us-top-10-tech-conferences',
+        destination: '/events/country/united-states',
+        permanent: true,
+      },
+      {
+        source: '/blog/unlocking-the-benefits-of-corporate-travel-a-win-win-for-employees-and-businesses',
+        destination: '/blog/navigating-airports-like-a-pro',
+        permanent: true,
+      },
     ];
   },
   images: {
