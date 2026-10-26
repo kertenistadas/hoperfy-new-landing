@@ -8,6 +8,8 @@ import NavWrapper from '@/components/NavWrapper'
 
 export const dynamic = 'force-dynamic'
 
+const BASE_URL = 'https://hoperfy.com'
+
 type Props = {
   params: Promise<{ slug: string }>
 }
@@ -39,9 +41,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!page) return {}
 
+  const url = `${BASE_URL}/${slug}`
+
   return {
     title: page.title,
     description: page.metaDescription,
+    alternates: { canonical: url },
+    openGraph: {
+      title: page.title,
+      description: page.metaDescription,
+      url,
+      type: 'website',
+      siteName: 'Hoperfy',
+    },
   }
 }
 
