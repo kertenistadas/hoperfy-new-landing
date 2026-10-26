@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Products — White-Label Hotel Booking, Event Ticketing & Speaker Housing',
   description:
-    'Three products built for event teams: white-label hotel booking with room block management, multi-platform ticket sales with instant payouts, and fully managed speaker accommodation.',
+    'Three products for event organizers: hotel booking, ticketing and speaker housing. One platform, no integration work.',
   alternates: { canonical: 'https://hoperfy.com/products' },
 }
 

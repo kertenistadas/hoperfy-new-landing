@@ -37,7 +37,7 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Hotel Booking & Ticketing Platform for Event Teams',
-  description: 'Hoperfy gives event teams white-label hotel booking and multi-channel ticket sales in one platform. Replace Cvent Passkey, Eventbrite, and room block spreadsheets.',
+  description: 'Hoperfy gives event organizers white-label hotel booking and multi-channel ticket sales in one platform. Free to start, live in minutes.',
   alternates: { canonical: 'https://hoperfy.com' },
 }
 

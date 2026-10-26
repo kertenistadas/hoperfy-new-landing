@@ -155,7 +155,7 @@ export const productGeo: Record<string, ProductGeo> = {
     metadata: {
       title: { absolute: 'Multi-Platform Event Ticketing Software | Hoperfy' },
       description:
-        'Hoperfy gives event teams multi-channel ticket sales, dynamic pricing, instant payouts, and unified attendee data in one dashboard. The Eventbrite alternative built for professional event organizers.',
+        'Multi-channel ticket sales, dynamic pricing, instant payouts and unified reporting, built for event organizers.',
       alternates: { canonical: `${BASE_URL}/products/ticketing-for-events` },
       openGraph: {
         title: 'Multi-Platform Event Ticketing | Hoperfy',
@@ -243,7 +243,7 @@ export const productGeo: Record<string, ProductGeo> = {
     metadata: {
       title: { absolute: 'Speaker Housing Management for Events | Hoperfy' },
       description:
-        'Hoperfy manages all speaker accommodation for your event — booking rooms, sending vouchers directly to speakers, handling changes, and keeping one live rooming list. Zero speaker housing emails for your team.',
+        'Hoperfy manages speaker accommodation end to end: booking rooms, sending vouchers to speakers, and handling every change.',
       alternates: { canonical: `${BASE_URL}/products/speaker-housing` },
       openGraph: {
         title: 'Speaker Housing Management for Events | Hoperfy',

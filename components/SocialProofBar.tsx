@@ -60,7 +60,7 @@ function LogoCell({ company }: { company: SocialProof['companies'][0] }) {
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={company.logoUrl}
-          alt={company.name}
+          alt={company.name ?? ''}
           className="h-7 w-auto object-contain max-w-[110px] opacity-70 group-hover:opacity-100 transition-all duration-300"
         />
       ) : (
