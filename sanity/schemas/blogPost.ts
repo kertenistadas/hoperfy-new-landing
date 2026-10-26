@@ -134,6 +134,11 @@ export default defineType({
         {
           type: 'image',
           options: { hotspot: true },
+          // Alt and caption alone make the block non-empty, so required() would pass it.
+          validation: (Rule) =>
+            Rule.custom((value: { asset?: unknown } | undefined) =>
+              value?.asset ? true : 'Upload an image file',
+            ),
           fields: [
             defineField({
               name: 'alt',
