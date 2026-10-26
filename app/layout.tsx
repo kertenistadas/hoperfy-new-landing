@@ -5,6 +5,7 @@ import Script from 'next/script'
 import AttributionTracker from '@/components/AttributionTracker'
 import ScheduleCallTracker from '@/components/ScheduleCallTracker'
 import { CONSENT_INIT_SCRIPT } from '@/lib/consent'
+import { siteOpenGraph } from '@/lib/seo'
 import ConsentBanner from '@/components/ConsentBanner'
 import './globals.css'
 
@@ -21,21 +22,14 @@ export const metadata: Metadata = {
   },
   description: 'Hoperfy gives event teams white-label hotel booking and multi-platform ticket sales in one platform. No commission leakage. No integration headaches. Built for event organizers.',
   metadataBase: new URL('https://hoperfy.com'),
-  alternates: { canonical: 'https://hoperfy.com' },
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon.ico',
     apple: '/favicon-180x180.png',
   },
-  openGraph: {
-    locale: 'en_US',
-    type: 'website',
-    siteName: 'Hoperfy',
-    url: 'https://hoperfy.com',
-    title: 'Hoperfy — Hotel Booking & Ticketing for Event Teams',
-    description: 'White-label hotel booking and multi-platform ticketing built for event teams. Sell more, manage less.',
-    images: [{ url: 'https://hoperfy.com/og-image.png', width: 1200, height: 630, alt: 'Hoperfy — Event Commerce Platform' }],
-  },
+  // No alternates.canonical and no openGraph.url here: both would be inherited
+  // by any route that forgets its own and point it at the homepage.
+  openGraph: siteOpenGraph,
   twitter: {
     card: 'summary_large_image',
     title: 'Hoperfy — Hotel Booking & Ticketing for Event Teams',

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { siteOpenGraph } from '@/lib/seo'
 import { PortableText, type PortableTextComponents } from '@portabletext/react'
 import { client } from '@/sanity/lib/client'
 import {
@@ -39,6 +40,7 @@ export const metadata: Metadata = {
   title: 'Hotel Booking & Ticketing Platform for Event Teams',
   description: 'Hoperfy gives event organizers white-label hotel booking and multi-channel ticket sales in one platform. Free to start, live in minutes.',
   alternates: { canonical: 'https://hoperfy.com' },
+  openGraph: { ...siteOpenGraph, url: 'https://hoperfy.com' },
 }
 
 const fallbackHero: Hero = {

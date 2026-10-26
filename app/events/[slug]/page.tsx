@@ -12,6 +12,9 @@ export const dynamic = 'force-dynamic'
 
 const BASE_URL = 'https://hoperfy.com'
 
+/** A shortened event name must not end on one of these. */
+const TITLE_STOP_WORDS = ['of', 'and', 'the', 'for', 'in', 'on', 'at', 'to', 'a', 'an', 'with', 'by']
+
 type Props = {
   params: Promise<{ slug: string }>
 }
@@ -52,8 +55,18 @@ function eventTitle(name: string, cityName: string, max = 60) {
   const room = max - suffix.length
   if (name.length <= room) return `${name}${suffix}`
   const head = name.slice(0, room + 1)
-  const cut = /\s/.test(head) ? head.replace(/\s+\S*$/, '').replace(/[\s,:;-]+$/, '') : ''
-  return `${cut || name.slice(0, room)}${suffix}`
+  const cut = /\s/.test(head) ? stripTrailing(head.replace(/\s+\S*$/, '')) : ''
+  if (!cut) return `${name.slice(0, room)}${suffix}`
+  // Drop trailing stop words, but never down to a fragment under three words.
+  let words = cut.split(/\s+/)
+  while (words.length > 1 && TITLE_STOP_WORDS.includes(words[words.length - 1].toLowerCase())) {
+    words = stripTrailing(words.slice(0, -1).join(' ')).split(/\s+/)
+  }
+  return `${words.length >= 3 ? words.join(' ') : cut}${suffix}`
+}
+
+function stripTrailing(text: string) {
+  return text.replace(/[\s,.:;&/+\u2013-]+$/, '')
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

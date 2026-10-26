@@ -19,7 +19,12 @@ export default defineType({
         {
           type: 'object',
           fields: [
-            defineField({ name: 'name', title: 'Company Name', type: 'string' }),
+            defineField({
+              name: 'name',
+              title: 'Company Name',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            }),
             defineField({
               name: 'logo',
               title: 'Logo',

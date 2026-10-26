@@ -248,7 +248,7 @@ export const productGeo: Record<string, ProductGeo> = {
       openGraph: {
         title: 'Speaker Housing Management for Events | Hoperfy',
         description:
-          'Send us the speaker list. Hoperfy books the rooms, sends vouchers, and handles every change — zero speaker housing emails for your team.',
+          'Send us the speaker list. Hoperfy books the rooms, sends vouchers, and handles every change. Your team gets zero speaker housing emails.',
         url: `${BASE_URL}/products/speaker-housing`,
         type: 'website',
       },
