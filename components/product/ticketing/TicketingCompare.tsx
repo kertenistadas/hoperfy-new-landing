@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import CompetitorCheckNote from '@/components/CompetitorCheckNote'
 
 type CompareRow = {
   label: string
@@ -6,15 +7,15 @@ type CompareRow = {
   competitor: string
 }
 
+// Competitor cells are checked against Eventbrite's own published pages
+// (see CompetitorCheckNote).
 const rows: CompareRow[] = [
   { label: 'Platform fee on paid tickets', hoperfy: '2.5% flat', competitor: '~3.7% + fixed fee per ticket' },
-  { label: 'Fee on free events', hoperfy: 'None', competitor: 'Often charged' },
-  { label: 'Payout timing', hoperfy: 'As tickets sell', competitor: 'After the event' },
-  { label: 'White-label branding', hoperfy: 'Included', competitor: 'Limited or paid tier' },
-  { label: 'Multi-channel from one inventory', hoperfy: 'Included', competitor: 'Rare' },
-  { label: 'Attendee data ownership', hoperfy: 'Yours, exportable', competitor: 'Shared with platform' },
-  { label: 'Hotel booking revenue', hoperfy: 'Included', competitor: 'Not offered' },
-  { label: 'QR check-in', hoperfy: 'Included', competitor: 'Included' },
+  { label: 'Fee on free events', hoperfy: 'None', competitor: 'None' },
+  { label: 'Payout timing', hoperfy: 'As tickets sell', competitor: 'Instant Payouts or after the event' },
+  { label: 'White-label branding', hoperfy: 'Included', competitor: 'Branded checkout widget' },
+  { label: 'Multi-channel from one inventory', hoperfy: 'Included', competitor: 'Website widget and Facebook' },
+  { label: 'QR check-in', hoperfy: 'Included', competitor: 'Organizer app' },
 ]
 
 type Props = {
@@ -39,7 +40,7 @@ export default function TicketingCompare({ fullComparison }: Props = {}) {
               <tr className="border-b border-[#e5e7eb]">
                 <th className="py-4 pr-4 text-[13px] font-medium text-[#6b7280] font-normal" />
                 <th className="py-4 px-4 text-[14px] font-semibold text-[#0a0a0a]">Hoperfy</th>
-                <th className="py-4 pl-4 text-[13px] font-medium text-[#6b7280]">Eventbrite / legacy</th>
+                <th className="py-4 pl-4 text-[13px] font-medium text-[#6b7280]">Eventbrite</th>
               </tr>
             </thead>
             <tbody>
@@ -53,6 +54,7 @@ export default function TicketingCompare({ fullComparison }: Props = {}) {
             </tbody>
           </table>
         </div>
+        <CompetitorCheckNote />
 
         {fullComparison && (
           <Link

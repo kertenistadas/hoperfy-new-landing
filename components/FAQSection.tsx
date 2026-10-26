@@ -11,7 +11,7 @@ const faqs = [
   {
     question: 'How is Hoperfy different from Cvent Passkey or EventPipe?',
     answer:
-      'Hoperfy combines hotel booking and ticketing in one platform. Cvent and EventPipe only handle hotel room blocks. Hoperfy gives you both, with white-label branding, instant payouts.',
+      'Hoperfy combines hotel booking and ticketing in one platform, with white-label branding and instant payouts.',
   },
   {
     question: 'Is there a commission on hotel bookings?',
@@ -26,7 +26,7 @@ const faqs = [
   {
     question: 'Does Hoperfy replace Eventbrite?',
     answer:
-      'For event teams running their own events, yes. Hoperfy gives you more control, better branding, instant payouts, and smaller % fees than third party event marketplaces.',
+      'For event teams running their own events, yes. Hoperfy charges a flat 2.5% on paid tickets, compared with the 3.7% + $1.79 per ticket service fee Eventbrite publishes for the US, and gives you white-label branding and instant payouts.',
   },
   {
     question: 'What size events is Hoperfy built for?',

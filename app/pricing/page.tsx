@@ -3,6 +3,7 @@ import NavWrapper from '@/components/NavWrapper'
 import PricingGrid from '@/components/PricingGrid'
 import ProductFAQ from '@/components/product/ProductFAQ'
 import CTAButtons from '@/components/CTAButtons'
+import CompetitorCheckNote from '@/components/CompetitorCheckNote'
 
 export const metadata: Metadata = {
   title: { absolute: 'Pricing — Simple, transparent pricing | Hoperfy' },
@@ -18,17 +19,16 @@ type ComparisonRow = {
   cvent: string
 }
 
+// Competitor cells are checked against each competitor's own published pages
+// (see CompetitorCheckNote). Unverifiable cells say "Not publicly listed".
 const comparisonRows: ComparisonRow[] = [
-  { feature: 'Ticketing fee', hoperfy: '2%', eventbrite: '~3.7% + fixed fee', cvent: 'Custom / high' },
-  { feature: 'Hotel booking profit payout', hoperfy: '50%', eventbrite: 'N/A', cvent: 'You pay them' },
-  { feature: 'Hotels + ticketing in one platform', hoperfy: '✓', eventbrite: '✗', cvent: '✗' },
-  { feature: 'Free events', hoperfy: 'Free', eventbrite: 'Free', cvent: 'Custom' },
-  { feature: 'Bring your own payment provider', hoperfy: '✓', eventbrite: '✗', cvent: '✗' },
-  { feature: 'Instant payouts', hoperfy: '✓', eventbrite: '✗', cvent: '✗' },
-  { feature: 'White-label branding', hoperfy: '✓', eventbrite: '✗', cvent: 'Partial' },
-  { feature: 'Who makes the setup', hoperfy: '✓ Us', eventbrite: '✗ You', cvent: '✗ You' },
-  { feature: 'Monthly fee', hoperfy: 'None', eventbrite: 'None', cvent: 'Yes' },
-  { feature: 'Payment processing fee', hoperfy: '0.1%–2.9%', eventbrite: '2.9% + fixed', cvent: 'Custom' },
+  { feature: 'Ticketing fee', hoperfy: '2%', eventbrite: '~3.7% + fixed fee', cvent: 'Quote-based' },
+  { feature: 'Hotels + ticketing in one platform', hoperfy: '✓', eventbrite: 'Not publicly listed', cvent: 'With Cvent Registration' },
+  { feature: 'Free events', hoperfy: 'Free', eventbrite: 'Free', cvent: 'Per-registration fee' },
+  { feature: 'Instant payouts', hoperfy: '✓', eventbrite: '✓', cvent: 'Not publicly listed' },
+  { feature: 'White-label branding', hoperfy: '✓', eventbrite: 'Branded checkout widget', cvent: 'Custom branded booking site' },
+  { feature: 'Monthly fee', hoperfy: 'None', eventbrite: 'Optional plans from $15/month', cvent: 'Not publicly listed' },
+  { feature: 'Payment processing fee', hoperfy: '0.1%–2.9%', eventbrite: '2.9% per order', cvent: 'Not publicly listed' },
 ]
 
 const pricingFaqs = [
@@ -118,6 +118,7 @@ export default function PricingPage() {
                 </tbody>
               </table>
             </div>
+            <CompetitorCheckNote />
           </div>
         </section>
 

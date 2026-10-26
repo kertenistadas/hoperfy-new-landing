@@ -108,7 +108,7 @@ export const productGeo: Record<string, ProductGeo> = {
       {
         question: 'How is Hoperfy different from Cvent Passkey or HotelMap?',
         answer:
-          "Unlike Cvent Passkey, EventPipe, or HotelMap, Hoperfy is a fully managed white-label hotel booking service for events — not a self-service platform your team has to learn. We build the booking page, manage the hotels, handle room block software tracking, and support all delegate queries. You do nothing after the first call.",
+          "Hoperfy is a fully managed white-label hotel booking service for events. We build the booking page, manage the hotels, handle room block tracking, and support all delegate queries. You do nothing after the first call.",
       },
       {
         question: 'Is hotel booking really free?',
@@ -133,7 +133,7 @@ export const productGeo: Record<string, ProductGeo> = {
       {
         question: 'Is Hoperfy a good alternative to EventPipe or Cvent Passkey?',
         answer:
-          "Yes. Hoperfy is a modern alternative to EventPipe, Cvent Passkey, and legacy conference hotel booking software. The key difference: Hoperfy is fully managed — we do the work, not your team. White-label branding, 2M+ properties, instant setup, and zero platform fees make it the leading event hotel booking platform for professional event teams.",
+          "Yes, if you want the work done for you. Hoperfy is fully managed: we do the work, not your team. You get white-label branding, 2M+ properties, instant setup, and zero platform fees.",
       },
     ],
     compare: {
@@ -207,7 +207,7 @@ export const productGeo: Record<string, ProductGeo> = {
       {
         question: 'Is Hoperfy a good Eventbrite alternative?',
         answer:
-          'For organisers running their own events, yes. You get more control over branding, payouts as tickets sell instead of delayed settlement, and unified data across every sales channel.',
+          'For organisers running their own events, yes. You get white-label branding, payouts as tickets sell, and unified data across every sales channel.',
       },
       {
         question: 'What size events is this built for?',

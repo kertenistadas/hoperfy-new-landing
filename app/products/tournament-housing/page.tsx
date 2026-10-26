@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import NavWrapper from '@/components/NavWrapper'
 import CTAButtons from '@/components/CTAButtons'
+import CompetitorCheckNote from '@/components/CompetitorCheckNote'
 
 export const dynamic = 'force-dynamic'
 
@@ -67,14 +68,16 @@ const features = [
   },
 ]
 
+// Competitor cells are checked against each competitor's own published pages
+// (see CompetitorCheckNote). Unverifiable cells say "Not publicly listed".
 const comparison = {
   columns: ['Hoperfy', 'Playbook365 Staybook', 'EventPipe', 'Manual management'],
   rows: [
     { label: 'Cost to the organizer', values: ['Free to set up', 'Paid platform', 'Paid platform', 'Staff time'] },
-    { label: 'Setup time', values: ['5 minutes', 'Self-service build', 'Self-service build', 'Weeks of outreach'] },
-    { label: 'Who answers the teams', values: ['Hoperfy', 'Your staff', 'Your staff', 'Your staff'] },
+    { label: 'Setup time', values: ['5 minutes', 'A few days, with onboarding', 'Self-service build', 'Weeks of outreach'] },
+    { label: 'Who answers the teams', values: ['Hoperfy', 'Not publicly listed', 'Not publicly listed', 'Your staff'] },
     { label: 'White-label booking page', values: ['Yes', 'Yes', 'Yes', 'No'] },
-    { label: 'Inventory size', values: ['2,000,000+ properties', 'Contracted hotels', 'Contracted hotels', 'Whatever you negotiate'] },
+    { label: 'Inventory size', values: ['2,000,000+ properties', '600,000+ properties', 'Contracted blocks and live inventory', 'Whatever you negotiate'] },
   ],
 }
 
@@ -97,7 +100,7 @@ const faqs = [
   {
     question: 'Which vendors provide hotel room management software for group events?',
     answer:
-      'The established names include Cvent Passkey, EventPipe, HotelMap and, in the sports niche, Playbook365 Staybook. Hoperfy sits apart from that list because it is not sold as software your team operates. Room block tracking and rooming list exports are included, but the hotel contracting and the team support are done by us.',
+      'The established names include Cvent Passkey, EventPipe, HotelMap and, in the sports niche, Playbook365 Staybook. With Hoperfy, room block tracking and rooming list exports are included, and the hotel contracting and the team support are done by us.',
   },
   {
     question: 'What does stay to play mean for a tournament?',
@@ -295,6 +298,7 @@ export default function TournamentHousingPage() {
                   </tbody>
                 </table>
               </div>
+              <CompetitorCheckNote />
             </div>
           </section>
 
