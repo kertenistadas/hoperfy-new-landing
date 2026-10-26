@@ -46,6 +46,16 @@ function truncate(text: string, max = 160) {
   return `${cut.replace(/\s+\S*$/, '') || cut}…`
 }
 
+/** Title tags stay within 60 chars. Only the event name is shortened, on a word boundary. */
+function eventTitle(name: string, cityName: string, max = 60) {
+  const suffix = `${cityName ? `, ${cityName}` : ''} | Hoperfy`
+  const room = max - suffix.length
+  if (name.length <= room) return `${name}${suffix}`
+  const head = name.slice(0, room + 1)
+  const cut = /\s/.test(head) ? head.replace(/\s+\S*$/, '').replace(/[\s,:;-]+$/, '') : ''
+  return `${cut || name.slice(0, room)}${suffix}`
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const event = await getEvent(slug)
@@ -56,9 +66,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const cityName = event.city?.name ?? ''
-  const countryName = event.city?.country?.name ?? ''
   const dateRange = formatEventDate(event.startDate, event.endDate)
-  const title = `${event.name} — ${cityName}, ${countryName} | Hoperfy`
+  const title = eventTitle(event.name, cityName)
   const description = truncate(event.description || autoDescription(event, dateRange))
 
   return {
