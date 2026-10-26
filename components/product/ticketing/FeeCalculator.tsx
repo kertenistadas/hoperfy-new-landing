@@ -28,7 +28,7 @@ export default function FeeCalculator() {
   } = useTicketingFee()
 
   const platforms: { key: PlatformKey; label: string }[] = [
-    { key: 'eventbrite', label: 'Eventbrite' },
+    { key: 'eventbrite', label: 'Eventbrite (US fees)' },
     { key: 'legacy', label: 'Legacy box office' },
     { key: 'diy', label: 'Own site + Stripe *' },
   ]
@@ -166,7 +166,9 @@ export default function FeeCalculator() {
         <div className="bg-[#f9fafb] rounded-xl p-3">
           <p className="text-[10px] font-semibold text-[#6b7280] uppercase tracking-wider mb-1">{platformLabel}</p>
           <p className="text-[18px] font-black text-[#0a0a0a]">{fmt(competitorTotal, currency)}</p>
-          <p className="text-[10px] text-[#6b7280] mt-0.5">total fees · +{payoutDelayDays}d payout</p>
+          <p className="text-[10px] text-[#6b7280] mt-0.5">
+            total fees{payoutDelayDays !== null && <> · +{payoutDelayDays}d payout</>}
+          </p>
         </div>
       </div>
 

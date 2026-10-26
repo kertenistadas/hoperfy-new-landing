@@ -22,13 +22,13 @@ type ComparisonRow = {
 // Competitor cells are checked against each competitor's own published pages
 // (see CompetitorCheckNote). Unverifiable cells say "Not publicly listed".
 const comparisonRows: ComparisonRow[] = [
-  { feature: 'Ticketing fee', hoperfy: '2%', eventbrite: '~3.7% + fixed fee', cvent: 'Quote-based' },
+  { feature: 'Ticketing fee, excluding payment processing', hoperfy: '2%', eventbrite: 'US: 3.7% + $1.79 per ticket', cvent: 'Quote-based' },
   { feature: 'Hotels + ticketing in one platform', hoperfy: '✓', eventbrite: 'Not publicly listed', cvent: 'With Cvent Registration' },
-  { feature: 'Free events', hoperfy: 'Free', eventbrite: 'Free', cvent: 'Per-registration fee' },
+  { feature: 'Free events', hoperfy: 'Free', eventbrite: 'US: Free', cvent: 'Per-registration fee' },
   { feature: 'Instant payouts', hoperfy: '✓', eventbrite: '✓', cvent: 'Not publicly listed' },
   { feature: 'White-label branding', hoperfy: '✓', eventbrite: 'Branded checkout widget', cvent: 'Custom branded booking site' },
-  { feature: 'Monthly fee', hoperfy: 'None', eventbrite: 'Optional plans from $15/month', cvent: 'Not publicly listed' },
-  { feature: 'Payment processing fee', hoperfy: '0.1%–2.9%', eventbrite: '2.9% per order', cvent: 'Not publicly listed' },
+  { feature: 'Monthly fee', hoperfy: 'None', eventbrite: 'US: optional plans from $15/month', cvent: 'Not publicly listed' },
+  { feature: 'Payment processing fee', hoperfy: '0.1%–2.9%', eventbrite: 'US: 2.9% per order', cvent: 'Not publicly listed' },
 ]
 
 const pricingFaqs = [
@@ -93,7 +93,7 @@ export default function PricingPage() {
                     <th className="py-4 px-5">Feature</th>
                     <th className="py-4 px-5">Hoperfy</th>
                     <th className="py-4 px-5">Eventbrite</th>
-                    <th className="py-4 px-5">Cvent Passkey</th>
+                    <th className="py-4 px-5">Cvent</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -118,7 +118,10 @@ export default function PricingPage() {
                 </tbody>
               </table>
             </div>
-            <CompetitorCheckNote />
+            <p className="mt-4 text-[12px] text-[#9ca3af]">
+              Cvent Passkey for hotel rooms, Cvent Registration for tickets.
+            </p>
+            <CompetitorCheckNote className="mt-1" />
           </div>
         </section>
 

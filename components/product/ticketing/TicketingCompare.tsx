@@ -10,8 +10,8 @@ type CompareRow = {
 // Competitor cells are checked against Eventbrite's own published pages
 // (see CompetitorCheckNote).
 const rows: CompareRow[] = [
-  { label: 'Platform fee on paid tickets', hoperfy: '2.5% flat', competitor: '~3.7% + fixed fee per ticket' },
-  { label: 'Fee on free events', hoperfy: 'None', competitor: 'None' },
+  { label: 'Platform fee on paid tickets, excluding payment processing', hoperfy: '2.5% flat', competitor: 'US: 3.7% + $1.79 per ticket' },
+  { label: 'Fee on free events', hoperfy: 'None', competitor: 'US: None' },
   { label: 'Payout timing', hoperfy: 'As tickets sell', competitor: 'Instant Payouts or after the event' },
   { label: 'White-label branding', hoperfy: 'Included', competitor: 'Branded checkout widget' },
   { label: 'Multi-channel from one inventory', hoperfy: 'Included', competitor: 'Website widget and Facebook' },

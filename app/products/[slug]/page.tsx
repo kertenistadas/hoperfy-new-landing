@@ -13,7 +13,6 @@ import ProductHowItWorks from '@/components/product/ProductHowItWorks'
 import ProductStats from '@/components/product/ProductStats'
 import ProductCTA from '@/components/product/ProductCTA'
 import ProductFAQ from '@/components/product/ProductFAQ'
-import ProductCompare from '@/components/product/ProductCompare'
 import ProductPricing from '@/components/product/ProductPricing'
 import ProductFullFeatures from '@/components/product/ProductFullFeatures'
 import ProductRevenueCalculator from '@/components/product/ProductRevenueCalculator'
@@ -153,9 +152,6 @@ export default async function ProductPage({ params }: Props) {
     fullFeatures.length > 0 ? <ProductFullFeatures features={fullFeatures} /> : null
   const statsSection = data.stats?.length ? <ProductStats product={data} /> : null
   const pricingSection = <ProductPricing pricing={pricing} productSlug={data.slug} />
-  const compareSection = geo ? (
-    <ProductCompare competitors={geo.compare.competitors} features={geo.compare.features} />
-  ) : null
   const testimonialsSection =
     testimonials && testimonials.length > 0 ? (
       <TestimonialsSection testimonials={testimonials} />
@@ -277,7 +273,6 @@ export default async function ProductPage({ params }: Props) {
               {fullFeaturesSection}
               {statsSection}
               {pricingSection}
-              {compareSection}
               {testimonialsSection}
               {ctaSection}
               {faqSection}

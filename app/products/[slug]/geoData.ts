@@ -4,12 +4,6 @@ const BASE_URL = 'https://hoperfy.com'
 
 export type ProductFAQ = { question: string; answer: string }
 
-export type CompareFeature = {
-  label: string
-  hoperfy: boolean
-  competitors: boolean
-}
-
 export type ProductGeo = {
   metadata: Metadata
   /** Optional hero eyebrow. Falls back to the product's tagline when unset. */
@@ -17,11 +11,6 @@ export type ProductGeo = {
   /** The SoftwareApplication node for the JSON-LD @graph. */
   software: Record<string, unknown>
   faqs: ProductFAQ[]
-  compare: {
-    /** Competitor names shown in the comparison column header. */
-    competitors: string[]
-    features: CompareFeature[]
-  }
 }
 
 /**
@@ -136,20 +125,6 @@ export const productGeo: Record<string, ProductGeo> = {
           "Yes, if you want the work done for you. Hoperfy is fully managed: we do the work, not your team. You get white-label branding, 2M+ properties, instant setup, and zero platform fees.",
       },
     ],
-    compare: {
-      competitors: ['HotelMap / Cvent Passkey'],
-      features: [
-        { label: 'Fully managed service — we do everything', hoperfy: true, competitors: false },
-        { label: 'Zero cost to event organizer', hoperfy: true, competitors: false },
-        { label: 'All delegate support handled for you', hoperfy: true, competitors: false },
-        { label: 'Live in 5 minutes', hoperfy: true, competitors: false },
-        { label: 'Built-in event ticketing', hoperfy: true, competitors: false },
-        { label: '2M+ hotel properties worldwide', hoperfy: true, competitors: false },
-        { label: 'White-label branding', hoperfy: true, competitors: true },
-        { label: 'Room block management', hoperfy: true, competitors: true },
-        { label: 'Negotiated rate management', hoperfy: true, competitors: true },
-      ],
-    },
   },
   'ticketing-for-events': {
     metadata: {
@@ -225,19 +200,6 @@ export const productGeo: Record<string, ProductGeo> = {
           'Yes. Every sale from every channel lands in your dashboard with the buyer details. It is your list, exportable — not an audience we resell back to you.',
       },
     ],
-    compare: {
-      competitors: ['Eventbrite / legacy platforms'],
-      features: [
-        { label: 'Platform fee on paid tickets', hoperfy: true, competitors: false },
-        { label: 'Fee on free events', hoperfy: true, competitors: false },
-        { label: 'Instant payouts as tickets sell', hoperfy: true, competitors: false },
-        { label: 'White-label branding', hoperfy: true, competitors: false },
-        { label: 'Multi-channel from one inventory', hoperfy: true, competitors: false },
-        { label: 'Attendee data ownership', hoperfy: true, competitors: false },
-        { label: 'Hotel booking revenue layer', hoperfy: true, competitors: false },
-        { label: 'QR check-in', hoperfy: true, competitors: true },
-      ],
-    },
   },
   'speaker-housing': {
     metadata: {
@@ -313,19 +275,6 @@ export const productGeo: Record<string, ProductGeo> = {
           'Yes, on request. If you need flights or airport transfers arranged for speakers, let us know when you brief us and we will include them as part of the service.',
       },
     ],
-    compare: {
-      competitors: ['In-house / spreadsheet management'],
-      features: [
-        { label: 'Zero speaker housing emails to your team', hoperfy: true, competitors: false },
-        { label: 'Vouchers sent directly to each speaker', hoperfy: true, competitors: false },
-        { label: 'Changes handled without involving your team', hoperfy: true, competitors: false },
-        { label: 'Live rooming list, always current', hoperfy: true, competitors: false },
-        { label: 'Works standalone, no platform lock-in', hoperfy: true, competitors: false },
-        { label: 'Flights and transfers on request', hoperfy: true, competitors: false },
-        { label: 'Multiple hotels across speaker tiers', hoperfy: true, competitors: true },
-        { label: 'Access to 2M+ properties worldwide', hoperfy: true, competitors: false },
-      ],
-    },
   },
 }
 

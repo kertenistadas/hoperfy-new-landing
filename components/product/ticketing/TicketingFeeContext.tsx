@@ -23,7 +23,7 @@ interface TicketingDerived {
   competitorTotal: number
   savings: number
   isNegative: boolean
-  payoutDelayDays: number
+  payoutDelayDays: number | null
   platformLabel: string
 }
 
@@ -36,7 +36,8 @@ interface TicketingFeeContextValue extends TicketingInputs, TicketingDerived {
 }
 
 const PLATFORM_CONFIG = {
-  eventbrite: { label: 'Eventbrite', pct: 3.7, fixed: 1.79, payoutDelayDays: 5 },
+  // Eventbrite's published US fees. No payout delay: Eventbrite offers Instant Payouts.
+  eventbrite: { label: 'Eventbrite (US fees)', pct: 3.7, fixed: 1.79, payoutDelayDays: null },
   legacy: { label: 'Legacy box office', pct: 6.0, fixed: 2.5, payoutDelayDays: 30 },
   diy: { label: 'Own site + Stripe', pct: 0, fixed: 0, payoutDelayDays: 7 },
 }

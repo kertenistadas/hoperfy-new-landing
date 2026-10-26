@@ -26,7 +26,7 @@ const faqs = [
   {
     question: 'Does Hoperfy replace Eventbrite?',
     answer:
-      'For event teams running their own events, yes. Hoperfy charges a flat 2.5% on paid tickets, compared with the 3.7% + $1.79 per ticket service fee Eventbrite publishes for the US, and gives you white-label branding and instant payouts.',
+      'For event teams running their own events, yes. Hoperfy charges a flat 2.5% on paid tickets, compared with the US service fee of 3.7% + $1.79 per ticket that Eventbrite publishes. Neither figure includes payment processing. Hoperfy also gives you white-label branding and instant payouts.',
   },
   {
     question: 'What size events is Hoperfy built for?',
