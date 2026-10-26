@@ -373,3 +373,43 @@ export const citiesByCountryQuery = groq`
     "country": country->{ name, "slug": slug.current }
   }
 `
+
+export const comparisonsQuery = groq`
+  *[_type == "comparison" && defined(slug.current)] | order(publishedAt desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    comparisonType,
+    intro,
+    publishedAt,
+    updatedAt,
+    lastVerified
+  }
+`
+
+export const comparisonBySlugQuery = groq`
+  *[_type == "comparison" && slug.current == $slug][0] {
+    _id,
+    title,
+    "slug": slug.current,
+    seoTitle,
+    metaDescription,
+    comparisonType,
+    publishedAt,
+    updatedAt,
+    lastVerified,
+    intro,
+    keyTakeaways,
+    comparisonTable { columns, rows[] { _key, cells } },
+    body,
+    faqs[] { _key, question, answer },
+    "relatedProduct": relatedProduct->{ title, "slug": slug.current, tagline }
+  }
+`
+
+export const comparisonByProductQuery = groq`
+  *[_type == "comparison" && relatedProduct->slug.current == $slug] | order(publishedAt desc)[0] {
+    title,
+    "slug": slug.current
+  }
+`

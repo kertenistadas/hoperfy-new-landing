@@ -225,3 +225,31 @@ export type EventItem = {
   city: { name: string; slug: string; description?: string; country: { name: string; slug: string; description?: string } }
   category: { title: string; slug: string; description?: string }
 }
+
+export type ComparisonType = 'head-to-head' | 'alternatives' | 'category'
+
+export type ComparisonCard = {
+  _id: string
+  title: string
+  slug: string
+  comparisonType: ComparisonType | null
+  intro: string | null
+  publishedAt: string
+  updatedAt?: string | null
+  lastVerified: string | null
+}
+
+export type ComparisonTable = {
+  columns?: string[] | null
+  rows?: { _key: string; cells?: string[] | null }[] | null
+}
+
+export type Comparison = ComparisonCard & {
+  seoTitle: string | null
+  metaDescription: string | null
+  keyTakeaways?: string[] | null
+  comparisonTable?: ComparisonTable | null
+  body?: any[] | null
+  faqs?: { _key: string; question: string; answer: string }[] | null
+  relatedProduct: { title: string; slug: string; tagline?: string } | null
+}

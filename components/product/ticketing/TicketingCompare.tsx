@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 type CompareRow = {
   label: string
   hoperfy: string
@@ -15,7 +17,12 @@ const rows: CompareRow[] = [
   { label: 'QR check-in', hoperfy: 'Included', competitor: 'Included' },
 ]
 
-export default function TicketingCompare() {
+type Props = {
+  /** Comparison whose relatedProduct is this product, when one exists. */
+  fullComparison?: { slug: string } | null
+}
+
+export default function TicketingCompare({ fullComparison }: Props = {}) {
   return (
     <section className="py-24 px-6 border-t border-[#e5e7eb]">
       <div className="max-w-3xl mx-auto">
@@ -46,6 +53,15 @@ export default function TicketingCompare() {
             </tbody>
           </table>
         </div>
+
+        {fullComparison && (
+          <Link
+            href={`/compare/${fullComparison.slug}`}
+            className="inline-block mt-8 text-[14px] font-medium text-[#1a6cf5] hover:text-[#1558cc] transition-colors"
+          >
+            See the full comparison →
+          </Link>
+        )}
       </div>
     </section>
   )

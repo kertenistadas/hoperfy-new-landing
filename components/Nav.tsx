@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import type { NavCategory } from '@/types'
+import { resourceLinks } from '@/lib/resourceLinks'
 
 const products = [
   {
@@ -19,24 +20,6 @@ const products = [
     href: '/products/speaker-housing',
     title: 'Speaker Housing',
     description: 'We handle accommodation for your speakers',
-  },
-]
-
-const resources = [
-  {
-    title: 'Blog',
-    description: 'Industry insights and guides for event teams',
-    href: '/blog',
-  },
-  {
-    title: 'Case Studies',
-    description: 'How event teams use Hoperfy',
-    href: '/resources/case-studies',
-  },
-  {
-    title: 'Events Directory',
-    description: 'Browse conferences and events worldwide',
-    href: '/events',
   },
 ]
 
@@ -193,7 +176,7 @@ export default function Nav({ navPages = [], navCategories = [] }: Props) {
 
               {resourcesOpen && (
                 <div className="absolute left-0 top-full mt-3 w-64 rounded-xl border border-[#e5e7eb] bg-white shadow-lg shadow-black/5 p-2">
-                  {resources.map((resource) => (
+                  {resourceLinks.map((resource) => (
                     <Link
                       key={resource.href}
                       href={resource.href}
@@ -326,7 +309,7 @@ export default function Nav({ navPages = [], navCategories = [] }: Props) {
             ))}
 
             <p className="text-[11px] font-semibold tracking-widest uppercase text-[#9ca3af] mb-4 mt-6">Resources</p>
-            {resources.map((r) => (
+            {resourceLinks.map((r) => (
               <Link
                 key={r.href}
                 href={r.href}

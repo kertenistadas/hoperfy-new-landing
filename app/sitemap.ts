@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { client } from '@/sanity/lib/client'
-import { legalPageSlugsQuery, allPagesQuery, blogPostsQuery, blogCategoriesQuery, caseStudiesQuery, allEventsQuery, eventCountriesQuery, eventCitiesQuery, eventCategoriesQuery } from '@/sanity/lib/queries'
+import { legalPageSlugsQuery, allPagesQuery, blogPostsQuery, blogCategoriesQuery, caseStudiesQuery, comparisonsQuery, allEventsQuery, eventCountriesQuery, eventCitiesQuery, eventCategoriesQuery } from '@/sanity/lib/queries'
 import { getCutoffDate, isExpiredEvent } from '@/lib/eventUtils'
 
 const BASE_URL = 'https://hoperfy.com'
@@ -52,6 +52,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
+      url: `${BASE_URL}/compare`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
       url: `${BASE_URL}/pricing`,
       lastModified: now,
       changeFrequency: 'monthly',
@@ -71,7 +77,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ]
 
-  const [legalPages, customPages, blogPosts, blogCategories, caseStudies, events, eventCountries, eventCities, eventCategories] = await Promise.all([
+  const [legalPages, customPages, blogPosts, blogCategories, caseStudies, comparisons, events, eventCountries, eventCities, eventCategories] = await Promise.all([
     client
       .fetch<{ slug: string; lastUpdated?: string }[]>(legalPageSlugsQuery)
       .catch(() => null),
@@ -86,6 +92,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .catch(() => null),
     client
       .fetch<{ slug: string; publishedAt?: string }[]>(caseStudiesQuery)
+      .catch(() => null),
+    client
+      .fetch<{ slug: string; publishedAt?: string; updatedAt?: string | null }[]>(comparisonsQuery)
       .catch(() => null),
     client
       .fetch<{ slug: string; startDate?: string; endDate?: string }[]>(allEventsQuery, { cutoff: getCutoffDate() })
@@ -144,6 +153,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }))
 
+  const comparisonRoutes: MetadataRoute.Sitemap = (comparisons ?? [])
+    .filter((comparison) => comparison.slug)
+    .map((comparison) => {
+      const modified = comparison.updatedAt || comparison.publishedAt
+      return {
+        url: `${BASE_URL}/compare/${comparison.slug}`,
+        lastModified: modified ? new Date(modified) : now,
+        changeFrequency: 'weekly',
+        priority: 0.7,
+      }
+    })
+
   // Expired events must never be advertised in the sitemap — their page is noindex.
   const eventRoutes: MetadataRoute.Sitemap = (events ?? [])
     .filter((event) => event.slug && !isExpiredEvent(event.endDate, event.startDate))
@@ -188,6 +209,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...blogPostRoutes,
     ...blogCategoryRoutes,
     ...caseStudyRoutes,
+    ...comparisonRoutes,
     ...eventRoutes,
     ...eventCategoryRoutes,
     ...eventCountryRoutes,

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { FooterCategory } from '@/types'
 import CookieSettingsButton from '@/components/CookieSettingsButton'
+import { resourceLinks } from '@/lib/resourceLinks'
 
 type NavLink = { title: string; slug: string }
 
@@ -40,22 +41,30 @@ export default function Footer({ footerCategories = [] }: Props) {
   return (
     <footer className="pt-16 pb-10 px-6 border-t border-[#e5e7eb]">
       <div className="max-w-5xl mx-auto">
-        {/* Footer category columns (CMS-driven) */}
-        {footerCategories.length > 0 && (
-          <div className="flex flex-col sm:flex-row gap-10 sm:gap-16 mb-12">
-            {footerCategories.map((category) => (
-              <div key={category._id}>
-                <p className={labelClass}>{category.title}</p>
-                {category.links?.map((link, i) => (
-                  <FooterLink key={i} url={link.url}>
-                    {link.label}
-                  </FooterLink>
-                ))}
-                {category._id === legalCategoryId && <CookieSettingsButton className={linkClass} />}
-              </div>
+        <div className="flex flex-col sm:flex-row gap-10 sm:gap-16 mb-12">
+          {/* Resources: same list as the Nav dropdown, not CMS-driven. */}
+          <div>
+            <p className={labelClass}>Resources</p>
+            {resourceLinks.map((link) => (
+              <Link key={link.href} href={link.href} className={linkClass}>
+                {link.title}
+              </Link>
             ))}
           </div>
-        )}
+
+          {/* Footer category columns (CMS-driven) */}
+          {footerCategories.map((category) => (
+            <div key={category._id}>
+              <p className={labelClass}>{category.title}</p>
+              {category.links?.map((link, i) => (
+                <FooterLink key={i} url={link.url}>
+                  {link.label}
+                </FooterLink>
+              ))}
+              {category._id === legalCategoryId && <CookieSettingsButton className={linkClass} />}
+            </div>
+          ))}
+        </div>
 
         {/* Withdrawing consent must always be possible, so if no legal links
             come back from the CMS the control falls back to the bottom bar. */}

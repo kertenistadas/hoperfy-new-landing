@@ -36,6 +36,7 @@ export default defineConfig({
             S.divider(),
             S.documentTypeListItem('blogCategory').title('Blog Categories'),
             S.documentTypeListItem('blogPost').title('Blog Posts'),
+            S.documentTypeListItem('comparison').title('Comparisons'),
             S.divider(),
             S.documentTypeListItem('caseStudy').title('Case Studies'),
             S.divider(),

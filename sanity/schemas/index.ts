@@ -8,6 +8,7 @@ import navCategory from './navCategory'
 import footerCategory from './footerCategory'
 import blogCategory from './blogCategory'
 import blogPost from './blogPost'
+import comparison from './comparison'
 import caseStudy from './caseStudy'
 import pricing from './pricing'
 import lead from './lead'
@@ -16,4 +17,4 @@ import eventCategory from './eventCategory'
 import eventCity from './eventCity'
 import eventCountry from './eventCountry'
 
-export const schemaTypes = [hero, product, testimonial, socialProof, legalPage, page, navCategory, footerCategory, blogCategory, blogPost, caseStudy, pricing, lead, event, eventCategory, eventCity, eventCountry]
+export const schemaTypes = [hero, product, testimonial, socialProof, legalPage, page, navCategory, footerCategory, blogCategory, blogPost, comparison, caseStudy, pricing, lead, event, eventCategory, eventCity, eventCountry]
