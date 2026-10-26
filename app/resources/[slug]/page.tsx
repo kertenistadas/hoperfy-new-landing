@@ -38,10 +38,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!page) return { title: 'Not Found' }
 
+  // Same CMS page document as /{slug}, which is the indexed URL. Point there.
+  const url = `${BASE_URL}/${slug}`
+
   return {
     title: page.title,
     description: page.metaDescription ?? '',
-    alternates: { canonical: `${BASE_URL}/resources/${slug}` },
+    alternates: { canonical: url },
+    openGraph: {
+      title: page.title,
+      description: page.metaDescription ?? '',
+      url,
+      type: 'website',
+      siteName: 'Hoperfy',
+    },
   }
 }
 
