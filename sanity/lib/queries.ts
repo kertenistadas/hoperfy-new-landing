@@ -149,6 +149,7 @@ export const blogPostBySlugQuery = groq`
     title,
     "slug": slug.current,
     publishedAt,
+    updatedAt,
     author,
     excerpt,
     body,

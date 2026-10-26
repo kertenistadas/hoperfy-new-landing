@@ -1,14 +1,6 @@
 import Link from 'next/link'
 import type { BlogPostCard as BlogPostCardType } from '@/types'
-
-function formatDate(iso: string) {
-  if (!iso) return ''
-  return new Date(iso).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-}
+import PostDate from '@/components/blog/PostDate'
 
 export default function BlogPostCard({ post }: { post: BlogPostCardType }) {
   return (
@@ -31,7 +23,7 @@ export default function BlogPostCard({ post }: { post: BlogPostCardType }) {
         {post.publishedAt && (
           <>
             <span>·</span>
-            <span>{formatDate(post.publishedAt)}</span>
+            <PostDate iso={post.publishedAt} />
           </>
         )}
       </div>

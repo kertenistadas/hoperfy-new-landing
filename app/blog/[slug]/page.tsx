@@ -9,6 +9,7 @@ import type { BlogPost } from '@/types'
 import NavWrapper from '@/components/NavWrapper'
 import BlogPostCard from '@/components/blog/BlogPostCard'
 import KeyTakeaways from '@/components/blog/KeyTakeaways'
+import PostDate from '@/components/blog/PostDate'
 
 export const dynamic = 'force-dynamic'
 
@@ -20,15 +21,6 @@ type Props = {
 
 async function getPost(slug: string): Promise<BlogPost | null> {
   return client.fetch<BlogPost | null>(blogPostBySlugQuery, { slug }).catch(() => null)
-}
-
-function formatDate(iso: string) {
-  if (!iso) return ''
-  return new Date(iso).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
 }
 
 const portableTextComponents: PortableTextComponents = {
@@ -137,7 +129,12 @@ export default async function BlogPostPage({ params }: Props) {
 
   if (!post) notFound()
 
-  const date = formatDate(post.publishedAt)
+  const published = post.publishedAt || null
+  // An update only counts when it is later than the publish date.
+  const updated =
+    published && post.updatedAt && new Date(post.updatedAt) > new Date(published)
+      ? post.updatedAt
+      : null
 
   const body = post.body ?? []
   const hasTakeaways = Boolean(post.keyTakeaways?.length)
@@ -157,10 +154,22 @@ export default async function BlogPostPage({ params }: Props) {
             </h1>
             <div className="flex items-center gap-2 text-[13px] text-[#6b7280] mb-8">
               <span>{post.author}</span>
-              {date && (
+              {published && (
                 <>
                   <span>·</span>
-                  <span>{date}</span>
+                  {updated ? (
+                    <span>
+                      Updated <PostDate iso={updated} />
+                      {/* Publish date stays in the markup for crawlers. */}
+                      <span className="sr-only">
+                        , published <PostDate iso={published} />
+                      </span>
+                    </span>
+                  ) : (
+                    <span>
+                      Published <PostDate iso={published} />
+                    </span>
+                  )}
                 </>
               )}
             </div>

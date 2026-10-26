@@ -23,6 +23,13 @@ export default defineType({
       title: 'Published At',
       type: 'datetime',
       initialValue: () => new Date().toISOString(),
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'updatedAt',
+      title: 'Updated At',
+      type: 'datetime',
+      description: 'Optional. Set when the article is materially revised. Shown instead of the publish date when later.',
     }),
     defineField({
       name: 'author',

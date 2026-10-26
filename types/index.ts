@@ -124,6 +124,7 @@ export type BlogPostCard = {
 
 export type BlogPost = BlogPostCard & {
   body: any[]
+  updatedAt?: string | null
   relatedPosts: BlogPostCard[]
   metaTitle: string | null
   metaDescription: string | null
