@@ -3,6 +3,11 @@ import { client } from '@/sanity/lib/client'
 import { legalPageSlugsQuery, allPagesQuery, blogPostsQuery, blogCategoriesQuery, caseStudiesQuery, comparisonsQuery, allEventsQuery, eventCountriesQuery, eventCitiesQuery, eventCategoriesQuery } from '@/sanity/lib/queries'
 import { getCutoffDate, isExpiredEvent } from '@/lib/eventUtils'
 
+// Without this the sitemap is generated once at build time, so content
+// published in Sanity after a deploy never appears. Regenerate hourly instead;
+// crawlers still get a cached response between regenerations.
+export const revalidate = 3600
+
 const BASE_URL = 'https://hoperfy.com'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
