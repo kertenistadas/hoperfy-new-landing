@@ -248,6 +248,8 @@ export type Comparison = ComparisonCard & {
   seoTitle: string | null
   metaDescription: string | null
   keyTakeaways?: string[] | null
+  takeawaysCtaLabel?: string | null
+  takeawaysCtaHref?: string | null
   comparisonTable?: ComparisonTable | null
   body?: any[] | null
   faqs?: { _key: string; question: string; answer: string }[] | null

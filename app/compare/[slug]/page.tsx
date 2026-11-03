@@ -9,7 +9,7 @@ import NavWrapper from '@/components/NavWrapper'
 import KeyTakeaways from '@/components/blog/KeyTakeaways'
 import PostDate from '@/components/blog/PostDate'
 import ComparisonTable from '@/components/compare/ComparisonTable'
-import { comparisonBodyComponents } from '@/components/compare/comparisonBody'
+import { comparisonBodyComponents, internalPath } from '@/components/compare/comparisonBody'
 
 export const dynamic = 'force-dynamic'
 
@@ -146,7 +146,12 @@ export default async function ComparisonPage({ params }: Props) {
             )}
           </header>
 
-          <KeyTakeaways takeaways={comparison.keyTakeaways} />
+          {/* internalPath drops off-site links, so the CTA can never point at a competitor. */}
+          <KeyTakeaways
+            takeaways={comparison.keyTakeaways}
+            ctaLabel={comparison.takeawaysCtaLabel}
+            ctaHref={internalPath(comparison.takeawaysCtaHref ?? undefined)}
+          />
 
           <ComparisonTable table={comparison.comparisonTable} label={`${comparison.title}, comparison table`} />
 

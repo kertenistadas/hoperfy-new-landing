@@ -400,6 +400,8 @@ export const comparisonBySlugQuery = groq`
     lastVerified,
     intro,
     keyTakeaways,
+    takeawaysCtaLabel,
+    takeawaysCtaHref,
     comparisonTable { columns, rows[] { _key, cells } },
     body,
     faqs[] { _key, question, answer },

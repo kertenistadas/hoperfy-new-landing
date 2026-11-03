@@ -87,6 +87,17 @@ export default defineType({
         'Three to five self-contained facts. Each must make sense read on its own, without the article around it: include the noun and the number, avoid "it", "this" and "they". 15 to 25 words each.',
     }),
     defineField({
+      name: 'takeawaysCtaLabel',
+      title: 'Key takeaways CTA label',
+      type: 'string',
+    }),
+    defineField({
+      name: 'takeawaysCtaHref',
+      title: 'Key takeaways CTA link',
+      type: 'string',
+      description: 'Internal path, e.g. /compare/hoperfy-vs-eventbrite',
+    }),
+    defineField({
       name: 'comparisonTable',
       title: 'Comparison table',
       type: 'object',

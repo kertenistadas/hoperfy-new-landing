@@ -318,6 +318,17 @@
           {
             "fields": [
               {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
                 "name": "name",
                 "type": "string",
                 "title": "Company Name"
@@ -838,7 +849,23 @@
         "type": "slug"
       },
       {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
         "name": "publishedAt",
+        "type": "datetime"
+      },
+      {
+        "description": "Optional. Set when the article is materially revised. Shown instead of the publish date when later.",
+        "name": "updatedAt",
         "type": "datetime"
       },
       {
@@ -862,6 +889,44 @@
         "description": "Short summary shown on blog index and in meta description (160 chars max)",
         "name": "excerpt",
         "type": "text"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 3
+              },
+              {
+                "flag": "max",
+                "constraint": 6
+              }
+            ]
+          }
+        ],
+        "description": "Three to five self-contained facts. Each must make sense read on its own, without the article around it: include the noun and the number, avoid \"it\", \"this\" and \"they\". 15 to 25 words each.",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "keyTakeaways",
+        "type": "array",
+        "title": "Key takeaways"
+      },
+      {
+        "description": "Optional. Contextual link text shown under the takeaways, e.g. \"See how Hoperfy handles event housing\".",
+        "name": "takeawaysCtaLabel",
+        "type": "string",
+        "title": "Takeaways CTA label"
+      },
+      {
+        "description": "Optional. Internal path, e.g. /products/hotels-for-events",
+        "name": "takeawaysCtaHref",
+        "type": "string",
+        "title": "Takeaways CTA link"
       },
       {
         "to": [
@@ -987,9 +1052,30 @@
             "options": {
               "hotspot": true
             },
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ]
+              }
+            ],
             "fields": [
               {
-                "description": "Important for SEO and accessibility",
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "description": "Describe what the image shows. Screen readers and search engines read this.",
                 "name": "alt",
                 "type": "string",
                 "title": "Alt text"
@@ -1040,6 +1126,420 @@
       }
     ],
     "name": "blogPost",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "description": "The URL path, e.g. \"hoperfy-vs-eventbrite\" becomes hoperfy.com/compare/hoperfy-vs-eventbrite",
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 60
+              }
+            ]
+          }
+        ],
+        "description": "Overrides the title in search results (60 chars max)",
+        "name": "seoTitle",
+        "type": "string",
+        "title": "SEO title"
+      },
+      {
+        "rows": 2,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 160
+              }
+            ]
+          }
+        ],
+        "description": "Shown in search results (160 chars max)",
+        "name": "metaDescription",
+        "type": "text"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Head to head",
+              "value": "head-to-head"
+            },
+            {
+              "title": "Alternatives",
+              "value": "alternatives"
+            },
+            {
+              "title": "Category",
+              "value": "category"
+            }
+          ],
+          "layout": "radio"
+        },
+        "name": "comparisonType",
+        "type": "string",
+        "title": "Comparison type"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "publishedAt",
+        "type": "datetime"
+      },
+      {
+        "description": "Optional. Set when the comparison is materially revised.",
+        "name": "updatedAt",
+        "type": "datetime"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "description": "The date competitor facts were last checked. Shown on the page.",
+        "name": "lastVerified",
+        "type": "date",
+        "title": "Last verified"
+      },
+      {
+        "rows": 4,
+        "description": "The direct answer, in two or three sentences. Shown first on the page.",
+        "name": "intro",
+        "type": "text"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 3
+              },
+              {
+                "flag": "max",
+                "constraint": 6
+              }
+            ]
+          }
+        ],
+        "description": "Three to five self-contained facts. Each must make sense read on its own, without the article around it: include the noun and the number, avoid \"it\", \"this\" and \"they\". 15 to 25 words each.",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "keyTakeaways",
+        "type": "array",
+        "title": "Key takeaways"
+      },
+      {
+        "name": "takeawaysCtaLabel",
+        "type": "string",
+        "title": "Key takeaways CTA label"
+      },
+      {
+        "description": "Internal path, e.g. /compare/hoperfy-vs-eventbrite",
+        "name": "takeawaysCtaHref",
+        "type": "string",
+        "title": "Key takeaways CTA link"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
+        "description": "Required for head to head and alternatives comparisons.",
+        "fields": [
+          {
+            "description": "Column headings, left to right. The first column holds the row labels. Name one column \"Hoperfy\" to highlight it.",
+            "of": [
+              {
+                "type": "string"
+              }
+            ],
+            "name": "columns",
+            "type": "array"
+          },
+          {
+            "of": [
+              {
+                "fields": [
+                  {
+                    "validation": [
+                      {
+                        "level": "error",
+                        "rules": [
+                          {
+                            "flag": "custom"
+                          }
+                        ]
+                      }
+                    ],
+                    "description": "One cell per column, in the same order. The first cell is the row label.",
+                    "of": [
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "name": "cells",
+                    "type": "array"
+                  }
+                ],
+                "type": "object",
+                "name": "comparisonRow",
+                "title": "Row"
+              }
+            ],
+            "name": "rows",
+            "type": "array"
+          }
+        ],
+        "name": "comparisonTable",
+        "type": "object",
+        "title": "Comparison table"
+      },
+      {
+        "description": "Links to other websites are not shown on the page. Use internal links, e.g. /products/ticketing-for-events.",
+        "of": [
+          {
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "marks": {
+              "annotations": [
+                {
+                  "fields": [
+                    {
+                      "description": "Internal: /products/hotels-for-events or External: https://...",
+                      "name": "href",
+                      "type": "string",
+                      "title": "URL"
+                    },
+                    {
+                      "initialValue": false,
+                      "name": "blank",
+                      "type": "boolean",
+                      "title": "Open in new tab"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Bold"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                }
+              ]
+            },
+            "of": [],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "type": "block"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ]
+              }
+            ],
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "description": "Describe what the image shows. Screen readers and search engines read this.",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt text"
+              },
+              {
+                "name": "caption",
+                "type": "string"
+              }
+            ],
+            "type": "image"
+          }
+        ],
+        "name": "body",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "name": "question",
+                "type": "string"
+              },
+              {
+                "rows": 3,
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "name": "answer",
+                "type": "text"
+              }
+            ],
+            "type": "object",
+            "name": "comparisonFaq",
+            "title": "FAQ"
+          }
+        ],
+        "name": "faqs",
+        "type": "array",
+        "title": "FAQs"
+      },
+      {
+        "description": "The product page that links to this comparison under its comparison table.",
+        "to": [
+          {
+            "type": "product"
+          }
+        ],
+        "name": "relatedProduct",
+        "type": "reference",
+        "title": "Related product"
+      }
+    ],
+    "name": "comparison",
     "type": "document"
   },
   {
@@ -1835,6 +2335,148 @@
       {
         "name": "createdAt",
         "type": "datetime"
+      },
+      {
+        "name": "firstSource",
+        "type": "string",
+        "title": "First source",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "firstMedium",
+        "type": "string",
+        "title": "First medium",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "firstCampaign",
+        "type": "string",
+        "title": "First campaign",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "firstTerm",
+        "type": "string",
+        "title": "First term",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "firstContent",
+        "type": "string",
+        "title": "First content",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "firstReferrer",
+        "type": "string",
+        "title": "First referrer",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "firstLandingPage",
+        "type": "string",
+        "title": "First landing page",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "firstTouchAt",
+        "type": "datetime",
+        "title": "First touch at",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "lastSource",
+        "type": "string",
+        "title": "Last source",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "lastMedium",
+        "type": "string",
+        "title": "Last medium",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "lastCampaign",
+        "type": "string",
+        "title": "Last campaign",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "lastTerm",
+        "type": "string",
+        "title": "Last term",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "lastContent",
+        "type": "string",
+        "title": "Last content",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "lastReferrer",
+        "type": "string",
+        "title": "Last referrer",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "lastTouchAt",
+        "type": "datetime",
+        "title": "Last touch at",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "gclid",
+        "type": "string",
+        "title": "Google click id",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "fbclid",
+        "type": "string",
+        "title": "Facebook click id",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "liFatId",
+        "type": "string",
+        "title": "LinkedIn click id",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "gaClientId",
+        "type": "string",
+        "title": "GA client id",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "submittedPath",
+        "type": "string",
+        "title": "Submitted from path",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "deviceType",
+        "type": "string",
+        "title": "Device type",
+        "fieldset": "attribution"
+      },
+      {
+        "name": "userAgent",
+        "type": "string",
+        "title": "User agent",
+        "fieldset": "attribution"
+      }
+    ],
+    "fieldsets": [
+      {
+        "name": "attribution",
+        "description": "Where this lead came from. First touch is the campaign that first brought them to the site, last touch is the campaign on the visit they converted. Captured automatically and may be empty when storage is blocked.",
+        "options": {
+          "collapsible": true,
+          "collapsed": true
+        }
       }
     ],
     "name": "lead",
@@ -1881,17 +2523,7 @@
         "type": "slug"
       },
       {
-        "validation": [
-          {
-            "level": "error",
-            "rules": [
-              {
-                "flag": "presence",
-                "constraint": "required"
-              }
-            ]
-          }
-        ],
+        "description": "Leave empty if dates are not yet announced",
         "name": "startDate",
         "type": "date"
       },
