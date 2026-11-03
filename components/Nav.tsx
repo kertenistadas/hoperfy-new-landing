@@ -3,25 +3,8 @@
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import type { NavCategory } from '@/types'
+import { productLinks } from '@/lib/productLinks'
 import { resourceLinks } from '@/lib/resourceLinks'
-
-const products = [
-  {
-    href: '/products/hotels-for-events',
-    title: 'Hotels for Events',
-    description: 'Event housing for event organizers',
-  },
-  {
-    href: '/products/ticketing-for-events',
-    title: 'Ticketing for Events',
-    description: 'Multi-platform ticket sales in one dashboard',
-  },
-  {
-    href: '/products/speaker-housing',
-    title: 'Speaker Housing',
-    description: 'We handle accommodation for your speakers',
-  },
-]
 
 type NavLink = { title: string; slug: string }
 
@@ -129,7 +112,7 @@ export default function Nav({ navPages = [], navCategories = [] }: Props) {
 
               {dropdownOpen && (
                 <div className="absolute left-0 top-full mt-3 w-80 rounded-xl border border-[#e5e7eb] bg-white shadow-lg shadow-black/5 p-2">
-                  {products.map((product) => (
+                  {productLinks.map((product) => (
                     <Link
                       key={product.href}
                       href={product.href}
@@ -296,7 +279,7 @@ export default function Nav({ navPages = [], navCategories = [] }: Props) {
         <div className="md:hidden fixed inset-0 z-40 bg-white pt-14 overflow-y-auto">
           <div className="px-6 py-8 flex flex-col gap-1">
             <p className="text-[11px] font-semibold tracking-widest uppercase text-[#9ca3af] mb-4">Products</p>
-            {products.map((p) => (
+            {productLinks.map((p) => (
               <Link
                 key={p.href}
                 href={p.href}

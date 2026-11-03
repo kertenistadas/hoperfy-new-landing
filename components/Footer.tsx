@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { FooterCategory } from '@/types'
 import CookieSettingsButton from '@/components/CookieSettingsButton'
+import { productLinks } from '@/lib/productLinks'
 import { resourceLinks } from '@/lib/resourceLinks'
 
 type NavLink = { title: string; slug: string }
@@ -42,6 +43,16 @@ export default function Footer({ footerCategories = [] }: Props) {
     <footer className="pt-16 pb-10 px-6 border-t border-[#e5e7eb]">
       <div className="max-w-5xl mx-auto">
         <div className="flex flex-col sm:flex-row gap-10 sm:gap-16 mb-12">
+          {/* Products: same list as the Nav dropdown, not CMS-driven. */}
+          <div>
+            <p className={labelClass}>Products</p>
+            {productLinks.map((link) => (
+              <Link key={link.href} href={link.href} className={linkClass}>
+                {link.title}
+              </Link>
+            ))}
+          </div>
+
           {/* Resources: same list as the Nav dropdown, not CMS-driven. */}
           <div>
             <p className={labelClass}>Resources</p>
