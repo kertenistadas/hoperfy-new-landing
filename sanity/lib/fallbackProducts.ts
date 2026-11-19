@@ -30,36 +30,31 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
       'Live within 5 minutes',
     ],
     stat: { value: '40%', label: 'more hotel revenue per event' },
-    heroHeadline: 'Your attendees are already booking hotels. Zero extra work for your team.',
+    heroHeadline: 'Event Housing & Hotel Booking for Event Organizers',
     heroSubtitle:
-      'For a 500-person event, attendees typically spend €80,000–€150,000 on accommodation — through Booking.com, not through you. Hoperfy is the white-label hotel booking platform for event teams. We contract the hotels, handle all delegate support, and manage everything. Free to set up. Live in 5 minutes.',
+      'We contract the hotels, build your branded booking page, and handle every attendee request: cancellations, refunds and date changes. Your team sends one link and goes back to running the event.',
     heroCta: 'Get early access',
-    problemHeadline: "We've heard every objection. Here's the honest answer to each one.",
+    problemHeadline: 'What event organizers ask us before signing',
     problems: [
       {
-        title: '"This will create more support work for us"',
+        title: '"This will create more support work for my team."',
         description:
-          "It won't. Hoperfy's team handles every delegate question, booking change, cancellation, and refund directly. Your inbox stays exactly as it is. We built Hoperfy specifically so that event teams never field a hotel-related call.",
+          'It creates none. Every attendee question, from a wrong date to a refund or a lost confirmation, comes to us, not to your inbox. You are involved only if you ask to be.',
       },
       {
-        title: '"We tried hotel partnerships before and they caused support issues"',
+        title: '"We tried a hotel partnership before and it went badly."',
         description:
-          "Because those partnerships put the support burden on you. Hoperfy doesn't. Every delegate email, every complaint, every overbooking dispute goes to our team. You're not looped in unless you want to be.",
+          'Usually because the organizer stayed in the middle: chasing the hotel, forwarding attendee emails, settling disputes. We take the contract and the support queue, so there is no middle to stand in.',
       },
       {
-        title: '"Our operations team is already at capacity"',
+        title: '"My team is already at capacity."',
         description:
-          "That's exactly why Hoperfy exists. Hotel coordination eats hours your team doesn't have — chasing contracts, fielding booking questions, fixing problems that go wrong. Hoperfy removes that entire workload. It doesn't add to it.",
+          'Setup is one call and a link. There is no project to staff, no system to learn, and nothing to maintain during the event.',
       },
       {
-        title: '"We don\'t prioritise hotel proposals right now"',
+        title: '"Hotel proposals are low on our priority list."',
         description:
-          "We don't need your team's time to set this up. One call, we handle everything. You send your attendees one link. That's the full extent of the ask — and your attendees stop booking through Booking.com from that moment.",
-      },
-      {
-        title: 'Your attendees are spending thousands on hotels you never see',
-        description:
-          'For a 500-person event, attendees typically spend €80,000–€150,000 on accommodation. Right now, that revenue goes to Booking.com or Expedia. Hoperfy lets you capture it — for free.',
+          'Fair. That is why this one costs nothing and takes five minutes. If it earns your event nothing, you have lost a few minutes.',
       },
     ],
     featuresHeadline: 'Everything event organizers need to own attendee accommodation',
@@ -110,7 +105,7 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
           'Managed setup by our team. You share your event details and hotel contracts in one call. We build and launch the booking page. No dev work, no technical setup.',
       },
     ],
-    howItWorksHeadline: 'Set up your event hotel booking in 5 minutes',
+    howItWorksHeadline: 'One conversation. Then your team is done.',
     steps: [
       {
         title: 'One call with our team',

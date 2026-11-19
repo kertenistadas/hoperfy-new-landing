@@ -35,7 +35,7 @@ export default function ProductHowItWorks({ product }: Props) {
             <div className="bg-white border border-[#e5e7eb] rounded-2xl p-6 flex flex-col gap-4 hover:border-[#1a6cf5] hover:shadow-lg hover:shadow-blue-500/5 transition-all h-full">
               <span className="text-[1.5rem] font-light text-[#1a6cf5]">→</span>
               <p className="text-[10px] font-semibold uppercase tracking-widest text-[#1a6cf5]">Review & Deploy</p>
-              <h3 className="text-[15px] font-black tracking-tight text-[#0a0a0a]">Your custom booking page is live</h3>
+              <h3 className="text-[15px] font-black tracking-tight text-[#0a0a0a]">Your branded booking page goes live</h3>
               <p className="text-[13px] font-light text-[#6b7280] leading-relaxed">We build your branded page with negotiated rates in 5–15 minutes. No technical setup, no developer resources required.</p>
             </div>
 
@@ -43,7 +43,7 @@ export default function ProductHowItWorks({ product }: Props) {
             <div className="bg-white border border-[#e5e7eb] rounded-2xl p-6 flex flex-col gap-4 hover:border-[#1a6cf5] hover:shadow-lg hover:shadow-blue-500/5 transition-all h-full">
               <span className="text-[1.5rem] font-bold text-[#1a6cf5]">✓</span>
               <p className="text-[10px] font-semibold uppercase tracking-widest text-[#1a6cf5]">Manage & Scale</p>
-              <h3 className="text-[15px] font-black tracking-tight text-[#0a0a0a]">You send one link. We manage all attendees.</h3>
+              <h3 className="text-[15px] font-black tracking-tight text-[#0a0a0a]">You send one link, we manage every attendee</h3>
               <p className="text-[13px] font-light text-[#6b7280] leading-relaxed">Your work is done. Hoperfy handles every booking, inquiry, and issue. Your team never manages a hotel query again.</p>
             </div>
 

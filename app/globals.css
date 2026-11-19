@@ -144,3 +144,22 @@ html {
 .animate-marquee {
   animation: marquee 30s linear infinite;
 }
+/* Hotels hero booking feed: number pulse. Two identical names (A/B); the
+   component alternates them per tick so the same element replays it. */
+@keyframes feedPulseA {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+@keyframes feedPulseB {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+.feed-pulse-A { animation: feedPulseA 550ms ease-out; transform-origin: left center; }
+.feed-pulse-B { animation: feedPulseB 550ms ease-out; transform-origin: left center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .feed-pulse-A, .feed-pulse-B {
+    animation: none;
+  }
+}

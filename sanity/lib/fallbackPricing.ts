@@ -76,7 +76,7 @@ export const fallbackPricing: Pricing[] = [
     _id: 'hotels-pricing',
     price: 'Free',
     priceSuffix: 'forever',
-    tagline: 'We set it up. You keep the revenue.',
+    tagline: 'Nothing. You keep 30–50% of hotel revenue profits.',
     highlighted: false,
     includes: [
       'White-label hotel booking page',

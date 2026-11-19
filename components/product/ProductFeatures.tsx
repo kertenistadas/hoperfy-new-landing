@@ -36,7 +36,7 @@ export default function ProductFeatures({ product, eyebrow }: Props) {
                     <circle cx="12" cy="12" r="2" fill="#1a6cf5"/>
                   </svg>
                 </div>
-                <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">Endless Global Inventory</h3>
+                <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">Global hotel inventory for your attendees</h3>
                 <p className="text-[14px] font-light text-[#6b7280] leading-relaxed">
                   Instant access to 2,000,000+ hotel properties worldwide. Scale any event — major hub, secondary city, or remote destination. Your attendees always have somewhere to stay.
                 </p>
@@ -49,7 +49,7 @@ export default function ProductFeatures({ product, eyebrow }: Props) {
                     <path d="M9 12L11 14L15 10" stroke="#1a6cf5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
-                <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">Total Brand Ownership</h3>
+                <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">Your event&apos;s brand, not ours</h3>
                 <p className="text-[14px] font-light text-[#6b7280] leading-relaxed">
                   Keep complete control with a fully white-label hotel booking flow. Your brand, your domain, your checkout. Attendees never leave your event experience.
                 </p>
@@ -69,7 +69,7 @@ export default function ProductFeatures({ product, eyebrow }: Props) {
                     <path d="M15 6L17 8L15 10" stroke="#1a6cf5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
-                <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">Effortless Hotel Contracting</h3>
+                <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">We contract the hotels, your team doesn&apos;t</h3>
                 <p className="text-[14px] font-light text-[#6b7280] leading-relaxed">
                   We take over full-service hotel negotiations, rates, and contracting on your behalf. No paperwork, no emails to hotel sales managers. Just a booking page ready for your attendees.
                 </p>
@@ -84,7 +84,7 @@ export default function ProductFeatures({ product, eyebrow }: Props) {
                     <path d="M7 3L5 5" stroke="#1a6cf5" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
                 </div>
-                <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">Real-Time Room Block Sync</h3>
+                <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">Real-time room block sync for organizers</h3>
                 <p className="text-[14px] font-light text-[#6b7280] leading-relaxed">
                   Live availability across all hotel partners, updated automatically. Eliminate the risk of overselling and manual block updates. Your inventory is always accurate.
                 </p>
@@ -124,7 +124,7 @@ export default function ProductFeatures({ product, eyebrow }: Props) {
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">Combined Event Ticketing + Hotel Booking</h3>
+                  <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">Hotel booking and ticketing in one place for your event</h3>
                   <p className="text-[14px] font-light text-[#6b7280] leading-relaxed">
                     The only platform that combines white-label hotel booking and multi-channel event ticketing in one place. One setup, one team, one dashboard — a meaningful differentiator over every alternative.
                   </p>

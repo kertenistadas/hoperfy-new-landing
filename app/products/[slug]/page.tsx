@@ -6,6 +6,7 @@ import { fallbackProductDetails } from '@/sanity/lib/fallbackProducts'
 import type { ProductDetail, Testimonial, Pricing, SocialProof } from '@/types'
 import NavWrapper from '@/components/NavWrapper'
 import TestimonialsSection from '@/components/TestimonialsSection'
+import SocialProofBar from '@/components/SocialProofBar'
 import ProductHero from '@/components/product/ProductHero'
 import ProductProblems from '@/components/product/ProductProblems'
 import ProductFeatures from '@/components/product/ProductFeatures'
@@ -16,7 +17,8 @@ import ProductFAQ from '@/components/product/ProductFAQ'
 import ProductPricing from '@/components/product/ProductPricing'
 import ProductFullFeatures from '@/components/product/ProductFullFeatures'
 import ProductRevenueCalculator from '@/components/product/ProductRevenueCalculator'
-import LiveBookingMap from '@/components/product/LiveBookingMap'
+import HotelBookingFeed from '@/components/product/HotelBookingFeed'
+import HotelsHeroCTA from '@/components/product/HotelsHeroCTA'
 import HotelEventForm from '@/components/product/HotelEventForm'
 import { TicketingFeeProvider } from '@/components/product/ticketing/TicketingFeeContext'
 import TicketingHero from '@/components/product/ticketing/TicketingHero'
@@ -28,6 +30,9 @@ import { productGeo, buildProductJsonLd } from './geoData'
 export const dynamic = 'force-dynamic'
 
 const BASE_URL = 'https://hoperfy.com'
+
+// Set to true to show the hero details block again (subtitle, audience paragraph, trust list, inline form).
+const SHOW_HERO_DETAILS_BLOCK = false
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -175,62 +180,82 @@ export default async function ProductPage({ params }: Props) {
               <section className="pt-32 pb-0 px-6 bg-white">
                 <div className="max-w-5xl mx-auto">
                   {/* Top row — headline left, map right */}
-                  <div className="grid md:grid-cols-2 gap-8 mb-8 items-start">
+                  <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 ${SHOW_HERO_DETAILS_BLOCK ? 'mb-8' : 'mb-12'} md:items-stretch`}>
                     <div>
                       <p className="eyebrow mb-4">{geo?.eyebrow ?? data.tagline}</p>
                       <h1 className="text-[2.5rem] md:text-[3rem] font-black leading-[1.05] tracking-tight text-[#0a0a0a]">
                         {data.heroHeadline ?? data.title}
                       </h1>
+                      <p className="text-[16px] font-light text-[#6b7280] leading-relaxed mt-4">
+                        Your attendees are already booking hotels. Zero extra work for your team.
+                      </p>
+                      <HotelsHeroCTA />
                     </div>
-                    <div>
-                      <LiveBookingMap />
-                      <p className="text-[11px] text-[#9ca3af] text-center mt-2">Real bookings processed by Hoperfy</p>
+                    <div className="relative min-h-[300px] md:min-h-0">
+                      <div className="md:absolute md:inset-0">
+                        <HotelBookingFeed />
+                      </div>
                     </div>
                   </div>
 
-                  {/* Bottom block — full width, two columns */}
-                  <div className="border-t border-[#e5e7eb] pt-8 pb-16 overflow-hidden">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start overflow-hidden">
-                      {/* Left — subtitle + trust signals */}
-                      <div>
-                        <p className="text-[16px] font-light text-[#6b7280] leading-relaxed mb-6">
-                          {data.heroSubtitle ?? data.description}
-                        </p>
-                        <p className="text-[15px] font-light text-[#6b7280] leading-relaxed mb-6">
-                          Hoperfy is built for event organizers who need to offer their attendees
-                          accommodation, not for hotels managing their own event spaces. If you run a
-                          conference, festival, trade show or sports tournament, this is for you.
-                        </p>
-                        <div className="flex flex-col gap-2">
-                          {[
-                            'Free to set up — no credit card required',
-                            '2,000,000+ hotels worldwide',
-                            'Live in 5 minutes',
-                            'We handle all delegate support',
-                          ].map((item, i) => (
-                            <span key={i} className="flex items-center gap-2 text-[13px] text-[#6b7280]">
-                              <span className="text-[#1a6cf5] font-bold">✓</span> {item}
-                            </span>
-                          ))}
+                </div>
+
+                {/* Logo bar, edge to edge: -mx-6 cancels the section's px-6.
+                    Its bottom border is the line above the bottom block. */}
+                {socialProof && (
+                  <div className="-mx-6">
+                    <SocialProofBar data={socialProof} singleRow />
+                  </div>
+                )}
+
+                {SHOW_HERO_DETAILS_BLOCK && (
+                  <div className="max-w-5xl mx-auto">
+                    {/* Bottom block — full width, two columns */}
+                    <div className={`${socialProof?.companies?.length ? '' : 'border-t border-[#e5e7eb] '}pt-8 pb-16 overflow-hidden`}>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start overflow-hidden">
+                        {/* Left — subtitle + trust signals */}
+                        <div>
+                          <p className="text-[16px] font-light text-[#6b7280] leading-relaxed mb-6">
+                            {data.heroSubtitle ?? data.description}
+                          </p>
+                          <p className="text-[15px] font-light text-[#6b7280] leading-relaxed mb-6">
+                            Hoperfy is built for event organizers who need to offer their attendees
+                            accommodation, not for hotels managing their own event spaces. If you run a
+                            conference, festival, trade show or sports tournament, this is for you.
+                          </p>
+                          <div className="flex flex-col gap-2">
+                            {[
+                              'No credit card',
+                              '2M+ hotels worldwide',
+                              'Live in ~5 minutes',
+                              'Your team does nothing',
+                            ].map((item, i) => (
+                              <span key={i} className="flex items-center gap-2 text-[13px] text-[#6b7280]">
+                                <span className="text-[#1a6cf5] font-bold">✓</span> {item}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Right — event form */}
+                        <div>
+                          <HotelEventForm />
                         </div>
                       </div>
-
-                      {/* Right — event form */}
-                      <div>
-                        <HotelEventForm />
-                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </section>
               <ProductRevenueCalculator />
               {problemsSection}
               {/* Hotels passes its own wording; other products keep the defaults. */}
               <ProductFeatures product={data} eyebrow="Event housing" />
               {stepsSection}
-              {fullFeaturesSection}
+              {fullFeatures.length > 0 && (
+                <ProductFullFeatures features={fullFeatures} title="Everything your event team gets" />
+              )}
               {statsSection}
-              {pricingSection}
+              <ProductPricing pricing={pricing} productSlug={data.slug} heading="What it costs event organizers" />
               {testimonials && testimonials.length > 0 && (
                 <TestimonialsSection
                   testimonials={testimonials}
@@ -238,7 +263,7 @@ export default async function ProductPage({ params }: Props) {
                 />
               )}
               <ProductCTA product={data} headline="Ready to offer your attendees hotel booking?" />
-              {faqSection}
+              {geo?.faqs?.length ? <ProductFAQ faqs={geo.faqs} title="Questions event organizers ask" /> : null}
             </>
           ) : data.slug === 'ticketing-for-events' ? (
             <TicketingFeeProvider>

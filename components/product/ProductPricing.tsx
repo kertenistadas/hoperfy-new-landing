@@ -7,9 +7,11 @@ import type { Pricing } from '@/types'
 type Props = {
   pricing: Pricing | null
   productSlug: string
+  /** Overrides the default heading. Other product pages keep 'What does it cost?'. */
+  heading?: string
 }
 
-export default function ProductPricing({ pricing, productSlug }: Props) {
+export default function ProductPricing({ pricing, productSlug, heading }: Props) {
   const data = pricing ?? fallbackPricingBySlug[productSlug]
 
   if (!data) return null
@@ -20,7 +22,7 @@ export default function ProductPricing({ pricing, productSlug }: Props) {
         <div className="mb-12">
           <p className="eyebrow mb-3">Pricing</p>
           <h2 className="text-[1.75rem] md:text-[2.25rem] font-black tracking-tight text-[#0a0a0a]">
-            What does it cost?
+            {heading ?? 'What does it cost?'}
           </h2>
         </div>
 

@@ -2,16 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react'
 import OnboardingModal from '@/components/OnboardingModal'
-
-const regionRates: Record<string, number> = {
-  Europe: 30,
-  'North America': 60,
-  Asia: 45,
-  'Middle East': 60,
-  'South America': 45,
-  Australia: 60,
-  Africa: 32,
-}
+import {
+  DEFAULT_PROFIT_PER_NIGHT,
+  EXAMPLE_EVENT,
+  ORGANISER_SHARE,
+  PROFIT_PER_NIGHT_BY_REGION,
+  organiserEarnings,
+} from '@/lib/hotelRevenue'
 
 const countryToRegion: Record<string, string> = {
   // Europe
@@ -64,10 +61,11 @@ type CitySuggestion = {
 }
 
 export default function ProductRevenueCalculator() {
-  const [attendees, setAttendees] = useState(500)
-  const [attendeesInput, setAttendeesInput] = useState('500')
-  const [outOfTown, setOutOfTown] = useState(30)
-  const [days, setDays] = useState(2)
+  const [attendees, setAttendees] = useState<number>(EXAMPLE_EVENT.attendees)
+  const [attendeesInput, setAttendeesInput] = useState(String(EXAMPLE_EVENT.attendees))
+  const [outOfTown, setOutOfTown] = useState<number>(EXAMPLE_EVENT.outOfTownPct)
+  const [days, setDays] = useState<number>(EXAMPLE_EVENT.nights)
+  const [share, setShare] = useState<number>(ORGANISER_SHARE.fullSuite)
   const [city, setCity] = useState('')
   const [region, setRegion] = useState('')
   const [currency, setCurrency] = useState<'USD' | 'EUR'>('USD')
@@ -81,8 +79,8 @@ export default function ProductRevenueCalculator() {
 
   const outOfTownCount = Math.round(attendees * (outOfTown / 100))
   const nights = outOfTownCount * days
-  const rate = region ? regionRates[region] ?? 30 : 30
-  const total = nights * rate
+  const rate = region ? PROFIT_PER_NIGHT_BY_REGION[region] ?? DEFAULT_PROFIT_PER_NIGHT : DEFAULT_PROFIT_PER_NIGHT
+  const total = organiserEarnings(nights, rate, share)
   const currencySymbol = currency === 'USD' ? '$' : '€'
 
   // Debounced city autocomplete via the free Open-Meteo geocoding API.
@@ -148,7 +146,7 @@ export default function ProductRevenueCalculator() {
             How much are your attendees already spending on hotels?
           </h2>
           <p className="text-[15px] font-light" style={{ color: 'rgba(255,255,255,0.5)' }}>
-            Move the sliders to see the revenue your event generates — for someone else right now.
+            Most of that spend goes to third-party booking sites. Here is what your event could keep instead.
           </p>
         </div>
 
@@ -159,7 +157,7 @@ export default function ProductRevenueCalculator() {
             {/* City / region detection */}
             <div className="mb-10">
               <label className="block text-[13px] mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
-                Where is your event taking place?
+                Event location
               </label>
               <div className="flex gap-3 items-start">
                 <div className="relative flex-1">
@@ -203,9 +201,8 @@ export default function ProductRevenueCalculator() {
                         {region}
                       </span>
                       <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                        avg. {currencySymbol}{regionRates[region]}/night
+                        avg. {currencySymbol}{PROFIT_PER_NIGHT_BY_REGION[region]} profit per night
                       </span>
-                      <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>Profit</span>
                     </div>
                   )}
                   {city.length > 2 && !region && !showSuggestions && !isLoadingSuggestions && (
@@ -271,7 +268,7 @@ export default function ProductRevenueCalculator() {
               {/* Slider 2 */}
               <div>
                 <div className="flex justify-between mb-2">
-                  <span className="text-[13px]" style={{ color: 'rgba(255,255,255,0.5)' }}>Out of town attendees</span>
+                  <span className="text-[13px]" style={{ color: 'rgba(255,255,255,0.5)' }}>Share travelling from out of town</span>
                   <span className="text-[13px] font-semibold text-white">{outOfTown}%</span>
                 </div>
                 <input
@@ -292,7 +289,7 @@ export default function ProductRevenueCalculator() {
               {/* Slider 3 */}
               <div>
                 <div className="flex justify-between mb-2">
-                  <span className="text-[13px]" style={{ color: 'rgba(255,255,255,0.5)' }}>Event duration (days)</span>
+                  <span className="text-[13px]" style={{ color: 'rgba(255,255,255,0.5)' }}>Event length</span>
                   <span className="text-[13px] font-semibold text-white">{days} {days === 1 ? 'day' : 'days'}</span>
                 </div>
                 <input
@@ -313,14 +310,35 @@ export default function ProductRevenueCalculator() {
 
             <div className="border-t mb-8" style={{ borderColor: 'rgba(255,255,255,0.1)' }} />
 
+            <div className="inline-flex items-center bg-white/10 rounded-lg p-0.5 h-11 mb-6">
+              {[
+                { label: 'Hotels only · 30%', value: ORGANISER_SHARE.hotelsOnly },
+                { label: 'Hotels + Ticketing · 50%', value: ORGANISER_SHARE.fullSuite },
+              ].map((opt) => (
+                <button
+                  key={opt.label}
+                  type="button"
+                  onClick={() => setShare(opt.value)}
+                  className={`text-[12px] font-semibold px-3 h-full rounded-md transition-all ${
+                    share === opt.value ? 'bg-white text-[#0a0a0a]' : 'text-white/50 hover:text-white'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+
             <p className="text-[3.5rem] md:text-[4rem] font-black text-white leading-none tracking-tight">
               {currencySymbol}{total.toLocaleString()}
             </p>
             <p className="text-[14px] font-light mt-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
-              in profit your event generates per event
+              Your event could earn this at no cost to you.
+            </p>
+            <p className="text-[12px] font-light mt-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
+              {Math.round(share * 100)}% of the hotel profit, based on an average of {currencySymbol}{rate} profit per room night.
             </p>
             <p className="text-[14px] font-medium mt-1" style={{ color: '#4d8ef7' }}>
-              Hoperfy helps you capture it — for free.
+              Hoperfy helps you capture it, for free.
             </p>
           </div>
 
@@ -328,21 +346,17 @@ export default function ProductRevenueCalculator() {
           <div className="bg-white/5 border rounded-xl p-8" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
             <p className="eyebrow mb-3" style={{ color: '#4d8ef7' }}>Hotels for Events by Hoperfy</p>
             <h3 className="text-[1.25rem] font-black text-white tracking-tight mb-2">
-              White-label hotel booking. Fully managed. Free.
+              White-label hotel booking for your event. Fully managed. Free.
             </h3>
             <p className="text-[14px] font-light mb-8" style={{ color: 'rgba(255,255,255,0.5)' }}>
               Your branded hotel booking page, live in 5 minutes. Hoperfy handles setup, delegate support, cancellations, and payments. Your team does nothing.
             </p>
             <div className="grid grid-cols-1 gap-3">
               {[
-                'White-label booking page — your brand',
-                'Negotiated rate management',
+                'Negotiated rates for your attendees',
                 'Real-time room block tracking',
                 'Automated rooming list exports',
-                'All delegate support by Hoperfy',
-                'Cancellations and refunds handled for you',
-                'Live in 5 minutes',
-                'Zero cost to your team',
+                'We handle cancellations, refunds and delegate support',
               ].map((feature, i) => (
                 <div key={i} className="flex items-start gap-2.5">
                   <span className="text-[#1a6cf5] font-bold text-[14px] shrink-0 mt-0.5">✓</span>
@@ -356,7 +370,7 @@ export default function ProductRevenueCalculator() {
                 onClick={() => setModalOpen(true)}
                 className="w-full h-12 px-8 text-[14px] font-medium bg-white text-[#0a0a0a] rounded-lg hover:bg-white/90 transition-colors"
               >
-                Set up hotel booking — it&apos;s free
+                Set up free hotel booking
               </button>
               <a
                 href="https://calendly.com/tadas-hoperfy/30min"

@@ -102,7 +102,7 @@ export const productGeo: Record<string, ProductGeo> = {
       {
         question: 'Is hotel booking really free?',
         answer:
-          "Yes. Hoperfy's white-label hotel booking for events is free to set up. We earn through hotel network partnerships. You get a fully managed event hotel booking platform at no cost — and keep 30–50% of hotel revenue profits.",
+          "Yes. Hoperfy's white-label hotel booking for events is free to set up. You get a fully managed event hotel booking platform at no cost — and keep 30–50% of hotel revenue profits.",
       },
       {
         question: 'What happens if a hotel booking goes wrong?',
