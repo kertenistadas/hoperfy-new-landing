@@ -5,9 +5,11 @@ type Props = {
   product: ProductDetail
   /** Overrides the default heading. Other product pages keep the template. */
   headline?: string
+  /** Overrides the primary button label. Other product pages keep the default. */
+  primaryLabel?: string
 }
 
-export default function ProductCTA({ product, headline }: Props) {
+export default function ProductCTA({ product, headline, primaryLabel }: Props) {
   return (
     <section className="py-24 px-6 bg-[#eef4ff]">
       <div className="max-w-2xl mx-auto text-center">
@@ -15,7 +17,7 @@ export default function ProductCTA({ product, headline }: Props) {
           {headline ?? `Ready to try ${product.title}?`}
         </h2>
 
-        <CTAButtons source={`${product.slug}-cta`} />
+        <CTAButtons source={`${product.slug}-cta`} primaryLabel={primaryLabel} />
       </div>
     </section>
   )

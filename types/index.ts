@@ -164,6 +164,8 @@ export type Pricing = {
   _id: string
   price: string
   priceSuffix: string | null
+  /** Optional line under the price (fallback data only). */
+  priceNote?: string | null
   tagline: string | null
   highlighted: boolean
   includes: string[]

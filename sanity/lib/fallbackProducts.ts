@@ -16,18 +16,18 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
       'Automated rooming list exports',
     ],
     fullFeatures: [
-      'White-label hotel booking page',
+      "Booking page with your event's branding",
       'Your branding, your domain',
       'Negotiated rate management',
-      'Real-time room block tracking',
+      'See every booking as it happens',
       'Group block pickup reporting',
-      'Automated rooming list exports',
+      'Guest lists for each hotel, ready to download',
       'Unlimited bookings',
       'Full customer service by Hoperfy',
       'Cancellations and changes handled for you',
       'Payments and refunds managed for you',
       'Managed setup by our team',
-      'Live within 5 minutes',
+      'Live in about 5 minutes',
     ],
     stat: { value: '40%', label: 'more hotel revenue per event' },
     heroHeadline: 'Event Housing & Hotel Booking for Event Organizers',
@@ -75,7 +75,7 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
           'Hoperfy has access to over two million hotel properties across practically every country in the world. Whatever your event location — major city, remote destination, or anywhere in between — we have hotels covered.',
       },
       {
-        title: 'Real-time room block tracking',
+        title: 'See every booking as it happens',
         description:
           'See live pickup against your contracted blocks. Know exactly where you stand before the cutoff date — no spreadsheets, no chasing hotel contacts.',
       },
@@ -100,9 +100,9 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
           'We collect payments, process refunds, and handle disputes on your behalf. You get clean revenue reporting with none of the back-and-forth.',
       },
       {
-        title: 'Live in 5 minutes',
+        title: 'Live in about 5 minutes',
         description:
-          'Managed setup by our team. You share your event details and hotel contracts in one call. We build and launch the booking page. No dev work, no technical setup.',
+          "Most event teams are live in about 5 minutes. You share your event name, location and dates on one short call, and Hoperfy builds and launches the booking page. You do not need hotel contracts; if you already have some, we can include them.",
       },
     ],
     howItWorksHeadline: 'One conversation. Then your team is done.',
@@ -115,7 +115,7 @@ export const fallbackProductDetails: Record<string, ProductDetail> = {
       {
         title: 'We build your hotel booking page',
         description:
-          'Hoperfy creates a branded hotel booking page for your event — your logo, your hotels, your rates. Live within 5 minutes.',
+          'Hoperfy creates a branded hotel booking page for your event: your logo, your hotels, your rates. Live in about 5 minutes.',
       },
       {
         title: 'You send one link. We handle the rest.',

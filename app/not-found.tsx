@@ -58,10 +58,10 @@ export default function NotFound() {
               >
                 <p className="eyebrow mb-3">Hotels for Events</p>
                 <h2 className="text-[1.25rem] font-black tracking-tight text-[#0a0a0a] mb-3 group-hover:text-[#1a6cf5] transition-colors">
-                  White-label hotel booking. Free.
+                  Hotel booking for events. Free to set up.
                 </h2>
                 <p className="text-[14px] font-light text-[#6b7280] leading-relaxed mb-6">
-                  2,000,000+ hotels worldwide. We contract them, build your booking page, and handle all delegate support. Your team does nothing.
+                  2,000,000+ hotels worldwide. We contract them, build your booking page, and handle all delegate support. One call, then we run it.
                 </p>
                 <div className="flex items-baseline gap-1">
                   <span className="text-[2.5rem] font-black text-[#1a6cf5] leading-none">Free</span>

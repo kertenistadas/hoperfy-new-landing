@@ -192,7 +192,7 @@ export default function HotelEventForm() {
           disabled={!eventName.trim()}
           className="h-10 w-full bg-[#1a6cf5] text-white rounded-lg font-medium text-[13px] hover:bg-[#1558cc] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          Generate hotels for my event →
+          Generate hotels for my event
         </button>
 
         <a

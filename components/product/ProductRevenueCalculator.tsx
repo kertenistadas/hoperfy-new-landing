@@ -337,6 +337,9 @@ export default function ProductRevenueCalculator() {
             <p className="text-[12px] font-light mt-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
               {Math.round(share * 100)}% of the hotel profit, based on an average of {currencySymbol}{rate} profit per room night.
             </p>
+            <p className="text-[12px] font-light mt-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
+              Profit per room night is Hoperfy&apos;s average margin for the region. Your event&apos;s figure depends on hotels and dates.
+            </p>
             <p className="text-[14px] font-medium mt-1" style={{ color: '#4d8ef7' }}>
               Hoperfy helps you capture it, for free.
             </p>
@@ -346,17 +349,17 @@ export default function ProductRevenueCalculator() {
           <div className="bg-white/5 border rounded-xl p-8" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
             <p className="eyebrow mb-3" style={{ color: '#4d8ef7' }}>Hotels for Events by Hoperfy</p>
             <h3 className="text-[1.25rem] font-black text-white tracking-tight mb-2">
-              White-label hotel booking for your event. Fully managed. Free.
+              A hotel booking page with your event&apos;s name and logo. Fully managed. Free to set up.
             </h3>
             <p className="text-[14px] font-light mb-8" style={{ color: 'rgba(255,255,255,0.5)' }}>
-              Your branded hotel booking page, live in 5 minutes. Hoperfy handles setup, delegate support, cancellations, and payments. Your team does nothing.
+              Your branded hotel booking page, live in about 5 minutes. Hoperfy handles setup, delegate support, cancellations, and payments. After one short call, your team is free.
             </p>
             <div className="grid grid-cols-1 gap-3">
               {[
                 'Negotiated rates for your attendees',
-                'Real-time room block tracking',
-                'Automated rooming list exports',
-                'We handle cancellations, refunds and delegate support',
+                'See every booking as it happens',
+                'Guest lists for each hotel, ready to download',
+                'We handle cancellations, refunds and attendee questions',
               ].map((feature, i) => (
                 <div key={i} className="flex items-start gap-2.5">
                   <span className="text-[#1a6cf5] font-bold text-[14px] shrink-0 mt-0.5">✓</span>
@@ -370,7 +373,7 @@ export default function ProductRevenueCalculator() {
                 onClick={() => setModalOpen(true)}
                 className="w-full h-12 px-8 text-[14px] font-medium bg-white text-[#0a0a0a] rounded-lg hover:bg-white/90 transition-colors"
               >
-                Set up free hotel booking
+                Generate hotels for my event
               </button>
               <a
                 href="https://calendly.com/tadas-hoperfy/30min"
@@ -379,7 +382,7 @@ export default function ProductRevenueCalculator() {
                 className="w-full h-12 px-8 text-[14px] font-medium border text-white rounded-lg hover:bg-white/10 transition-colors flex items-center justify-center"
                 style={{ borderColor: 'rgba(255,255,255,0.3)' }}
               >
-                Book a demo
+                Talk to us first
               </a>
             </div>
           </div>

@@ -227,8 +227,8 @@ export default async function ProductPage({ params }: Props) {
                             {[
                               'No credit card',
                               '2M+ hotels worldwide',
-                              'Live in ~5 minutes',
-                              'Your team does nothing',
+                              'Live in about 5 minutes',
+                              'One call, then we run it',
                             ].map((item, i) => (
                               <span key={i} className="flex items-center gap-2 text-[13px] text-[#6b7280]">
                                 <span className="text-[#1a6cf5] font-bold">✓</span> {item}
@@ -262,7 +262,11 @@ export default async function ProductPage({ params }: Props) {
                   heading="Built with event organizers, for event organizers."
                 />
               )}
-              <ProductCTA product={data} headline="Ready to offer your attendees hotel booking?" />
+              <ProductCTA
+                product={data}
+                headline="Ready to offer your attendees hotel booking?"
+                primaryLabel="Generate hotels for my event"
+              />
               {geo?.faqs?.length ? <ProductFAQ faqs={geo.faqs} title="Questions event organizers ask" /> : null}
             </>
           ) : data.slug === 'ticketing-for-events' ? (

@@ -36,7 +36,7 @@ export default function ProductHowItWorks({ product }: Props) {
               <span className="text-[1.5rem] font-light text-[#1a6cf5]">→</span>
               <p className="text-[10px] font-semibold uppercase tracking-widest text-[#1a6cf5]">Review & Deploy</p>
               <h3 className="text-[15px] font-black tracking-tight text-[#0a0a0a]">Your branded booking page goes live</h3>
-              <p className="text-[13px] font-light text-[#6b7280] leading-relaxed">We build your branded page with negotiated rates in 5–15 minutes. No technical setup, no developer resources required.</p>
+              <p className="text-[13px] font-light text-[#6b7280] leading-relaxed">We build your booking page with negotiated rates in about 5 minutes. No technical setup, no developer resources required.</p>
             </div>
 
             {/* Step 3 */}

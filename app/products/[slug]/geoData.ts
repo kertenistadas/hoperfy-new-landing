@@ -22,12 +22,12 @@ export const productGeo: Record<string, ProductGeo> = {
     metadata: {
       title: { absolute: 'Event Housing & Hotel Booking for Event Organizers | Hoperfy' },
       description:
-        'Free, fully managed event housing for event organizers. We contract the hotels and handle every attendee query. Your team does nothing.',
+        'Free, fully managed event housing for event organizers. We contract the hotels and handle every attendee query. After one short call, we run it.',
       alternates: { canonical: `${BASE_URL}/products/hotels-for-events` },
       openGraph: {
         title: 'Event Housing & Hotel Booking for Event Organizers | Hoperfy',
         description:
-          'Free, fully managed event housing for event organizers. We contract the hotels and handle every attendee query. Your team does nothing.',
+          'Free, fully managed event housing for event organizers. We contract the hotels and handle every attendee query. After one short call, we run it.',
         url: `${BASE_URL}/products/hotels-for-events`,
         type: 'website',
       },
@@ -35,7 +35,7 @@ export const productGeo: Record<string, ProductGeo> = {
         card: 'summary_large_image',
         title: 'Event Housing & Hotel Booking for Event Organizers | Hoperfy',
         description:
-          'Free, fully managed event housing for event organizers. We contract the hotels and handle every attendee query. Your team does nothing.',
+          'Free, fully managed event housing for event organizers. We contract the hotels and handle every attendee query. After one short call, we run it.',
       },
     },
     eyebrow: 'Event housing for conference, festival and tournament organizers',
@@ -92,7 +92,7 @@ export const productGeo: Record<string, ProductGeo> = {
       {
         question: "Our team is already stretched. Won't this add to the workload?",
         answer:
-          'The opposite. Most event teams spend 15–20 hours per event on hotel coordination — chasing room block software updates, handling delegate queries, managing contracts. Hoperfy removes that entire workload. One conversation to set up, then we run everything.',
+          'The opposite. Hotel coordination usually means chasing hotels, answering attendee emails and managing contracts. Hoperfy takes all of that on. One short call to set up, then we run it.',
       },
       {
         question: 'How is Hoperfy different from Cvent Passkey or HotelMap?',
@@ -100,9 +100,14 @@ export const productGeo: Record<string, ProductGeo> = {
           "Hoperfy is a fully managed white-label hotel booking service for events. We build the booking page, manage the hotels, handle room block tracking, and support all delegate queries. You do nothing after the first call.",
       },
       {
+        question: 'Do you handle room blocks and rooming lists?',
+        answer:
+          "Yes. Hoperfy tracks room blocks in real time and exports rooming lists for each hotel automatically. The booking page is fully white-label, so it carries your event's brand.",
+      },
+      {
         question: 'Is hotel booking really free?',
         answer:
-          "Yes. Hoperfy's white-label hotel booking for events is free to set up. You get a fully managed event hotel booking platform at no cost — and keep 30–50% of hotel revenue profits.",
+          "Yes. Setup and management are free. You receive 30% of Hoperfy's profit on every hotel booking, or 50% if you also sell tickets with Hoperfy. It is a share of our margin, not of the room price.",
       },
       {
         question: 'What happens if a hotel booking goes wrong?',
@@ -112,17 +117,22 @@ export const productGeo: Record<string, ProductGeo> = {
       {
         question: 'How long does setup take?',
         answer:
-          'Most event teams are live in up to 5 minutes. You share your event details and hotel contracts in one call. Hoperfy builds and launches the booking page. No developer work, no technical setup required from your side.',
+          "Most event teams are live in about 5 minutes. You share your event name, location and dates on one short call, and Hoperfy builds and launches the booking page. You do not need hotel contracts; if you already have some, we can include them.",
       },
       {
         question: 'What size events is this built for?',
         answer:
-          "Hoperfy works best for events with 200 or more attendees — conferences, trade shows, festivals, corporate events, and sports tournaments. If your event is smaller, get in touch and we'll let you know if we're a good fit.",
+          "Hoperfy works for events from 20 to 70,000 attendees: conferences, trade shows, festivals, corporate events and sports tournaments. The revenue share adds up fastest from about 200 attendees, because more of your attendees need hotels.",
       },
       {
         question: 'Is Hoperfy a good alternative to EventPipe or Cvent Passkey?',
         answer:
           "Yes, if you want the work done for you. Hoperfy is fully managed: we do the work, not your team. You get white-label branding, 2M+ properties, instant setup, and zero platform fees.",
+      },
+      {
+        question: 'Can it connect to our website or registration system?',
+        answer:
+          'Yes. The booking page can sit on its own link, inside your event website, or connect to your registration system. Our team sets it up for you.',
       },
     ],
   },

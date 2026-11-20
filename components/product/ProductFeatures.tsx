@@ -36,9 +36,9 @@ export default function ProductFeatures({ product, eyebrow }: Props) {
                     <circle cx="12" cy="12" r="2" fill="#1a6cf5"/>
                   </svg>
                 </div>
-                <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">Global hotel inventory for your attendees</h3>
+                <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">2M+ hotels worldwide for your attendees</h3>
                 <p className="text-[14px] font-light text-[#6b7280] leading-relaxed">
-                  Instant access to 2,000,000+ hotel properties worldwide. Scale any event — major hub, secondary city, or remote destination. Your attendees always have somewhere to stay.
+                  Instant access to 2,000,000+ hotel properties worldwide. Scale any event: major hub, secondary city, or remote destination. Your attendees always have somewhere to stay.
                 </p>
               </div>
 
@@ -51,7 +51,7 @@ export default function ProductFeatures({ product, eyebrow }: Props) {
                 </div>
                 <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">Your event&apos;s brand, not ours</h3>
                 <p className="text-[14px] font-light text-[#6b7280] leading-relaxed">
-                  Keep complete control with a fully white-label hotel booking flow. Your brand, your domain, your checkout. Attendees never leave your event experience.
+                  Keep complete control with a hotel booking flow in your event&apos;s brand. Your domain, your checkout. Attendees never leave your event experience.
                 </p>
               </div>
             </div>
@@ -84,9 +84,9 @@ export default function ProductFeatures({ product, eyebrow }: Props) {
                     <path d="M7 3L5 5" stroke="#1a6cf5" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
                 </div>
-                <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">Real-time room block sync for organizers</h3>
+                <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">Hotel availability that is always up to date</h3>
                 <p className="text-[14px] font-light text-[#6b7280] leading-relaxed">
-                  Live availability across all hotel partners, updated automatically. Eliminate the risk of overselling and manual block updates. Your inventory is always accurate.
+                  Live availability across all hotel partners, updated automatically. Eliminate the risk of overselling and manual updates. The rooms shown are always the rooms available.
                 </p>
               </div>
             </div>
@@ -104,7 +104,7 @@ export default function ProductFeatures({ product, eyebrow }: Props) {
               </div>
               <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">Built for Tournaments and Multi-Team Events</h3>
               <p className="text-[14px] font-light text-[#6b7280] leading-relaxed">
-                Hundreds of rooms across multiple properties, with real-time block tracking and automated rooming list exports. Hoperfy contracts every hotel and handles every team&apos;s booking questions directly.{' '}
+                Hundreds of rooms across multiple hotels, with every booking visible as it happens and guest lists for each hotel ready to download. Hoperfy contracts every hotel and handles every team&apos;s booking questions directly.{' '}
                 <Link href="/products/tournament-housing" className="text-[#1a6cf5] hover:underline">
                   See tournament housing
                 </Link>
@@ -126,11 +126,11 @@ export default function ProductFeatures({ product, eyebrow }: Props) {
                 <div className="flex-1">
                   <h3 className="text-[16px] font-black tracking-tight text-[#0a0a0a] mb-2">Hotel booking and ticketing in one place for your event</h3>
                   <p className="text-[14px] font-light text-[#6b7280] leading-relaxed">
-                    The only platform that combines white-label hotel booking and multi-channel event ticketing in one place. One setup, one team, one dashboard — a meaningful differentiator over every alternative.
+                    Hotel booking and ticketing from one team, with one setup and one dashboard.
                   </p>
                 </div>
                 <a href="https://calendly.com/tadas-hoperfy/30min" target="_blank" rel="noopener noreferrer" className="text-[13px] font-medium text-[#1a6cf5] hover:underline whitespace-nowrap shrink-0">
-                  Let's talk →
+                  Talk to us first
                 </a>
               </div>
             </div>

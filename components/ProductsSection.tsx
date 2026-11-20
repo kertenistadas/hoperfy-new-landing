@@ -144,14 +144,14 @@ export default function ProductsSection({ products }: Props) {
             Just need hotel booking?
           </h3>
           <p className="text-[14px] font-light text-[#6b7280] leading-relaxed mb-2">
-            White-label hotel booking for your event. We contract the hotels, build the booking page, and handle all delegate support.
+            A hotel booking page with your event&apos;s name and logo. We contract the hotels, build the booking page, and handle all delegate support.
           </p>
           <p className="text-[13px] font-medium text-[#1a6cf5] mb-8">
             Free to set up. 30% hotel profit payout.
           </p>
           <ul className="space-y-2.5 mb-8">
             {[
-              'White-label booking page — your brand',
+              "Booking page with your event's branding",
               '2,000,000+ hotels worldwide',
               'We contract hotels on your behalf',
               'Full delegate customer service',

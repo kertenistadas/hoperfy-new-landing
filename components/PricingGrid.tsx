@@ -108,28 +108,28 @@ export default function PricingGrid() {
             {/* Card 3 — Hotels */}
             <div className="border border-[#e5e7eb] rounded-2xl p-8 bg-white flex flex-col">
               <p className="eyebrow mb-2">Hotels</p>
-              <p className="text-[13px] font-light text-[#6b7280] mb-6">White-label hotel booking</p>
+              <p className="text-[13px] font-light text-[#6b7280] mb-6">Hotel booking in your event&apos;s brand</p>
 
               <div className="border-t border-[#e5e7eb] pt-6 mb-6">
                 <div className="flex items-baseline gap-1">
                   <span className="text-[2.5rem] font-black text-green-600 leading-none">30%</span>
-                  <span className="text-[13px] text-[#6b7280]">hotel payout</span>
+                  <span className="text-[13px] text-[#6b7280]">of Hoperfy&apos;s hotel profit to you (50% with ticketing)</span>
                 </div>
                 <p className="text-[11px] text-[#9ca3af] mt-1">You earn 30% of hotel booking profits</p>
               </div>
 
               <ul className="space-y-3 mb-8 flex-1">
                 {[
-                  'Free to set up — no platform fee',
+                  'Free to set up, no platform fee',
                   '2,000,000+ hotel properties worldwide',
                   'We contract hotels on your behalf',
-                  'White-label booking page — your brand',
-                  'Real-time room block tracking',
-                  'Automated rooming list exports',
+                  "Booking page with your event's branding",
+                  'See every booking as it happens',
+                  'Guest lists for each hotel, ready to download',
                   'Full delegate customer service by Hoperfy',
                   'Cancellations and refunds handled for you',
                   'Payments managed by Hoperfy',
-                  'Live in 5 minutes',
+                  'Live in about 5 minutes',
                 ].map((f, i) => (
                   <li key={i} className="flex items-start gap-2.5">
                     <span className="text-green-600 font-bold text-[13px] shrink-0 mt-0.5">✓</span>

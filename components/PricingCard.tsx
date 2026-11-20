@@ -42,6 +42,9 @@ export default function PricingCard({ pricing, source }: Props) {
       {pricing.priceSuffix && (
         <p className="text-[14px] font-light text-[#6b7280] mt-1">{pricing.priceSuffix}</p>
       )}
+      {pricing.priceNote && (
+        <p className="text-[14px] font-light text-[#6b7280] mt-1">{pricing.priceNote}</p>
+      )}
       {pricing.tagline && (
         <p className="text-[14px] text-[#6b7280] font-light mt-3 mb-6 italic">{pricing.tagline}</p>
       )}

@@ -6,9 +6,11 @@ import OnboardingModal from '@/components/OnboardingModal'
 type Props = {
   source?: string
   darkMode?: boolean
+  /** Overrides the primary button label; other pages keep the default. */
+  primaryLabel?: string
 }
 
-export default function CTAButtons({ source = 'homepage', darkMode = false }: Props) {
+export default function CTAButtons({ source = 'homepage', darkMode = false, primaryLabel = 'Start setting up your event' }: Props) {
   const [modalOpen, setModalOpen] = useState(false)
 
   return (
@@ -22,7 +24,7 @@ export default function CTAButtons({ source = 'homepage', darkMode = false }: Pr
               : 'bg-[#1a6cf5] text-white hover:bg-[#1558cc]'
           }`}
         >
-          Start setting up your event
+          {primaryLabel}
         </button>
 
         <a
