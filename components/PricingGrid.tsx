@@ -45,7 +45,7 @@ export default function PricingGrid() {
                 {[
                   'Everything in Hotels + Ticketing',
                   'Reduced 2% ticket fee (vs 2.5% separately)',
-                  'Higher 50% hotel payout (vs 30% separately)',
+                  "50% of Hoperfy's hotel profit to you (vs 30% with hotels only)",
                   'One dashboard for hotels and tickets',
                   'One team, one setup, one point of contact',
                 ].map((f, i) => (
