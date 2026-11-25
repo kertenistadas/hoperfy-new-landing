@@ -409,9 +409,25 @@ export const comparisonBySlugQuery = groq`
   }
 `
 
-export const comparisonByProductQuery = groq`
-  *[_type == "comparison" && relatedProduct->slug.current == $slug] | order(publishedAt desc)[0] {
+// Published comparisons only, head to head first, then alternatives, then category.
+export const relatedComparisonsQuery = groq`
+  *[
+    _type == "comparison" &&
+    !(_id in path("drafts.**")) &&
+    defined(slug.current) &&
+    relatedProduct->slug.current == $product
+  ] | order(
+    select(
+      comparisonType == "head-to-head" => 0,
+      comparisonType == "alternatives" => 1,
+      comparisonType == "category" => 2,
+      3
+    ) asc,
+    title asc
+  ) {
+    _id,
     title,
+    linkLabel,
     "slug": slug.current
   }
 `

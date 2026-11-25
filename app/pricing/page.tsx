@@ -4,6 +4,7 @@ import PricingGrid from '@/components/PricingGrid'
 import ProductFAQ from '@/components/product/ProductFAQ'
 import CTAButtons from '@/components/CTAButtons'
 import CompetitorCheckNote from '@/components/CompetitorCheckNote'
+import RelatedComparisons from '@/components/compare/RelatedComparisons'
 
 export const metadata: Metadata = {
   title: { absolute: 'Pricing — Simple, transparent pricing | Hoperfy' },
@@ -25,7 +26,7 @@ const comparisonRows: ComparisonRow[] = [
   { feature: 'Ticketing fee, excluding payment processing', hoperfy: '2%', eventbrite: 'US: 3.7% + $1.79 per ticket', cvent: 'Quote-based' },
   { feature: 'Hotels + ticketing in one platform', hoperfy: '✓', eventbrite: 'Not publicly listed', cvent: 'With Cvent Registration' },
   { feature: 'Free events', hoperfy: 'Free', eventbrite: 'US: Free', cvent: 'Per-registration fee' },
-  { feature: 'Instant payouts', hoperfy: '✓', eventbrite: '✓', cvent: 'Not publicly listed' },
+  { feature: 'Instant payouts', hoperfy: '✓ As tickets sell', eventbrite: '✓', cvent: 'Not publicly listed' },
   { feature: 'White-label branding', hoperfy: '✓', eventbrite: 'Branded checkout widget', cvent: 'Custom branded booking site' },
   { feature: 'Monthly fee', hoperfy: 'None', eventbrite: 'US: optional plans from $15/month', cvent: 'Not publicly listed' },
   { feature: 'Payment processing fee', hoperfy: '0.1%–2.9%', eventbrite: 'US: 2.9% per order', cvent: 'Not publicly listed' },
@@ -34,7 +35,8 @@ const comparisonRows: ComparisonRow[] = [
 const pricingFaqs = [
   {
     question: 'Are there any hidden fees on ticketing?',
-    answer: 'No. The 2–2.5% fee is all-in. No setup fee, no monthly fee, no payout fee, no fee on refunds. You always know exactly what you are paying.',
+    answer:
+      'No. You pay 2.5% per paid ticket, or 2% if you also use Hoperfy hotel booking. On top of that, your bank or payment provider charges a processing fee of 0.1% to 2.9%, depending on your location, card type and currency. No setup fee, no monthly fee, no payout fee, no fee on refunds.',
   },
   {
     question: 'What payment processing fees apply?',
@@ -122,6 +124,11 @@ export default function PricingPage() {
               Cvent Passkey for hotel rooms, Cvent Registration for tickets.
             </p>
             <CompetitorCheckNote className="mt-1" />
+
+            <div className="mt-8">
+              <p className="text-[14px] text-[#6b7280]">Comparing platforms in more detail?</p>
+              <RelatedComparisons product="ticketing-for-events" location="pricing" className="mt-3" />
+            </div>
           </div>
         </section>
 

@@ -55,6 +55,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       type: 'article',
     },
+    // Same values as the OG tags, so the site-wide Twitter defaults never show here.
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   }
 }
 

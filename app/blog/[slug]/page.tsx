@@ -10,6 +10,7 @@ import BlogPostCard from '@/components/blog/BlogPostCard'
 import KeyTakeaways from '@/components/blog/KeyTakeaways'
 import PostDate from '@/components/blog/PostDate'
 import BlogImage from '@/components/blog/BlogImage'
+import BodyLink from '@/components/blog/BodyLink'
 
 export const dynamic = 'force-dynamic'
 
@@ -28,18 +29,7 @@ const portableTextComponents: PortableTextComponents = {
     image: ({ value }) => <BlogImage value={value} />,
   },
   marks: {
-    link: ({ value, children }) => {
-      const href: string = value?.href ?? '#'
-      // Internal links use the Next.js router; external links open in a new tab.
-      if (href.startsWith('/')) {
-        return <Link href={href}>{children}</Link>
-      }
-      return (
-        <a href={href} target="_blank" rel="noopener noreferrer">
-          {children}
-        </a>
-      )
-    },
+    link: ({ value, children }) => <BodyLink href={value?.href}>{children}</BodyLink>,
   },
 }
 
@@ -105,6 +95,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       url,
       type: 'article',
+    },
+    // Same values as the OG tags, so the site-wide Twitter defaults never show here.
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
     },
   }
 }

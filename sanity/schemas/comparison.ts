@@ -15,6 +15,12 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'linkLabel',
+      title: 'Short link label',
+      type: 'string',
+      description: 'Used when other pages link to this comparison. No year in it.',
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',

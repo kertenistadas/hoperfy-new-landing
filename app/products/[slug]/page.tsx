@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
-import { productBySlugQuery, testimonialsQuery, pricingByProductQuery, socialProofQuery, comparisonByProductQuery } from '@/sanity/lib/queries'
+import { productBySlugQuery, testimonialsQuery, pricingByProductQuery, socialProofQuery } from '@/sanity/lib/queries'
 import { fallbackProductDetails } from '@/sanity/lib/fallbackProducts'
 import type { ProductDetail, Testimonial, Pricing, SocialProof } from '@/types'
 import NavWrapper from '@/components/NavWrapper'
@@ -120,10 +120,6 @@ export default async function ProductPage({ params }: Props) {
 
   const socialProof = await client
     .fetch<SocialProof>(socialProofQuery)
-    .catch(() => null)
-
-  const fullComparison = await client
-    .fetch<{ slug: string } | null>(comparisonByProductQuery, { slug })
     .catch(() => null)
 
   const fullFeatures = data.fullFeatures ?? []
@@ -278,7 +274,7 @@ export default async function ProductPage({ params }: Props) {
               {fullFeaturesSection}
               {statsSection}
               {pricingSection}
-              <TicketingCompare fullComparison={fullComparison} />
+              <TicketingCompare />
               {testimonialsSection}
               {ctaSection}
               {faqSection}

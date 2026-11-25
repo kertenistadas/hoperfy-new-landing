@@ -57,6 +57,11 @@ html {
   text-underline-offset: 2px;
 }
 
+/* Long unbroken strings (source URLs in plain text) wrap instead of widening the page on phones. */
+.prose-blog {
+  overflow-wrap: break-word;
+}
+
 .prose-blog h2 {
   font-size: 1.375rem;
   font-weight: 700;
